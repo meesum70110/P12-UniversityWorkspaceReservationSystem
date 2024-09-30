@@ -1,0 +1,196 @@
+/* The styling file below tends to style surveyManagement.js and surveyBoard.js building upon previous style for courseManagement.js from courses.css */
+
+.survey-add-form{
+    min-height: 350px !important;
+}
+
+.make-blue{
+    color: #0C3A53 !important;
+}
+
+.survey-card-delete-wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.search-filters {
+    z-index: 1000;  /* Ensuring it is on top */
+    visibility: visible !important;
+    display: flex !important; /* Changed from block to flex for centering */
+    justify-content: center; /* Centers the children horizontally */
+    align-items: center; /* Aligns the children vertically, useful if height is specified */
+    opacity: 1 !important;
+    height: auto !important;
+    background-color: #0C3A53; /* Dark blue background */
+    width: 100%; /* Ensures the div takes full width, adjust as per design */
+    padding: 10px 0; /* Adds some vertical padding */
+    box-sizing: border-box; /* Ensures padding is included in height/width */
+}
+.search-filters select, .search-filters button {
+    margin-right: 10px; /* Adds spacing between the elements */
+}
+
+/* Removes the margin for the last element to align properly */
+.search-filters > :last-child {
+    margin-right: 0;
+}
+
+
+
+.survey-visibility-pause{
+    color: #1d578a !important;
+}
+
+.survey-visibility-play{
+    color: #0EBAB1 !important;
+}
+
+.survey-response-selector{
+    text-decoration: none;
+    font-size: small;
+    padding: 8px 20px;
+    background-color: #0C3A53;
+    color: white;
+    border: 2px solid #0C3A53;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.minimize{
+    transition: all 0.5s;
+    cursor: pointer;
+}
+
+.minimize:hover{
+    transform: scale(1.2);
+}
+
+.no-response-wrapper{
+    margin: 5px 0;
+    padding: 0 10px;
+    width: calc(100% -20px);
+    text-align: center;
+    line-height: 20px; 
+    color: rgba(8, 62, 59, 0.5);
+    font-size: 14px;
+}
+
+
+.survey-response-selector:hover{
+    background: transparent;
+    color: #0C3A53;
+}
+
+.survey-response-wrapper{
+    border-top: 3px solid #cbd6e2;
+    display: flex;
+    flex-flow: column wrap;
+    list-style: none;
+    margin: 10px 0 0 0;
+    padding: 0;
+    width: 100%;
+}
+
+.response-heading{
+    margin: 10px 0;
+    padding: 5px;
+    line-height: 20px;
+    font-size: 16px;
+    background-color: #cbd6e2;
+    color: #5b6d7d !important;
+    border-radius: 3px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.survey-response{
+    margin: 10px 0;
+    padding: 0 10px;
+    width: calc(100% -20px);
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    line-height: 20px;
+}
+
+.response-email{
+    color: rgba(8, 62, 59, 0.5);
+    font-size: 13px;
+}
+
+.response-comment{
+    color: #5b6d7d;
+    font-size: 16px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+/*----------Comment Form----------*/
+
+.comment-form{
+    margin: 10px 0 0 0;
+    padding: 0;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.comment-form-unit{
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0;
+    padding: 0;
+}
+
+.comment-form input{
+    margin: 0 10px 10px 0;
+    padding: 0 10px;
+    max-width: 265px;
+    min-width: 150px;
+	height: 30px;
+    box-sizing: border-box;
+	border-radius: 3px;
+    border: 1px solid #cbd6e2;
+    background-color: white;
+    color: #333333;
+    cursor: text;
+}
+
+.comment-form input[type=text]:focus {
+    border-color: rgba(82, 168, 236, 0.8);
+    outline: none;
+}
+
+.comment-form button{
+    font-size: 14px;
+    font-weight: 600;
+	color: white;
+	background-color: #0C3A53;
+    border: 1px solid #0C3A53;
+	border-radius: 3px;
+    margin: 0 0 10px 0;
+    padding: 0 25px;
+    height: 30px;
+    cursor: pointer;
+    transition: all 0.5s
+}
+
+.comment-form button:hover{
+	background-color: #0EBAB1;
+    border: 1px solid #0EBAB1;   
+}
+
+.comment-error{
+    margin: 0;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 20px;
+    color: #D63301;
+}

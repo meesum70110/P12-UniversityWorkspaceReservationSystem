@@ -1,0 +1,267 @@
+.signup-form-wrapper{
+    display: flex;
+    justify-content: center;
+    background-color: rgb(238, 238, 238);
+    margin: auto;
+    padding: 40px 10px;
+}
+
+.signup-form{
+    margin: 10px 20px;
+    padding: 20px;
+    border-radius: 7px;
+    background-color: white;
+}
+
+.signup-form-grid, .signup-setup-grid{
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 1.5fr 1.5fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: "signup-email signup-department" 
+                         "signup-salary signup-occupation" 
+}
+
+.signup-setup-grid{
+    grid-template-columns: 1.5fr 1.5fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas: "signup-fname signup-lname" 
+                         "signup-age signup-gender" 
+                         "signup-residence signup-btn"  
+}
+
+.signup-heading{
+    font-size: x-large;
+    color: #3c5267;
+    text-align: center;
+    width: 100%;
+    margin: 1em 0 1.5em 0;
+} 
+
+.question-icon{
+    color: inherit;
+    width: 13px;
+    height: 13px;
+    cursor: pointer;
+    margin: auto 5px 0 7px;
+}
+
+.signup-form-unit{
+    display: flex;
+    flex-flow: column nowrap;
+    margin: 0 0 16px 0;
+    padding: 0;
+    min-height: 91.2px;
+    width: 100%;
+}
+
+.signup-form-unit label{
+    margin: 0 0 5px 0;
+    font-size: 14px;
+    font-family: sans-serif, 'Ubuntu', Verdana, Geneva, Tahoma;
+    font-weight: bold;
+    line-height: 20px !important;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.form-required{
+    color: red;
+    margin: 0;
+    padding: 0;
+}
+
+.signup-form input, .dep-drop, .signup-date-unit{
+    margin: 0;
+    padding: 0 10px;
+    width: 300px;
+	height: 40px;
+    box-sizing: border-box;
+	border-radius: 3px;
+    border: 1px solid #cbd6e2;
+    background-color: white;
+    color: #333333;
+    cursor: text;
+    appearance: none;
+}
+
+.dep-drop{
+    width: 100%;
+    padding-right: 31px;
+    cursor: pointer;
+    color: #333333 !important;
+}
+
+.signup-date-unit:hover{
+    border: 1px solid #cbd6e2;
+}
+
+.signup-form input[type=email]:focus, .signup-form input[type=number]:focus, .signup-form input[type=text]:focus, .dep-drop:focus{
+    border-color: rgba(82, 168, 236, 0.8);
+    outline: none;
+}
+
+.radio-wrapper, .radio-error{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    width: 100%;
+    height: 40px;
+}
+
+.radio-option, .radio-option-selected, .radio-option-error{
+    margin: 0;
+    padding: 0 10px;
+    height: 100%;
+    width: 49%;
+    border-radius: 3px;
+    border: 1px solid #cbd6e2;
+    background-color: inherit;
+    color: #333333;
+    font-weight: 600;
+    font-size: small;
+    cursor: pointer;
+}
+
+.radio-option-selected{
+    background-color: #cbd6e2;
+}
+
+.radio-option-error{
+    border: 1px solid #D63301;
+    background-color: #edcaca;;
+}
+
+.radio-option-selected:hover, .radio-option:hover, .radio-option-error:hover{
+    border-color: rgba(82, 168, 236, 0.8);
+}
+
+.signup-btn-submit{
+    font-size: medium;
+    font-weight: 600;
+	color: white;
+    background-color: #0C3A53;
+    border: 1px solid #0C3A53;
+	border-radius: 3px;
+    margin: 25.8px 0 16px 0;
+    padding: 0 10px;
+    width: 100%;
+	height: 40px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s
+}
+
+.signup-btn-submit:hover{
+	background-color: #0EBAB1;
+    border: 2px solid #0EBAB1;
+}
+
+.error-text{
+    margin: 2px 0 0 0;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 20px;
+    color: #D63301;
+}
+
+.field-error{
+    border: 1px solid #D63301 !important;
+}
+
+.signup-error{
+    font-size: 1em;
+    text-align: center;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    margin: 0 0 16px 0;
+    padding: 5px 10px;
+    width: 100%;
+    box-sizing: border-box;
+	border-radius: 3px;
+    border: none;
+    background-color: #edcaca;
+    color: #D63301;
+    cursor: text; 
+}
+
+
+/*----------Making Signup Page responive----------*/
+
+.signup-email{
+    grid-area: signup-email;
+}
+
+.signup-salary{
+    grid-area: signup-salary;
+}
+
+.signup-occupation{
+    grid-area: signup-occupation;
+}
+
+.signup-submit{
+    grid-area: signup-submit;
+}
+
+.signup-fname{
+    grid-area: signup-fname;
+}
+
+.signup-lname{
+    grid-area: signup-lname;
+}
+
+.signup-age{
+    grid-area: signup-age;
+}
+
+.signup-gender{
+    grid-area: signup-gender;
+}
+
+.signup-residence{
+    grid-area: signup-residence;
+}
+
+.signup-btn{
+    grid-area: signup-btn;
+}
+
+@media only screen and (max-width: 800px){
+    .signup-form-unit input, .dep-drop, .signup-date-unit{
+        width: 250px;
+    }
+}
+
+@media only screen and (max-width: 600px){
+    .signup-form-grid, .signup-setup-grid{
+        background-color: white;
+        display: flex;
+        flex-flow: column wrap;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 0; 
+    }
+
+    .signup-form input, .dep-drop, .signup-date-unit{
+        width: max(calc(100vw - 80px), 150px);
+    }
+
+    .signup-heading{
+        margin: 1em 0;
+    } 
+
+    .signup-form-unit{
+        margin: 0 0 8px 0;
+    }
+
+    .signup-btn-submit{
+        margin: 1em 0 1em 0;
+    }
+    
+}

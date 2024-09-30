@@ -1,0 +1,33 @@
+.not-found-wrapper{
+    margin: 50px 10px;
+    padding: 0;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.not-found-wrapper img{
+    max-height: 250px;
+    margin: 10px 20px;
+    filter: grayscale(20%);
+}
+
+.not-found-wrapper a{
+    text-decoration: none;
+    text-align: center;
+    font-size: small;
+    font-weight: 600;
+	color: white;
+	background-color: #00c4ff;
+    border: 2px solid #00c4ff;
+	border-radius: 20px;
+    padding: 10px 40px;
+    cursor: pointer;
+    transition: all 0.5s
+}
+
+.not-found-wrapper a:hover{
+    color: #00c4ff;
+    background: transparent;    
+}

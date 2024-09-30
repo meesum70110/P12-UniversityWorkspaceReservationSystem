@@ -1,0 +1,289 @@
+/*----------Wrapper For Faq Form and Faq Cards----------*/
+
+.faq-management{
+    display: grid;
+    gap: 5px;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "faq-cards faq-form";
+    background-color: rgb(238, 238, 238);
+}
+
+/*----------Faq Form----------*/
+
+.faq-add-form{
+    margin: 0;
+    padding: 10px 10px 0 10px;
+    min-height: 355px;
+}
+
+.faq-add-form h1{
+    font-size: xx-large;
+    margin-top: 10px;
+    color: #3c5267;
+}
+
+.faq-form-unit{
+    display: flex;
+    flex-flow: column wrap;
+    margin: 0 0 16px 0;
+    padding: 0;
+}
+
+label{
+    margin: 0 0 5px 0;
+    font-size: 14px;
+    font-family: sans-serif, 'Ubuntu', Verdana, Geneva, Tahoma;
+    font-weight: bold;
+    line-height: 20px;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.form-required{
+    color: red;
+    margin: 0;
+    padding: 0;
+}
+
+.faq-add-form input{
+    margin: 0;
+    padding: 0 10px;
+    max-width: 300px;
+    min-width: 150px;
+	min-height: 40px;
+    box-sizing: border-box;
+	border-radius: 3px;
+    border: 1px solid #cbd6e2;
+    background-color: white;
+    color: #333333;
+    cursor: text;
+}
+
+.faq-add-form input[type=text]:focus {
+    border-color: rgba(82, 168, 236, 0.8);
+    outline: none;
+}
+
+.faq-add-form button{
+    font-size: small;
+    font-weight: 600;
+	color: white;
+	background-color: #0C3A53;
+    border: 2px solid #0C3A53;
+	border-radius: 3px;
+    margin: 8px 0 16px 0;
+    padding: 12px 24px;
+    cursor: pointer;
+    transition: all 0.5s
+}
+
+.faq-add-form button:hover{
+    color: #0C3A53;
+    background: transparent;    
+}
+
+.error{
+    font-size: 1em;
+    text-align: center;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    margin: 8px 0 16px 0;
+    padding: 5px 10px;
+    max-width: 260px;
+    box-sizing: border-box;
+	border-radius: 3px;
+    border: none;
+    background-color: #edcaca;
+    color: #D63301;
+    cursor: text; 
+}
+
+.empty-error{
+    border: 1px solid #D63301 !important;
+}
+
+/*----------Course Card----------*/
+
+.no-faqs{
+    height: 100%;
+    display: flex;
+    flex-flow: column wrap;
+    align-content: center;
+    justify-content: center;
+    margin: 40px 10px
+}
+
+.no-faqs h2{
+    font-size: large;
+    color: #3c5267;
+    text-align: center;
+    margin: 0;
+}
+
+.no-faqs img {
+    max-height: 250px;
+    margin: 10px 20px;
+    filter: grayscale(20%);
+}
+
+.faq-card{
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+    background-color: #0C3A53;
+    margin: 10px;
+    padding: 10px;
+    width: min(calc(100% - 40px), 550px);
+    font-size: medium;
+    font-weight: 700;
+    color: white;
+    transition: all 0.5s;
+}
+
+.faq-card:hover{
+    color: #0EBAB1;
+}
+
+.faq-card-delete-wrapper, .faq-card-date-wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.faq-card-delete-icon{
+    height: 1.6em;
+    width: 1.6em;
+    color: rgb(245, 245, 245);
+    opacity: 0.5;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.faq-card-delete-icon:hover{
+	transform: scale(1.1);
+}
+
+.faq-card-delete-icon:focus{
+	outline: none;
+}
+
+.faq-card-content-wrapper{
+	display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 0 auto;
+    min-height: 125px;
+    background-color: inherit;
+}
+
+.faq-card h2{
+    font-family: sans-serif;
+    font-weight: 700;
+    font-size: 30px;
+    text-align: center;
+    text-transform: capitalize;
+    word-wrap: break-word;
+    margin: 0;
+}
+
+.faq-card p{
+    font-size: 1em;
+    text-align: center;
+} 
+
+.faq-card h2, .faq-card p{
+    max-width: 450px;
+    line-height: 1.5;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+} 
+
+.faq-card-date{
+    margin: 0;
+    margin-right: 6.4px;
+    padding: 5px 0 0 0;
+    color: rgba(245, 245, 245, 0.447)
+}
+
+
+/*----------Making Courses Cards And Form Responive----------*/
+
+.faqs{
+    grid-area: faq-cards;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+}
+
+.faq-add-form{
+    grid-area: faq-form;
+}
+
+.faqs, .faq-add-form{
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+}
+
+.faqs{
+    margin: 10px 0;
+}
+
+.loading-spinner-wrapper-faqs{
+    height: max(calc(100vh - 76px), 370px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-spinner-wrapper-faqs-view{
+    height: max(calc(100vh - 76px), 200px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* The styling class below 'faq-access' tend to style faqsBoard.js building upon previous style for faqsManagement.js */
+.faq-access{
+    display: grid;
+    gap: 5px;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "faq-cards";
+    background-color: rgb(238, 238, 238);
+}
+
+@media only screen and (max-width: 740px){
+    
+    .faq-management{
+        display: flex;
+        flex-flow: column wrap;
+    } 
+
+    .faqs{
+        margin: 10px;
+    }
+
+    .no-faqs{
+        margin-top: 0;
+    }
+
+    .no-faqs img {
+        height: 150px;
+        margin: 0px 10px 10px 10px;
+    }
+
+    .loading-spinner-wrapper-faqs{
+        height: normal;
+        align-items: flex-start;
+    }
+
+/* The styling class below 'no-faqs-view' tends to style faqsBoard.js building upon previous style for faqsManagement.js */
+    .no-faqs-view {
+        margin-top: 100px;
+    }
+    
+}

@@ -1,0 +1,319 @@
+/*----------Wrapper For Content Form and Content Cards----------*/
+
+.content-management{
+    display: grid;
+    gap: 5px;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "content-cards course-form";
+    background-color: rgb(238, 238, 238);
+}
+
+/*----------Content Form----------*/
+
+.item-add-form{
+    margin: 0;
+    padding: 10px 10px 0 10px;
+    min-height: 440px;
+}
+
+.item-add-form h1{
+    font-size: xx-large;
+    margin-top: 10px;
+    color: #3c5267;
+    text-align: center;
+}
+
+.form-unit{
+    display: flex;
+    flex-flow: column wrap;
+    margin: 0 0 16px 0;
+    padding: 0;
+}
+
+label{
+    margin: 0 0 5px 0;
+    font-size: 14px;
+    font-family: sans-serif, 'Ubuntu', Verdana, Geneva, Tahoma;
+    font-weight: bold;
+    line-height: 20px;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.form-required{
+    color: red;
+    margin: 0;
+    padding: 0;
+}
+
+.item-add-form input{
+    margin: 0;
+    padding: 0 10px;
+    width: 270px;
+	height: 40px;
+    box-sizing: border-box;
+	border-radius: 3px;
+    border: 1px solid #cbd6e2;
+    background-color: white;
+    color: #333333;
+    cursor: text;
+}
+
+.item-add-form input[type=text]:focus {
+    border-color: rgba(82, 168, 236, 0.8);
+    outline: none;
+}
+
+.item-add-form button{
+    font-size: small;
+    font-weight: 600;
+	color: white;
+	background-color: #0C3A53;
+    border: 2px solid #0C3A53;
+	border-radius: 3px;
+    margin: 8px 0 16px 0;
+    padding: 12px 24px;
+    cursor: pointer;
+    transition: all 0.5s
+}
+
+.item-add-form button:hover{
+    color: #0C3A53;
+    background: transparent;    
+}
+
+.error{
+    font-size: 1em;
+    text-align: center;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    margin: 8px 0 16px 0;
+    padding: 5px 10px;
+    max-width: 260px;
+    box-sizing: border-box;
+	border-radius: 3px;
+    border: none;
+    background-color: #edcaca;
+    color: #D63301;
+    cursor: text; 
+}
+
+.empty-error{
+    border: 1px solid #D63301 !important;
+}
+
+/*----------Content Card----------*/
+
+.no-courses{
+    height: 100%;
+    display: flex;
+    flex-flow: column wrap;
+    align-content: center;
+    justify-content: center;
+    margin: 40px 10px
+}
+
+.no-items h2{
+    font-size: large;
+    color: #3c5267;
+    text-align: center;
+    margin: 0;
+}
+
+.no-items img {
+    max-height: 250px;
+    margin: 10px 20px;
+    filter: grayscale(20%);
+}
+
+.item-card{
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    background-color: #fafafa;
+    margin: 10px;
+    padding: 10px;
+    max-width: 600px;
+    font-size: medium;
+    font-weight: 700;
+    color: #333333;
+    transition: all 0.5s;
+}
+
+.item-card:hover{
+    background-color: white;
+}
+
+.item-card-delete-wrapper, .item-card-link-wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.item-card-delete-icon{
+    height: 1.6em;
+    width: 1.6em;
+    color: #333333;
+    opacity: 0.5;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.item-card-delete-icon:hover{
+	transform: scale(1.1);
+}
+
+.item-card-delete-icon:focus{
+    outline: none;
+}
+
+.item-card-content-wrapper{
+	display: grid;
+	gap: 0px;
+	grid-template-columns: 1fr 4fr;
+    list-style: none;
+    margin: 0 auto;
+    padding: 10px 0 0 0;
+    min-height: 115px;
+}
+
+.item-card img{
+    width: 100px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.item-card h2{
+    color: #0EBAB1;
+    text-transform: capitalize;
+    font-weight: bolder;
+    font-size: 1.5em;
+    word-wrap: break-word;
+    margin: 0;
+}
+
+.item-card p{
+    font-size: 1em;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+} 
+
+.item-card h2, .item-card p{
+    max-width: 450px;
+    line-height: 1.5;
+} 
+
+.item-card a{
+    text-decoration: none;
+    word-spacing: 10px;
+    font-size: 1em;
+    padding: 5px 25px;
+    background-color: #0EBAB1;
+    color: white;
+    border: 2px solid #0EBAB1;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.item-card a:hover{
+    background: transparent;
+    color: #0EBAB1;
+}
+
+.item-card-link-icon{
+    font-size: large;
+    font-weight: 600;
+}
+
+
+/*----------Making content cards And Form Responive----------*/
+
+.content-cards{
+    grid-area: content-cards;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+}
+
+.item-add-form{
+    grid-area: course-form;
+}
+
+.content-cards, .item-add-form{
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+}
+
+.content-cards{
+    margin: 10px 0;
+}
+
+.loading-spinner-wrapper-content{
+    height: max(calc(100vh - 76px), 430px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-spinner-wrapper-surveys{
+    height: max(calc(100vh - 76px), 370px);
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+
+.loading-spinner-wrapper-courses-view{
+    height: max(calc(100vh - 76px), 200px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content-access{
+    display: grid;
+    gap: 5px;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "content-cards";
+    background-color: rgb(238, 238, 238);
+}
+
+@media only screen and (max-width: 800px){
+    
+    .content-management{
+        display: flex;
+        flex-flow: column wrap;
+    } 
+
+    .content-cards{
+        margin: 10px;
+    }
+
+    .no-items {
+        margin-top: 0;
+    }
+
+    .no-items img {
+        height: 150px;
+        margin: 0px 10px 10px 10px;
+    }
+
+    .loading-spinner-wrapper-content, .loading-spinner-wrapper-surveys{
+        height: normal;
+        align-items: flex-start;
+    }
+
+    .no-content-view {
+        margin-top: 100px;
+    }
+    
+}
+
+@media only screen and (max-width: 310px){
+    .item-add-form input{
+        width: 100%
+    }
+
+}

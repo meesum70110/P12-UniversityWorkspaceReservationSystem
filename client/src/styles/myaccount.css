@@ -1,0 +1,495 @@
+.account-wrapper{
+    margin: 10px 0 0 0;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.account-summary{
+    margin: 10px;
+    padding: 20px;
+    border-radius: 7px;
+    width: 250px;
+    min-height: 300px;
+    background-color: #fafafa;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: flex-start;
+    align-items: center;
+    transition: all 0.5s;
+}
+
+.account-summary:hover{
+    background-color: white;
+}
+
+.account-summary-profile, .account-summary-work{
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+}
+
+.account-summary img{
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+}
+
+.account-summary-profile p, .account-work-unit{
+    margin: 0 0 16px 0;
+    line-height: 20px;
+}
+
+.account-summary-profile p{
+    font-weight: bold;
+    color: #5b6d7d;
+}
+
+.account-profile-name{
+    margin: 16px 0 !important;
+    line-height: auto !important;
+    text-transform: capitalize;
+    font-size: 1.5em;
+    font-weight: bolder !important;
+    text-align: center;
+}
+
+.account-summary-work{
+    border-top: 3px solid #cbd6e2;
+    text-transform: capitalize;
+    color: #a8a8a8;
+
+}
+
+.account-work-unit{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.work-unit-top{
+    margin-top: 16px;
+}
+
+.work-unit-bottom{
+    margin-bottom: 0;
+}
+
+/*----------Profile Picture----------*/
+
+.account-options-unit, .employee-record-form{
+    width: 300px;
+    min-height: 300px;
+    margin: 10px;
+    border-radius: 7px;
+    padding: 20px;
+    background-color: white;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.employee-record-form{
+    justify-content: flex-start;
+}
+
+.option-heading{
+    font-size: x-large;
+    color: #3c5267;
+    margin: 0 0 16px 0;
+}
+
+.option-btns{
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.icon-placement-wrapper{
+    margin: 0;
+    padding: 0;
+    width: 150px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    position: relative;
+}
+
+.option-img{
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    border: 4px solid #5b6d7d;
+}
+
+.camera-icon, .remove-photo-icon{
+    position: absolute;
+    height: 1.5em;
+    width: 1.5em;
+    border: 1px solid #5b6d7d;
+    border-radius: 50%;
+    padding: 5px;
+    background-color: #5b6d7d;
+    color: white;
+    transform: translateX(-50%);
+    transition: all 0.5s;
+}
+
+.camera-icon:focus, .remove-photo-icon:focus{
+    outline: none;
+}
+
+.icon-placement-wrapper .remove-photo-icon{
+    align-self: flex-start !important;
+    justify-self: flex-start !important;
+}
+
+.camera-icon:hover, .remove-photo-icon:hover{
+    transform: translateX(-50%) scale(1.1);
+}
+
+.option-error{
+    margin: 16px 0 0 0;
+    text-align: center;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    margin: 8px 0 16px 0;
+    padding: 5px 10px;
+    max-width: 260px;
+    box-sizing: border-box;
+	border-radius: 3px;
+    border: none;
+    background-color: #edcaca;
+    color: #D63301;
+    cursor: text; 
+}
+
+@media only screen and (max-width: 800px){
+    .account-options-unit, .employee-record-form{
+        width: 200px;
+    }
+}
+
+@media only screen and (max-width: 600px){
+
+    .account-wrapper{
+        display: flex;
+        flex-flow: column wrap;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .account-summary{
+        width: max(calc(100vw - 80px), 150px);
+    }
+
+    .account-options-unit, .employee-record-form{
+        width: max(calc(100vw - 80px), 150px);
+        min-height: auto;
+    }
+}
+
+/*----------Password Form----------*/
+
+.password-form-wrapper{
+    display: flex;
+    justify-content: center;
+    background-color: rgb(238, 238, 238);
+    margin: auto;
+    padding: 0 0 10px 0;
+}
+
+.password-form{
+    margin: 10px;
+    padding: 20px;
+    border-radius: 7px;
+    background-color: white;
+}
+
+.password-heading{
+    font-size: x-large;
+    color: #3c5267;
+    width: auto;
+    margin: 16px 0 26px 0;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+} 
+
+.form-edit-icon{
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.form-edit-icon:hover{
+    transform: scale(1.1);
+}
+
+.form-edit-icon:focus{
+    outline: none;
+}
+
+.password-form-grid{
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0 10px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas: "old-password password-rules" 
+                         "new-password1 password-rules" 
+                         "new-password2 password-rules"  
+}
+
+.password-rules-wrapper{
+    display: flex;
+    flex-flow: column wrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    margin: 25px 0 30px 0;
+    padding: 10px;
+	border-radius: 3px;
+    border: 2px solid #cbd6e2;
+    cursor: text;
+}
+
+.password-rules-wrapper h2{
+    margin: 0;
+    font-size: medium;
+    line-height: 20px;
+    color: rgba(0, 0, 0, 0.8);
+    font-family: sans-serif;
+}
+
+.password-rules-wrapper ul{
+    margin: 0;
+    padding: 0 0 0 20px;
+    color: #333333;
+    width: calc(100% - 30px);
+    height: calc(100% - 20px);
+    display: flex;
+    flex-flow: column wrap;
+    align-items: flex-start;
+    justify-content: space-evenly;
+}
+
+.password-rules-wrapper li{
+    line-height: 20px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.password-form-unit{
+    display: flex;
+    flex-flow: column nowrap;
+    margin: 0 0 8px 0;
+    padding: 0;
+    min-height: 87px;
+    width: 300px;
+}
+
+.password-form-unit label{
+    margin: 0 0 5px 0;
+    font-size: 14px;
+    font-family: sans-serif, 'Ubuntu', Verdana, Geneva, Tahoma;
+    font-weight: bold;
+    line-height: 20px;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.password-form-unit input{
+    margin: 0;
+    padding: 0 30px 0 10px;
+    width: 100%;
+	height: 100%;
+    box-sizing: border-box;
+	border-radius: 3px;
+    border: 1px solid #cbd6e2;
+    background-color: white;
+    color: #333333;
+    cursor: text;
+    appearance: none;
+}
+
+.password-form-unit input[type=password]:focus, .password-form-unit input[type=text]:focus{
+    border-color: rgba(82, 168, 236, 0.8) ;
+    outline: none;
+}
+
+.password-tag-wrapper {
+    position: relative;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: flex-end;
+    justify-content: center;
+    width: 300px;
+    height: 40px;
+} 
+
+.show-password-btn {
+    position: absolute;
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0px 7px;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+.password-btn-wrapper{
+    margin: 0 0 8px 0;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.password-btn-update, .password-btn-cancel{
+    font-size: 14px;
+    font-weight: 600;
+	color: white;
+    background-color: #0C3A53;
+    border: 2px solid #0C3A53;
+	border-radius: 3px;
+    padding: 0 10px;
+    width: 49%;
+	height: 40px;
+    cursor: pointer;
+    transition: all 0.5s
+}
+
+.password-btn-update{
+    background-color: #0EBAB1;
+    border: 2px solid #0EBAB1;
+}
+
+.password-btn-update:hover{
+    color: #0EBAB1;
+    background: transparent;    
+}
+
+.password-btn-cancel:hover{
+    color: #0C3A53;
+    background: transparent;    
+}
+
+.password-error-text{
+    margin: 2px 0 0 0;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 20px;
+    color: #D63301;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+.password-error{
+    border: 1px solid #D63301 !important;
+}
+
+.option-disable{
+    background-color: #0000000a !important;
+    border: 1px solid #d9d9d9 !important;
+    cursor: not-allowed !important;
+}
+
+.password-form-error{
+    font-size: 1em;
+    text-align: center;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    margin: 0 0 8px 0;
+    padding: 5px 10px;
+    width: 100%;
+    box-sizing: border-box;
+	border-radius: 3px;
+    border: none;
+    background-color: #edcaca;
+    color: #D63301;
+    cursor: text; 
+}
+
+.old-password{
+    grid-area: old-password;
+}
+
+.new-password1{
+    grid-area: new-password1;
+}
+
+.new-password2{
+    grid-area: new-password2;
+}
+
+.password-rules-wrapper{
+    grid-area: password-rules;
+}
+
+.password-btn-wrapper{
+    grid-area: password-btn;
+}
+
+@media only screen and (max-width: 800px){
+    .password-form-unit, .password-tag-wrapper{
+        width: 250px;
+    }
+}
+
+@media only screen and (max-width: 600px){
+    .password-form-grid{
+        background-color: white;
+        display: flex;
+        flex-flow: column wrap;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .password-rules-wrapper{
+        margin: 0 0 26px 0;
+        width: max(calc(100vw - 100px), 130px);
+    }
+
+    .password-form-unit, .password-tag-wrapper{
+        width: max(calc(100vw - 80px), 150px);
+    }
+}
+
+
+/*----------Basic Info----------*/
+
+.signup-form-unit input::placeholder{
+    text-transform: capitalize !important;
+}
+
+.basic-form-wrapper{
+    padding: 0 !important; 
+}
+
+.info-btn-update{
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin: 25px 0 16px 0;
+    padding: 0;
+    width: 100%;
+}
+
+@media only screen and (max-width: 600px){
+    .info-btn-update{
+        margin: 1em 0 1em 0;
+    }
+}
