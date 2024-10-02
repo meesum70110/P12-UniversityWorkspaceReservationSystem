@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useAuthorize } from "../context/hook/useAuthorization"; // Ensure this path matches your project structure
-import '../styles/login.css'; // Adjust this path if necessary
+import { useAuthorize } from "../context/hook/useAuthorization"; 
+import '../styles/login.css'; 
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import logo from './Images/Nav/Lums_Logo.png'; // Update the path to match your project
-import { BarLoader } from "react-spinners"; // Ensure you have this component
+import logo from './Images/Nav/Lums_Logo.png';
+import { BarLoader } from "react-spinners"; 
 
 const Login = () => {
     const { dispatch } = useAuthorize();
