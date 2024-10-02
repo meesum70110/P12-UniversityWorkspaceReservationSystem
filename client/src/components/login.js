@@ -19,7 +19,7 @@ const Login = () => {
         setError('');
 
         // Perform the login operation
-        const response = await fetch('/api/login', {
+        const response = await fetch('https://workspacereservation-backend.onrender.com/api/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
