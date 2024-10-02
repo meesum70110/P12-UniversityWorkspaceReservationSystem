@@ -55,7 +55,7 @@ const Surveys = (props) => {
             status: status // Send status as is
         }).toString();
     
-        const result = await fetch(`/api/survey/?${queryParams}`, {
+        const result = await fetch(`https://workspacereservation-backend.onrender.com/api/survey/?${queryParams}`, {
             headers: {
                 'Authorization': `Bearer ${userAccount.userToken}`
             }
