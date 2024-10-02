@@ -49,33 +49,33 @@
 
 // import cors from 'cors'
 // app.use(cors());
-
 require('dotenv').config();
 const express = require('express');
 const app = express();
 const cors = require('cors');
-
-// Moongoose allows for schema creation. MongoDB alone is schema less.
 const mongoose = require('mongoose');
-
-// Middleware to add request body to response object to access in a function
-app.use(express.json({limit : '50mb'}));
-
-// Adding socket.io configuration
 const http = require('http');
 const server = http.createServer(app);
-const {Server} = require('socket.io');
-const io = new Server(server);
+const { Server } = require('socket.io');
 
+// CORS for Express
 const corsOptions = {
-  origin: 'https://workspacereservation-front.onrender.com', // frontend URL on Render
+  origin: 'https://workspacereservation-front.onrender.com', // Frontend URL
   methods: ['GET', 'POST', 'PATCH', 'DELETE'], // Allowed HTTP methods
-  credentials: true, // Allowed credentials (cookies, authorization headers, etc.)
+  credentials: true
 };
-
 app.use(cors(corsOptions));
 
+// CORS for Socket.io
+const io = new Server(server, {
+  cors: {
+    origin: 'https://workspacereservation-front.onrender.com', // Frontend URL
+    methods: ['GET', 'POST'],
+    credentials: true
+  }
+});
 
+// API Routes
 const loginRoutes = require('./routes/login.js');
 const signupRoute = require('./routes/signup.js');
 const courseRoutes = require('./routes/courses.js');
@@ -83,13 +83,13 @@ const faqRoutes = require('./routes/faqs.js');
 const accountRoutes = require('./routes/account.js');
 const surveyRoutes = require('./routes/workspace.js');
 
-// Middleware to log API route and method
-app.use((req,res,next) => {
-    console.log(req.path, req.method);
-    next();
-})
+// Middleware
+app.use(express.json({ limit: '50mb' }));
+app.use((req, res, next) => {
+  console.log(req.path, req.method);
+  next();
+});
 
-// Middleware to use API routes
 app.use('/api/login', loginRoutes);
 app.use('/api/signup', signupRoute);
 app.use('/api/courses', courseRoutes);
@@ -97,28 +97,30 @@ app.use('/api/faqs', faqRoutes);
 app.use('/api/account', accountRoutes);
 app.use('/api/workspace', surveyRoutes);
 
+// Socket.io events
 io.on('connection', (socket) => {
-    console.log('A user connected', socket.id);
-    socket.on('courses', (id)=>{
-        console.log('A user joined Courses: ', id);
-    })
-    socket.on('faqs', (id)=>{
-        console.log('A user joined Faqs: ', id);
-    })
-    socket.on('surveys', (id)=>{
-        console.log('A user joined Surveys: ', id);
-    })
-})
+  console.log('A user connected', socket.id);
+  socket.on('courses', (id) => {
+    console.log('A user joined Courses: ', id);
+  });
+  socket.on('faqs', (id) => {
+    console.log('A user joined Faqs: ', id);
+  });
+  socket.on('surveys', (id) => {
+    console.log('A user joined Surveys: ', id);
+  });
+});
 
-exports.io = io
-
+// Database connection and server start
 mongoose.connect(process.env.MONG_URI)
-.then(()=>{
-    server.listen(process.env.PORT, ()=>{
-    console.log(`listening on port ${process.env.PORT}`);
-    console.log("Connected to Database");
-})})
-.catch((error)=>{
-    console.log(error)
-})
+  .then(() => {
+    server.listen(process.env.PORT, () => {
+      console.log(`listening on port ${process.env.PORT}`);
+      console.log("Connected to Database");
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
 
