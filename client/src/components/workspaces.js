@@ -158,7 +158,7 @@ const Surveys = (props) => {
         const newSurvey = { title, description, status };
     
         // Perform the POST request to add a new survey
-        const result = await fetch('/api/survey/', {
+        const result = await fetch('https://workspacereservation-backend.onrender.com/api/survey/', {
             method: 'POST',
             body: JSON.stringify(newSurvey),
             headers: {
@@ -226,7 +226,7 @@ const Surveys = (props) => {
         if (cancelOperation) return;
 
         // Proceed with deletion if not cancelled.
-        const result = await fetch('/api/survey/' + id, {
+        const result = await fetch('https://workspacereservation-backend.onrender.com/api/survey/' + id, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${userAccount.userToken}` // Use JWT for authorization.
@@ -275,7 +275,7 @@ const Surveys = (props) => {
         if (cancelOperation) return;
 
         // API call to update visibility status.
-        const result = await fetch('/api/survey/' + id, {
+        const result = await fetch('https://workspacereservation-backend.onrender.com/api/survey/' + id, {
             method: 'PATCH',
             body: JSON.stringify({ visibility: 'true' }), // Set visibility to true.
             headers: {
@@ -326,7 +326,7 @@ const Surveys = (props) => {
         if (cancelOperation) return;
 
         // Make an API request to change the visibility of the survey.
-        const result = await fetch('/api/survey/' + id, {
+        const result = await fetch('https://workspacereservation-backend.onrender.com/api/survey/' + id, {
             method: 'PATCH',
             body: JSON.stringify({ visibility: 'false' }),  // Set visibility to false.
             headers: {
@@ -410,7 +410,7 @@ const Surveys = (props) => {
         }
 
         // Proceed to send the comment to the server via an API call.
-        const result = await fetch('/api/survey/comment/' + surveyId, {
+        const result = await fetch('https://workspacereservation-backend.onrender.com/api/survey/comment/' + surveyId, {
             method: 'PATCH', // Use PATCH to update part of the resource.
             body: JSON.stringify({response: comment}), // Send the comment in the request body.
             headers: {
