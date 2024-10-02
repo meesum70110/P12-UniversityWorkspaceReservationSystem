@@ -53,6 +53,7 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
+const cors = require('cors');
 
 // Moongoose allows for schema creation. MongoDB alone is schema less.
 const mongoose = require('mongoose');
@@ -65,6 +66,15 @@ const http = require('http');
 const server = http.createServer(app);
 const {Server} = require('socket.io');
 const io = new Server(server);
+
+const corsOptions = {
+  origin: 'https://workspacereservation-front.onrender.com', // frontend URL on Render
+  methods: ['GET', 'POST', 'PATCH', 'DELETE'], // Allowed HTTP methods
+  credentials: true, // Allowed credentials (cookies, authorization headers, etc.)
+};
+
+app.use(cors(corsOptions));
+
 
 const loginRoutes = require('./routes/login.js');
 const signupRoute = require('./routes/signup.js');
