@@ -95,7 +95,7 @@ app.use('/api/signup', signupRoute);
 app.use('/api/courses', courseRoutes);
 app.use('/api/faqs', faqRoutes);
 app.use('/api/account', accountRoutes);
-app.use('/api/workspace', surveyRoutes);
+app.use('/api/survey', surveyRoutes);
 
 // Socket.io events
 io.on('connection', (socket) => {
