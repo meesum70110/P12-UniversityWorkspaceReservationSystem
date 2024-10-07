@@ -3,8 +3,8 @@ const Survey = require('../models/workspaceData');
 const mongoose = require('mongoose'); // MongoDB object modeling tool
 
 // Import the main server module which includes the socket.io instance
-const main = require('../server');
-
+// const main = require('../server');
+const { io } = require('../server');
 
 const getSurveys = async (req, res) => {
     const { description, status } = req.query;
