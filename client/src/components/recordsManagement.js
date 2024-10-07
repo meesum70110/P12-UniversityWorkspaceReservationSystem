@@ -59,7 +59,7 @@ const ManageRecords = (prop)=>{
 
     const fetchFilteredUser = async (UserFilter) => {
         setFetching(true)
-        const result = await fetch('/api/account/', {
+        const result = await fetch('https://workspacereservation-backend.onrender.com/api/account/', {
             method: 'POST',
             body: JSON.stringify({...UserFilter}),
             headers: {
@@ -88,7 +88,7 @@ const ManageRecords = (prop)=>{
         
         const fetchDefaultUser = async (UserFilter) => {
             setFetching(true)
-            const result = await fetch('/api/account/', {
+            const result = await fetch('https://workspacereservation-backend.onrender.com/api/account/', {
                 method: 'POST',
                 body: JSON.stringify({...UserFilter}),
                 headers: {
@@ -154,7 +154,7 @@ const ManageRecords = (prop)=>{
             return;
         }
 
-        const result = await fetch('/api/leave/email', {
+        const result = await fetch('https://workspacereservation-backend.onrender.com/api/leave/email', {
             method: 'POST',
             body: JSON.stringify({email : inputText}),
             headers: {
@@ -228,7 +228,7 @@ const ManageRecords = (prop)=>{
 
           if (cancelOperation) {return;}
 
-          const result = await fetch('/api/account/' + id, {
+          const result = await fetch('https://workspacereservation-backend.onrender.com/api/account/' + id, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${userAccount.userToken}`
