@@ -39,7 +39,7 @@ const FaqsBoard = (prop)=>{
         setFetching(true);
 
         const fetchFaqs = async () => {
-            const result = await fetch('/api/faqs/', {
+            const result = await fetch('https://workspacereservation-backend.onrender.com/api/faqs/', {
                 headers: {
                     'Authorization': `Bearer ${userAccount.userToken}`
                 }
