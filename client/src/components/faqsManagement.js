@@ -53,7 +53,7 @@ const FaqsManage = (prop)=>{
         const fetchFaqs = async () => {
             setFetching(true);
 
-            const result = await fetch('/api/faqs/', {
+            const result = await fetch('https://workspacereservation-backend.onrender.com/api/faqs/', {
                 headers: {
                     'Authorization': `Bearer ${userAccount.userToken}`
                 }
@@ -130,7 +130,7 @@ const FaqsManage = (prop)=>{
 
         const newFaq = {question, answer};
 
-        const result = await fetch('/api/faqs/', {
+        const result = await fetch('https://workspacereservation-backend.onrender.com/api/faqs/', {
             method: 'POST',
             body: JSON.stringify(newFaq),
             headers: {
@@ -194,7 +194,7 @@ const FaqsManage = (prop)=>{
 
         if (cancelOperation) {return;}
 
-        const result = await fetch('/api/faqs/' + id, {
+        const result = await fetch('https://workspacereservation-backend.onrender.com/api/faqs/' + id, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${userAccount.userToken}`
