@@ -57,7 +57,7 @@ const addSurvey = async (req, res) => {
         // Emitting the updated list of surveys to all connected clients using socket.io
         try {
             const allSurveys = await Survey.find({}).sort({createdAt: -1});
-            main.io.emit('surveys', allSurveys);
+            io.emit('surveys', allSurveys);
         } catch (error) {
             return res.status(400).json({error: 'Survey added but socket error occurred'});
         }
@@ -96,7 +96,7 @@ const addComment = async (req, res) => {
             try {
                 // After updating, emit the updated list of surveys to all connected clients
                 const allSurveys = await Survey.find({}).sort({createdAt: -1});
-                main.io.emit('surveys', allSurveys);
+                io.emit('surveys', allSurveys);
             } catch (error) {
                 return res.status(400).json({error: 'Comment added but socket error occurred'});
             }
@@ -125,7 +125,7 @@ const deleteSurvey = async (req, res) => {
             try {
                 // Emit the updated list of surveys to all connected clients
                 const allSurveys = await Survey.find({}).sort({createdAt: -1});
-                main.io.emit('surveys', allSurveys);
+                io.emit('surveys', allSurveys);
             } catch (error) {
                 return res.status(400).json({error: 'Survey deleted but socket error occurred'});
             }
@@ -154,7 +154,7 @@ const surveyVisibility = async (req, res) => {
             try {
                 // Emit the updated list of surveys to all connected clients
                 const allSurveys = await Survey.find({}).sort({createdAt: -1});
-                main.io.emit('surveys', allSurveys);
+                io.emit('surveys', allSurveys);
             } catch (error) {
                 return res.status(400).json({error: 'Survey updated but socket error occurred'});
             }
