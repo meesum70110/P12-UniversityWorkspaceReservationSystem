@@ -74,6 +74,8 @@ const io = new Server(server, {
     credentials: true
   }
 });
+// Exporting `io` so that it can be used in other files
+module.exports = { io };
 
 // API Routes
 const loginRoutes = require('./routes/login.js');
