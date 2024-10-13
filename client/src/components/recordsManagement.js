@@ -272,7 +272,7 @@ const ManageRecords = (prop)=>{
                 <div className="leave-form-wrapper">
                     <div className="leave-search-form">
                         <div className="profile-form-search-secondary">
-                            <h1 className="leave-heading user-heading">Search Employee</h1>
+                            <h1 className="leave-heading user-heading">Search User</h1>
                             <div className="leave-form-unit user-department">
                                 <label>Department</label>
                                 <span className="absolute-icon-wrapper">
