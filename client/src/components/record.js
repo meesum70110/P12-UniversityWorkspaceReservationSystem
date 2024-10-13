@@ -48,7 +48,7 @@ const Record = (props) => {
         // Handling errors, e.g., no email in location state
         Swal.fire({
             icon: "warning",  // Setting the icon of the modal to warning
-            title: "Please choose an employee!",  // Modal title
+            title: "Please choose a User!",  // Modal title
             confirmButtonColor: "#1d578a",  // Customizing the button color
         }).then(function () {
             handleRecordNavigate();  // Navigating to the record manage page on confirmation
@@ -191,7 +191,7 @@ const Record = (props) => {
             // Displaying a success message to the user using SweetAlert
             Swal.fire({
                 icon: "success",
-                title: "Employee Info Updated!",
+                title: "User Info Updated!",
                 confirmButtonColor: "#1d578a",
             });
 
@@ -294,7 +294,7 @@ const Record = (props) => {
                 {/* Update Form */}
                 <form className="employee-record-form" onSubmit={UpdateInfo}>
                     <h1 className="employee-record-heading">
-                        Employee Info
+                        User Info
                         {!updateOptions && <MdEdit data-tooltip-id="edit" data-tooltip-content="Edit info" onClick={handleUpdateOptions} className="form-edit-icon"/>}
                         <Tooltip id="edit" place="left" style={style}/>
                     </h1>
