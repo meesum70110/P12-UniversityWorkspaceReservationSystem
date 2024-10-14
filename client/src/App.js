@@ -2,7 +2,7 @@ import {BrowserRouter, Route, Routes, Navigate} from 'react-router-dom';
 
 import Login from './components/login';
 import Admin from './components/admin';
-import Employee from './components/user';
+import Employee from './components/employee';
 import FaqsManage from './components/faqsManagement';
 import FaqsBoard from './components/faqsBoard';
 import ManageRecords from './components/recordsManagement';
@@ -25,10 +25,10 @@ function App() {
 
           {/* Routes for 'admin' and 'employee' homepages */}
           <Route path="/" element={userAccount && userAccount.occupation === 'admin' ? <Admin/> : <Navigate to="/login"/>}/>
-          <Route path="/user" element={userAccount && userAccount.occupation === 'employee' ? <Employee/> : <Navigate to="/login"/>}/>
+          <Route path="/employee" element={userAccount && userAccount.occupation === 'employee' ? <Employee/> : <Navigate to="/login"/>}/>
 
           {/* Route for login page */}
-          <Route path="/login" element={!userAccount ? <Login/> : <Navigate to={userAccount.occupation === 'admin' ? "/" : "/user"}/>}/> 
+          <Route path="/login" element={!userAccount ? <Login/> : <Navigate to={userAccount.occupation === 'admin' ? "/" : "/employee"}/>}/> 
 
           {/* Routes for 'admin' usecases */}
           <Route path="/faqs-manage" element={userAccount && userAccount.occupation === 'admin' ? <FaqsManage/> : <Navigate to="/login"/>}/>
