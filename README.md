@@ -90,40 +90,39 @@ This application is deployed on Render.
 
 
 P12-UniversityWorkspaceReservationSystem/
+│   ├── Architecture/
+│   ├── Management/
+│   ├── Requirements/
+│   ├── Reviews/
 │
-├── Architecture/
-├── Management/
-├── Requirements/
-├── Reviews/
+│   ├── client/
+│       ├── build/
+│       ├── public/
+│       ├── src/
+│           ├── components/
+│               ├── Images/
+│               ├── SharedComponents/
+│               └── (component files like admin.js, login.js, etc.)
+│           ├── context/
+│               ├── hook/
+│                   └── useAuthorization.js
+│               └── (context files like authorization.js, socket.js)
+│           ├── styles/
+│               └── (CSS files like faqs.css, login.css, etc.)
+│           └── (root files like App.js, index.js)
 │
-├── client/
-│   ├── build/
-│   ├── public/
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── Images/
-│   │   │   ├── SharedComponents/
-│   │   │   └── (component files like admin.js, login.js, etc.)
-│   │   ├── context/
-│   │   │   ├── hook/
-│   │   │   │   └── useAuthorization.js
-│   │   │   └── (context files like authorization.js, socket.js)
-│   │   ├── styles/
-│   │   │   └── (CSS files like faqs.css, login.css, etc.)
-│   │   └── (root files like App.js, index.js)
-│
-├── server/
-│   ├── controllers/
-│   │   ├── mailer/
-│   │   │   └── sendCredentials.js
-│   │   └── (controller files like accountController.js, loginController.js, etc.)
-│   ├── middleware/
-│   │   └── authorize.js
-│   ├── models/
-│   │   └── (model files like userData.js, workspaceData.js)
-│   ├── routes/
-│   │   └── (route files like account.js, login.js, workspace.js)
-│   └── (root files like server.js, .env)
+│   ├── server/
+│       ├── controllers/
+│           ├── mailer/
+│               └── sendCredentials.js
+│           └── (controller files like accountController.js, loginController.js, etc.)
+│       ├── middleware/
+│           └── authorize.js
+│       ├── models/
+│           └── (model files like userData.js, workspaceData.js)
+│       ├── routes/
+│           └── (route files like account.js, login.js, workspace.js)
+│       └── (root files like server.js, .env)
 │
 ├── .gitignore
 ├── LICENSE
