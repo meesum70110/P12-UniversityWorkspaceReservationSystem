@@ -21,7 +21,7 @@ const Employee = (prop)=>{
     return (   
         <div className="homepage">
             {/* Main Nav Bar */}
-            <NavMenu isHome={true} pagePath="/employee"/>
+            <NavMenu isHome={true} pagePath="/user"/>
 
             {/* Cover Section */}
             <div className="cover-wrapper">
