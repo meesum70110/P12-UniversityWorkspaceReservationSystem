@@ -114,7 +114,20 @@ P12-UniversityWorkspaceReservationSystem/
 │
 ├── server/
 │   ├── controllers/
-
-
-________________________________________
+│   │   ├── mailer/
+│   │   │   └── sendCredentials.js
+│   │   └── (controller files like accountController.js, loginController.js, etc.)
+│   ├── middleware/
+│   │   └── authorize.js
+│   ├── models/
+│   │   └── (model files like userData.js, workspaceData.js)
+│   ├── routes/
+│   │   └── (route files like account.js, login.js, workspace.js)
+│   └── (root files like server.js, .env)
+│
+├── .gitignore
+├── LICENSE
+├── README.md
+├── package.json
+├── package-lock.json
 
