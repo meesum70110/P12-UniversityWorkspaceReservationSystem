@@ -28,7 +28,7 @@ export const MenuOptionsAdmin = [
 export const MenuOptionsEmployee = [
     {
         title : 'Home',
-        path : '/employee'
+        path : '/user'
     }, 
     {
         title : 'My Account',
