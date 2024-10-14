@@ -68,7 +68,7 @@ const NavMenu = (prop)=>{
                         <div></div> 
                         : 
                         <div className="placeholder">
-                            <Link to={isAdmin ? '/' : '/employee'} className="placeholder" onMouseEnter={handleHomeIconChangeFill} onMouseLeave={handleHomeIconChangeLine}>
+                            <Link to={isAdmin ? '/' : '/user'} className="placeholder" onMouseEnter={handleHomeIconChangeFill} onMouseLeave={handleHomeIconChangeLine}>
                                 {!homeChange && <RiIcons.RiHomeLine  className="nav-option-icon-home"/>}
                                 {homeChange && <RiIcons.RiHomeFill className="nav-option-icon"/>}
                             </Link>
