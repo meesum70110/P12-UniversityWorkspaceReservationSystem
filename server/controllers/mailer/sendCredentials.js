@@ -13,7 +13,7 @@ const sendCredentials = async (email, password) => {
       }
     });
 
-    const html = '<h1>Welcome Onboard!</h1> <h2>Below are your Hr app login credentials</h2> <p>Email: '
+    const html = '<h1>Welcome Onboard!</h1> <h2>Below are your Workspace app login credentials</h2> <p>Email: '
     + email + '<br>Password: ' + password + '</p>';
     
     var mailOptions = {
