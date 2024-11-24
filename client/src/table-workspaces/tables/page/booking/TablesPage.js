@@ -61,7 +61,7 @@ const TablesPage = ({ room, surveys, selectedDate, selectedTime }) => {
             }
         }
     }, []);
-
+    
     const toDateTime = moment(`${displayDate}T${displayTime}`).add(1, 'hour').format('YYYY-MM-DD HH:mm:ss');
 
     useEffect(() => {
@@ -69,7 +69,7 @@ const TablesPage = ({ room, surveys, selectedDate, selectedTime }) => {
             if (userAccount && userAccount.userToken) {
                 try {
                     setErrorMessage('');
-                    const response = await axios.get('http://localhost:8000/api/account/', {
+                    const response = await axios.get('https://workspacereservation-backend.onrender.com/api/account/', {
                         headers: { Authorization: `Bearer ${userAccount.userToken}` }
                     });
                     setUserData(response.data);
@@ -102,7 +102,7 @@ const TablesPage = ({ room, surveys, selectedDate, selectedTime }) => {
     // Function to fetch the status of all tables from the server
     const fetchAllTablesStatus = useCallback(async () => {
         try {
-            const response = await axios.get('http://localhost:8000/api/survey/tables', {
+            const response = await axios.get('https://workspacereservation-backend.onrender.com/api/survey/tables', {
                 params: {
                     date: displayDate,
                     time: displayTime,
@@ -142,7 +142,7 @@ const TablesPage = ({ room, surveys, selectedDate, selectedTime }) => {
         const workspaceId = selectedWorkspace?._id;
     
         try {
-            const response = await axios.post(`http://localhost:8000/api/survey/${workspaceId}/book`, {
+            const response = await axios.post(`https://workspacereservation-backend.onrender.com/api/survey/${workspaceId}/book`, {
                 tableNumber: tableIdPicked.toString(),
                 room,
                 date: displayDate,
@@ -175,7 +175,7 @@ const TablesPage = ({ room, surveys, selectedDate, selectedTime }) => {
 
     const cancelBooking = async (bookingId) => {
         try {
-            const response = await axios.delete(`http://localhost:8000/api/survey/bookings/${bookingId}`, {
+            const response = await axios.delete(`https://workspacereservation-backend.onrender.com/api/survey/bookings/${bookingId}`, {
                 headers: { Authorization: `Bearer ${userAccount.userToken}` }
             });
             if (response.status === 200) {
@@ -197,7 +197,7 @@ const TablesPage = ({ room, surveys, selectedDate, selectedTime }) => {
 
         if (!showBookings && userAccount?.userToken) {
             try {
-                const response = await axios.get('http://localhost:8000/api/survey/bookings', {
+                const response = await axios.get('https://workspacereservation-backend.onrender.com/api/survey/bookings', {
                     headers: { Authorization: `Bearer ${userAccount.userToken}` }
                 });
 
