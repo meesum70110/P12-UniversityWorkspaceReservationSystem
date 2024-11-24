@@ -1,36 +1,46 @@
-// Importing Mongoose library to interact with MongoDB
 const mongoose = require('mongoose');
-
-// Using the Schema constructor from mongoose to define the structure of the Survey document
 const Schema = mongoose.Schema;
 
-// Defining the Survey schema with necessary fields
-const surveySchema = new Schema({
+const workspaceSchema = new Schema({
     title: {
-        type: String,       // Data type is String
-        required: true      // This field is required
+        type: String,
+        required: false // Setting to `false` if optional
     },
     description: {
-        type: String,       // Data type is String
-        required: true      // This field is required
+        type: String,
+        required: false // Setting to `false` if optional
     },
-    // status: { 
-    //     type: String, 
-    //     required: true      // This field is required
-    // },
     status: { 
         type: String, 
         enum: ['available', 'unavailable'], 
         default: 'available' 
     },
     responses: {
-        type: [String]      // Array of Strings to hold responses
+        type: [String],
+        default: []
     },
     visibility: {
-        type: String,       // Data type is String
-        require: true       // This field is required (note: should be 'required' instead of 'require')
-    }
-}, {timestamps : true}); // Enable automatic timestamps for createdAt and updatedAt
+        type: String,
+        required: false
+    },
+    room: {
+        type: String,
+        required: true
+    },
+    tables: [
+        {
+            tableNumber: { type: String, required: true },
+            availability: { 
+                type: String, 
+                enum: ['available', 'booked'], 
+                default: 'available' 
+            },
+            bookingDetails: {
+                type: [{ type: Schema.Types.ObjectId, ref: 'Booking' }],
+                default: [] // Using reference to Booking for detailed tracking
+            }
+        }
+    ]
+}, { timestamps: true });
 
-// Exporting the model to be used in other parts of the application
-module.exports = mongoose.model('Survey', surveySchema);
+module.exports = mongoose.model('Workspace', workspaceSchema);
