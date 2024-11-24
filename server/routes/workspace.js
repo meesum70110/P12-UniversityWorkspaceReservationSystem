@@ -1,31 +1,35 @@
 const express = require('express');
 const {
     getSurveys,
-    addSurvey,
     addComment,
     deleteSurvey,
-    surveyVisibility
+    surveyVisibility,
+    getAvailability,
+    bookWorkspace,
+    getUserBookings,
+    cancelBooking,
+    getAllTablesStatus 
 } = require('../controllers/workspacesController');
 
 const router = express.Router();
 const authenticateRequest = require('../middleware/authorize');
 
-// JSON WEB TOKEN validation. If valid only then subsequent routes are invoked and access to controller functions is granted.
+// Middleware to authenticate requests
 router.use(authenticateRequest);
 
-// GET all surveys
+// Existing routes
 router.get('/', getSurveys);
-
-// POST a new survey
-router.post('/', addSurvey);
-
-// Add comment
 router.patch('/comment/:id', addComment);
-
-// DELETE a survey
 router.delete('/:id', deleteSurvey);
-
-// Update visibility
 router.patch('/visibility/:id', surveyVisibility);
+router.get('/:workspaceId/availability', getAvailability);
+router.post('/:workspaceId/book', bookWorkspace);
+router.get('/bookings', getUserBookings);
+router.delete('/bookings/:bookingId', cancelBooking);
+
+// Route for fetching all tables' availability status
+router.get('/tables', getAllTablesStatus);
 
 module.exports = router;
+
+
