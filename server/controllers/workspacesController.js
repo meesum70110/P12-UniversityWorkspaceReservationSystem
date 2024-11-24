@@ -206,7 +206,7 @@ const getAllTablesStatus = async (req, res) => {
     const { date, time } = req.query;
 
     if (!date || !time) {
-        return res.status(400).json({ error: 'Date and time are required.' });
+        return res.status(400).json({ error: '' });
     }
 
     try {
