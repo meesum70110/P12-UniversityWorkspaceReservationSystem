@@ -9,7 +9,7 @@ import no_record_icon from './Images/Record/no-record-img.png';
 import NavMenu from "./SharedComponents/navMenu";
 import LoadingIcon from "./SharedComponents/loading";
 import { SocketContext } from "../context/socket";
-import TablesPage from "../apps/table-workspaces/table/page/booking/TablesPage";
+import TablesPage from "../table-workspaces/table/page/booking/TablesPage";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment'; // Import moment for date-time handling
