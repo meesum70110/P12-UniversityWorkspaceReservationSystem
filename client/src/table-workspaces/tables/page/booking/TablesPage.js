@@ -124,7 +124,7 @@ const TablesPage = ({ room, surveys, selectedDate, selectedTime }) => {
                 setErrorMessage("No table data found.");
             }
         } catch (error) {
-            const errorMsg = error.response?.data?.error || "Could not fetch tables. Please try again later.";
+            const errorMsg = error.response?.data?.error || "";
             setErrorMessage(errorMsg);
             console.error("Error fetching tables:", errorMsg);
         }
