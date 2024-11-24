@@ -1,34 +1,48 @@
-/* The styling file below tends to style surveyManagement.js and surveyBoard.js building upon previous style for courseManagement.js from courses.css */
-
-.survey-add-form{
+.survey-add-form {
     min-height: 350px !important;
 }
 
-.make-blue{
+.make-blue {
     color: #0C3A53 !important;
 }
 
-.survey-card-delete-wrapper{
+.survey-card-delete-wrapper {
     width: 100%;
     display: flex;
     justify-content: space-between;
 }
 
 .search-filters {
-    z-index: 1000;  /* Ensuring it is on top */
-    visibility: visible !important;
-    display: flex !important; /* Changed from block to flex for centering */
+    display: flex;
     justify-content: center; /* Centers the children horizontally */
-    align-items: center; /* Aligns the children vertically, useful if height is specified */
-    opacity: 1 !important;
-    height: auto !important;
+    align-items: center; /* Aligns the children vertically */
     background-color: #0C3A53; /* Dark blue background */
-    width: 100%; /* Ensures the div takes full width, adjust as per design */
-    padding: 10px 0; /* Adds some vertical padding */
-    box-sizing: border-box; /* Ensures padding is included in height/width */
+    padding: 10px;
+    gap: 15px; /* Adds equal space between each element */
+    width: 100%; /* Full width */
+    box-sizing: border-box;
 }
-.search-filters select, .search-filters button {
-    margin-right: 10px; /* Adds spacing between the elements */
+
+.search-filters select,
+.search-filters button,
+.search-filters input[type="text"] { /* Assuming DatePicker uses an input element */
+    width: 150px; /* Consistent width for all elements */
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    text-align: center;
+}
+
+.search-filters button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.search-filters button:hover {
+    background-color: #0056b3;
 }
 
 /* Removes the margin for the last element to align properly */
@@ -36,17 +50,15 @@
     margin-right: 0;
 }
 
-
-
-.survey-visibility-pause{
+.survey-visibility-pause {
     color: #1d578a !important;
 }
 
-.survey-visibility-play{
+.survey-visibility-play {
     color: #0EBAB1 !important;
 }
 
-.survey-response-selector{
+.survey-response-selector {
     text-decoration: none;
     font-size: small;
     padding: 8px 20px;
@@ -58,32 +70,31 @@
     transition: all 0.5s;
 }
 
-.minimize{
+.minimize {
     transition: all 0.5s;
     cursor: pointer;
 }
 
-.minimize:hover{
+.minimize:hover {
     transform: scale(1.2);
 }
 
-.no-response-wrapper{
+.no-response-wrapper {
     margin: 5px 0;
     padding: 0 10px;
-    width: calc(100% -20px);
+    width: calc(100% - 20px);
     text-align: center;
-    line-height: 20px; 
+    line-height: 20px;
     color: rgba(8, 62, 59, 0.5);
     font-size: 14px;
 }
 
-
-.survey-response-selector:hover{
+.survey-response-selector:hover {
     background: transparent;
     color: #0C3A53;
 }
 
-.survey-response-wrapper{
+.survey-response-wrapper {
     border-top: 3px solid #cbd6e2;
     display: flex;
     flex-flow: column wrap;
@@ -93,7 +104,7 @@
     width: 100%;
 }
 
-.response-heading{
+.response-heading {
     margin: 10px 0;
     padding: 5px;
     line-height: 20px;
@@ -107,10 +118,10 @@
     align-items: center;
 }
 
-.survey-response{
+.survey-response {
     margin: 10px 0;
     padding: 0 10px;
-    width: calc(100% -20px);
+    width: calc(100% - 20px);
     display: flex;
     flex-flow: column wrap;
     justify-content: flex-start;
@@ -118,12 +129,12 @@
     line-height: 20px;
 }
 
-.response-email{
+.response-email {
     color: rgba(8, 62, 59, 0.5);
     font-size: 13px;
 }
 
-.response-comment{
+.response-comment {
     color: #5b6d7d;
     font-size: 16px;
     overflow-wrap: break-word;
@@ -133,7 +144,7 @@
 
 /*----------Comment Form----------*/
 
-.comment-form{
+.comment-form {
     margin: 10px 0 0 0;
     padding: 0;
     display: flex;
@@ -142,21 +153,21 @@
     justify-content: flex-start;
 }
 
-.comment-form-unit{
+.comment-form-unit {
     display: flex;
     flex-flow: row wrap;
     margin: 0;
     padding: 0;
 }
 
-.comment-form input{
+.comment-form input {
     margin: 0 10px 10px 0;
     padding: 0 10px;
     max-width: 265px;
     min-width: 150px;
-	height: 30px;
+    height: 30px;
     box-sizing: border-box;
-	border-radius: 3px;
+    border-radius: 3px;
     border: 1px solid #cbd6e2;
     background-color: white;
     color: #333333;
@@ -168,29 +179,74 @@
     outline: none;
 }
 
-.comment-form button{
+.comment-form button {
     font-size: 14px;
     font-weight: 600;
-	color: white;
-	background-color: #0C3A53;
+    color: white;
+    background-color: #0C3A53;
     border: 1px solid #0C3A53;
-	border-radius: 3px;
+    border-radius: 3px;
     margin: 0 0 10px 0;
     padding: 0 25px;
     height: 30px;
     cursor: pointer;
-    transition: all 0.5s
+    transition: all 0.5s;
 }
 
-.comment-form button:hover{
-	background-color: #0EBAB1;
-    border: 1px solid #0EBAB1;   
+.comment-form button:hover {
+    background-color: #0EBAB1;
+    border: 1px solid #0EBAB1;
 }
 
-.comment-error{
+.comment-error {
     margin: 0;
     font-size: 13px;
     font-weight: bold;
     line-height: 20px;
     color: #D63301;
+}
+
+/* Room group styling */
+.room-group {
+    margin-bottom: 20px;
+}
+
+/* Flex container for workspace cards */
+.workspace-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* Ensure each workspace card has a consistent width */
+.item-card {
+    width: 300px; /* Adjust as needed */
+    flex: 1 1 auto;
+}
+
+/* workspaces.css */
+.item-card button {
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.booking-page {
+    padding: 20px;
+}
+
+.time-slot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.time-slot button {
+    background-color: #1d578a;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
 }
