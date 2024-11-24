@@ -19,15 +19,6 @@ import CustomFooter from './SharedComponents/customFooter';
 
 const Admin = (prop)=>{
 
-    // let time = new Date().toLocaleTimeString();
-    // const [displayTime, setDisplay] = useState(time);
-    // const updateDisplayTime = () => {
-    //     time = new Date().toLocaleTimeString();
-    //     setDisplay(time);
-    // }
-
-    // setInterval(updateDisplayTime, 1000);
-
     return (   
         <div className="homepage">
             {/* Main Nav Bar */}
@@ -51,10 +42,6 @@ const Admin = (prop)=>{
                 <div className="tile-admin">
                     <img src={signup_icon} alt="Add Employee"/>
                     <Link to="/create-account" className="form_btn">Add User</Link>
-                </div>
-                <div className="tile-admin">
-                    <img src={feedback_icon} alt="Generate Survey"/>
-                    <Link to="/workspaces" className="form_btn">Add WorkSpace</Link>
                 </div>
                 <div className="tile-admin">
                     <img src={faqs_icon} alt="FAQS"/>
