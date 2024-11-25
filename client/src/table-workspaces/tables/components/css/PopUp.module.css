@@ -1,75 +1,86 @@
-.PopUpBackground{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    background-color    : rgb(0, 0, 0, 0.8);
+/* Background styling for the popup */
+.PopUpBackground {
+    width: 100%; /* Occupies the full width of the viewport */
+    height: 100%; /* Occupies the full height of the viewport */
+    display: flex; /* Enables flexbox for layout */
+    flex-direction: row; /* Arranges child elements in a row */
+    justify-content: center; /* Centers children horizontally */
+    align-items: center; /* Centers children vertically */
+    background-color: rgb(0, 0, 0, 0.8); /* Semi-transparent black background for overlay effect */
 }
 
-.PopUp{
-    background-color: #000000;
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    font-weight: bold;
-    color: #FFFFFF;
-    padding: 2vw;
+/* Main container for the popup */
+.PopUp {
+    background-color: #000000; /* Black background for the popup */
+    display: flex; /* Enables flexbox for layout */
+    flex-direction: column; /* Stacks child elements vertically */
+    width: 50%; /* Takes up 50% of the viewport width */
+    font-weight: bold; /* Makes text bold */
+    color: #FFFFFF; /* White text color */
+    padding: 2vw; /* Adds responsive padding around the popup */
 }
 
-.Title{
-    flex: 1;
-    text-align: center;
-    margin: 1vw;
+/* Title section inside the popup */
+.Title {
+    flex: 1; /* Allows this section to grow and fill available space */
+    text-align: center; /* Centers the text horizontally */
+    margin: 1vw; /* Adds responsive margin around the title */
 }
 
-.Title h4{
-    margin: 0;
+/* Styling for the heading inside the title */
+.Title h4 {
+    margin: 0; /* Removes default margin */
 }
 
-.ConfirmationInfo p{
-    margin: 0;
-    padding: 0.1rem;
+/* Section containing confirmation details */
+.ConfirmationInfo {
+    flex: 1; /* Allows this section to grow and fill available space */
+    display: flex; /* Enables flexbox for layout */
+    flex-direction: column; /* Stacks child elements vertically */
+    margin: 1vw; /* Adds responsive margin around the confirmation details */
 }
 
-.ConfirmationInfo{
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    margin: 1vw;
+/* Styling for individual paragraphs inside confirmation info */
+.ConfirmationInfo p {
+    margin: 0; /* Removes default margin */
+    padding: 0.1rem; /* Adds small padding for spacing */
 }
 
-.ConfirmationInfo span{
-    color: #FFC700;
+/* Highlighted text within confirmation info */
+.ConfirmationInfo span {
+    color: #FFC700; /* Yellow color to emphasize details */
 }
 
-.Buttons{
-    flex: 1;
-    display: flex;
-    margin: 1vw;
-    flex-direction: row;
-    justify-content: center;
+/* Container for buttons in the popup */
+.Buttons {
+    flex: 1; /* Allows this section to grow and fill available space */
+    display: flex; /* Enables flexbox for layout */
+    margin: 1vw; /* Adds responsive margin around the buttons */
+    flex-direction: row; /* Arranges buttons horizontally */
+    justify-content: center; /* Centers buttons horizontally */
 }
 
-.Button{
-    flex: 1;
-    padding: 0.5vw;
-    margin: 0 2vw;
-    border-radius: 5px;
-    cursor: pointer;
+/* Styling for individual buttons */
+.Button {
+    flex: 1; /* Each button takes up equal space */
+    padding: 0.5vw; /* Adds responsive padding for better touch targets */
+    margin: 0 2vw; /* Adds horizontal margin between buttons */
+    border-radius: 5px; /* Rounds the corners of the buttons */
+    cursor: pointer; /* Changes cursor to a pointer to indicate interactivity */
 }
 
-#ButtonGreen{
-    background-color: #51CA47;
+/* Styling for the green confirmation button */
+#ButtonGreen {
+    background-color: #51CA47; /* Green background for confirmation */
 }
 
-#ButtonRed{
-    background-color: #CA4751;
+/* Styling for the red cancellation button */
+#ButtonRed {
+    background-color: #CA4751; /* Red background for cancellation */
 }
 
-.Button h4{
-    margin: 0;
-    text-align: center;
+/* Styling for the text inside buttons */
+.Button h4 {
+    margin: 0; /* Removes default margin */
+    text-align: center; /* Centers the text horizontally */
 }
-
