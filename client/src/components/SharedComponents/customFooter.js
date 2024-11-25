@@ -1,13 +1,19 @@
+// Importing the CSS styles for the footer component
 import './sharedComponents.css';
 
-const CustomFooter = (prop)=>{
+// Functional component definition for the custom footer
+const CustomFooter = (prop) => {
 
-    return (   
+    return (
         <div className="align-page-bottom">
-            <footer className="copyright-text"><p>Copyrights &#169; 2024 Reserved.</p></footer>
+            {/* Footer section */}
+            <footer className="copyright-text">
+                {/* Displaying the copyright text */}
+                <p>Copyrights &#169; 2024 Reserved.</p>
+            </footer>
         </div>
-    )
+    );
+};
 
-}
-
-export default CustomFooter
+// Exporting the CustomFooter component as the default export
+export default CustomFooter;
