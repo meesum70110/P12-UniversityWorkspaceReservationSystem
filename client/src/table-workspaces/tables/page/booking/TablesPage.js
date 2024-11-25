@@ -1,151 +1,156 @@
+// Importing necessary libraries and components
 import React, { useState, useEffect, useCallback, useMemo } from 'react'; 
-import styles from './css/TablesPage.module.css'; // Importing styles for the page
-import { Stage, Layer } from 'react-konva'; // Importing Konva components for canvas-based rendering
-import moment from 'moment'; // Importing Moment.js for handling date and time
-import TablesTypeOne from '../../components/TablesTypeOne'; // Importing table components
+import styles from './css/TablesPage.module.css';
+import { Stage, Layer } from 'react-konva';
+import moment from 'moment';
+import TablesTypeOne from '../../components/TablesTypeOne';
 import TablesTypeTwo from '../../components/TablesTypeTwo';
 import TablesTypeThree from '../../components/TablesTypeThree';
 import TablesTypeTFour from '../../components/TablesTypeFour';
-import PopUp from '../../components/PopUp'; // Importing PopUp component for reservation confirmation
-import axios from 'axios'; // Importing axios for making API requests
-import { useAuthorize } from '../../../../context/hook/useAuthorization'; // Custom hook for managing user authentication
+import PopUp from '../../components/PopUp';
+import axios from 'axios';
+import { useAuthorize } from '../../../../context/hook/useAuthorization';
 
+// Defining the TablesPage component
 const TablesPage = ({ room, surveys, selectedDate, selectedTime }) => {
-    const { userAccount } = useAuthorize(); // Fetching user account details from context
-    const [userData, setUserData] = useState(null); // State to store user data
-    const [hovering, setHovering] = useState('default'); // State to manage hovering cursor style
-    const [openPopUp, setOpenPopUp] = useState(false); // State to handle PopUp visibility
-    const [tableIdPicked, setTableIdPicked] = useState(undefined); // State to track the selected table ID
-    const [tablesIds, setTablesIds] = useState(new Map()); // State to store table IDs and their availability status
-    const [displayDate, setDisplayDate] = useState(''); // State to manage the date to display
-    const [displayTime, setDisplayTime] = useState(''); // State to manage the time to display
-    const [errorMessage, setErrorMessage] = useState(''); // State to manage error messages
-    const [myBookings, setMyBookings] = useState([]); // State to store the user's bookings
-    const [showBookings, setShowBookings] = useState(false); // State to toggle visibility of bookings list
-    const [localUpdates, setLocalUpdates] = useState(new Map()); // Holds local booking status updates
+    const { userAccount } = useAuthorize(); // Accessing the user's authorization data from context
+    const [userData, setUserData] = useState(null); // Storing user data in the state
+    const [hovering, setHovering] = useState('default'); // Setting the cursor style while hovering
+    const [openPopUp, setOpenPopUp] = useState(false); // Controlling the visibility of the pop-up
+    const [tableIdPicked, setTableIdPicked] = useState(undefined); // Storing the selected table ID
+    const [tablesIds, setTablesIds] = useState(new Map()); // Storing table statuses (available or booked)
+    const [displayDate, setDisplayDate] = useState(''); // Displaying the selected date
+    const [displayTime, setDisplayTime] = useState(''); // Displaying the selected time
+    const [errorMessage, setErrorMessage] = useState(''); // Storing any error messages
+    const [myBookings, setMyBookings] = useState([]); // Storing the user's bookings
+    const [showBookings, setShowBookings] = useState(false); // Toggling visibility of the bookings list
+    const [localUpdates, setLocalUpdates] = useState(new Map()); // Storing local booking status updates
 
-    const userFirstName = userData?.fname || 'N/A'; // User's first name, default to 'N/A' if not available
-    const userLastName = userData?.lname || 'N/A'; // User's last name, default to 'N/A' if not available
-    const userEmail = userData?.email || 'N/A'; // User's email, default to 'N/A' if not available
+    const userFirstName = userData?.fname || 'N/A'; // Getting the user's first name
+    const userLastName = userData?.lname || 'N/A'; // Getting the user's last name
+    const userEmail = userData?.email || 'N/A'; // Getting the user's email
 
-    const sliceMap = (map, start, end) => { // Function to slice the table map based on start and end indices
+    // Function to slice the table status map for rendering
+    const sliceMap = (map, start, end) => {
         const slicedArray = [];
         for (let i = start; i <= end; i++) {
-            slicedArray.push([i, map.get(i.toString()) || false]); // Push each table's availability status to the array
+            slicedArray.push([i, map.get(i.toString()) || false]); // Creating a slice of the map for table status
         }
-        return slicedArray;
+        return slicedArray; // Returning the sliced array
     };
 
-    // Sync `displayDate` and `displayTime` with `selectedDate` and `selectedTime` props
-    // Fallback for initial date and time if not provided
+    // Synchronizing displayDate and displayTime with selectedDate and selectedTime props
     useEffect(() => {
         if (!selectedDate || !selectedTime) {
-            const currentHour = moment().hour(); // Getting the current hour using Moment.js
-            const isPast5PM = currentHour >= 17; // Checking if it's past 5 PM
-            const fallbackDate = isPast5PM ? moment().add(1, 'day').format('YYYY-MM-DD') : moment().format('YYYY-MM-DD'); // Setting the fallback date
-            const fallbackTime = '09:00'; // Setting the fallback time to 9:00 AM
+            const currentHour = moment().hour();
+            const isPast5PM = currentHour >= 17;
+            const fallbackDate = isPast5PM ? moment().add(1, 'day').format('YYYY-MM-DD') : moment().format('YYYY-MM-DD');
+            const fallbackTime = '09:00'; // Default time if no time is selected
 
             setDisplayDate(fallbackDate); // Setting fallback date
             setDisplayTime(fallbackTime); // Setting fallback time
         }
     }, []); // Runs only once during the initial render
 
-    // Sync `displayDate` and `displayTime` with the `selectedDate` and `selectedTime` props
+    // Synchronizing `displayDate` and `displayTime` with `selectedDate` and `selectedTime` props
     useEffect(() => {
         if (selectedDate) {
-            setDisplayDate(moment(selectedDate).format('YYYY-MM-DD')); // Updating the date when props change
+            setDisplayDate(moment(selectedDate).format('YYYY-MM-DD')); // Setting the date
         }
         if (selectedTime) {
-            setDisplayTime(selectedTime); // Updating the time when props change
+            setDisplayTime(selectedTime); // Setting the time
         }
-    }, [selectedDate, selectedTime]); // Runs whenever the props change
+    }, [selectedDate, selectedTime]); // Runs whenever props are updated
 
-    // Constructing the combined `toDateTime` string for the time slot using useMemo to optimize performance
+    // Constructing the combined `toDateTime` string for the time slot
     const toDateTime = useMemo(() => {
         return moment(`${displayDate}T${displayTime}`)
             .add(1, 'hour')
-            .format('YYYY-MM-DD HH:mm:ss'); // Combining the date and time and add one hour to get the time slot's end time
-    }, [displayDate, displayTime]); // Only recalculates when `displayDate` or `displayTime` changes
+            .format('YYYY-MM-DD HH:mm:ss'); // Calculating the end time for the booking
+    }, [displayDate, displayTime]); // Dependency on `displayDate` and `displayTime`
 
+    // Fetching the user data when the component mounts
     useEffect(() => {
-        const fetchUserData = async () => { // Fetching user data when userToken is available
+        const fetchUserData = async () => {
             if (userAccount && userAccount.userToken) {
                 try {
-                    setErrorMessage(''); // Clearing any previous error message
+                    setErrorMessage(''); // Clearing previous error messages
                     const response = await axios.get('https://workspacereservation-backend.onrender.com/api/account/', {
-                        headers: { Authorization: `Bearer ${userAccount.userToken}` }
+                        headers: { Authorization: `Bearer ${userAccount.userToken}` } // Sending authorization token
                     });
-                    setUserData(response.data); // Setting user data received from API
+                    setUserData(response.data); // Storing user data in the state
                 } catch (error) {
-                    const errorMsg = error.response?.data?.error || "Could not fetch user data. Please check your account information."; // Handle API errors
-                    setErrorMessage(errorMsg); // Setting error message to state
-                    console.error("Error fetching user data:", errorMsg); // Log error
+                    const errorMsg = error.response?.data?.error || "Could not fetch user data. Please check your account information."; // Handling API errors
+                    setErrorMessage(errorMsg); // Setting error message
+                    console.error("Error fetching user data:", errorMsg); // Logging error to the console
                 }
             }
         };
-        fetchUserData(); // Calling the function to fetch user data
-    }, [userAccount]); // Dependency on `userAccount`, so it runs again if userAccount changes
+        fetchUserData(); // Calling the fetch function to retrieve user data
+    }, [userAccount]); // Dependency on `userAccount` to fetch data on login
 
+    // Setting up the table status map when surveys change
     useEffect(() => {
-        const tableStatusMap = new Map(); // Map to store table IDs and their booking status
-        surveys.forEach((survey) => { // Iterating through all surveys to check table statuses
-            const isBooked = survey.status === 'unavailable'; // Checks if the table is unavailable
-            tableStatusMap.set(survey._id, isBooked); // Sets the table's status in the map
+        const tableStatusMap = new Map(); // Creating a new map to store table statuses
+        surveys.forEach((survey) => {
+            const isBooked = survey.status === 'unavailable'; // Checking if the table is booked
+            tableStatusMap.set(survey._id, isBooked); // Setting table status in the map
         });
-        setTablesIds(tableStatusMap); // Updating the state with the new table statuses
-    }, [surveys]); // Runs when `surveys` data changes
+        setTablesIds(tableStatusMap); // Updating the table statuses state
+    }, [surveys]); // Running when surveys data changes
 
-    const handleHovering = (hoverStatus) => setHovering(hoverStatus); // Updating hovering state for the cursor
+    // Handling hovering effect to change cursor style
+    const handleHovering = (hoverStatus) => setHovering(hoverStatus);
 
-    const handlePopUp = (shouldOpen, tableId) => { // Handling opening and closing of PopUp
+    // Function to handle opening and closing the pop-up for table booking
+    const handlePopUp = (shouldOpen, tableId) => {
         setTableIdPicked(tableId); // Setting the selected table ID
-        setOpenPopUp(shouldOpen); // Opening or closing the PopUp
+        setOpenPopUp(shouldOpen); // Opening or closing the pop-up based on the action
     };
 
     // Function to fetch the status of all tables from the server
     const fetchAllTablesStatus = useCallback(async () => {
         if (!displayDate || !displayTime) {
             console.error("fetchAllTablesStatus: Date or time is not defined.");
-            setErrorMessage("Date and time are required."); // Error handling if date or time are not defined
+            setErrorMessage("Date and time are required."); // Displaying error if date or time is missing
             return;
         }
     
         try {
             const response = await axios.get('https://workspacereservation-backend.onrender.com/api/survey/tables', {
                 params: {
-                    date: displayDate,
-                    time: displayTime,
+                    date: displayDate, // Passing the selected date as a query parameter
+                    time: displayTime, // Passing the selected time as a query parameter
                 },
-                headers: { Authorization: `Bearer ${userAccount.userToken}` }
+                headers: { Authorization: `Bearer ${userAccount.userToken}` } // Sending the user's token for authorization
             });
     
             if (response.status === 200 && response.data.length > 0) {
-                const updatedTablesIds = new Map();
+                const updatedTablesIds = new Map(); // Creating a new map for updated table statuses
                 response.data.forEach((table) => {
-                    updatedTablesIds.set(table.tableNumber, table.availability === 'booked'); // Update table availability in the map
+                    updatedTablesIds.set(table.tableNumber, table.availability === 'booked'); // Updating the table status in the map
                 });
-                setTablesIds(updatedTablesIds); // Set the updated table statuses
+                setTablesIds(updatedTablesIds); // Setting the updated table statuses in state
             } else {
-                setErrorMessage("No table data found."); // Handle case where no tables are found
+                setErrorMessage("No table data found."); // Displaying error if no table data is found
             }
         } catch (error) {
-            const errorMsg = error.response?.data?.error || "Could not fetch tables. Please try again later."; // Handle API errors
-            setErrorMessage(errorMsg); // Set error message to state
-            console.error("Error fetching tables:", errorMsg); // Log error
+            const errorMsg = error.response?.data?.error || "Could not fetch tables. Please try again later."; // Handling API errors
+            setErrorMessage(errorMsg); // Setting error message
+            console.error("Error fetching tables:", errorMsg); // Logging the error to the console
         }
     }, [userAccount?.userToken, displayDate, displayTime]); // Dependencies: userToken, displayDate, displayTime
 
-    // Trigger table status fetch when date or time changes
+    // Triggering table status fetch when date or time changes
     useEffect(() => {
         if (displayDate && displayTime) {
-            fetchAllTablesStatus(); // Fetch tables status based on the date and time
+            fetchAllTablesStatus(); // Fetching table status based on the selected date and time
         }
     }, [fetchAllTablesStatus, displayDate, displayTime]); // Dependency array to rerun fetch when relevant data changes
 
-    
     // Defining a function to handle table reservation.
     const handleReservation = async () => {
-        handlePopUp(false); // Closing the popup once reservation starts.
+        handlePopUp(false); // Closing the pop-up once reservation starts.
     
         // Finding the workspace that matches the current room.
         const selectedWorkspace = surveys.find((survey) => survey.room === room);
@@ -185,7 +190,6 @@ const TablesPage = ({ room, surveys, selectedDate, selectedTime }) => {
         }
     };
 
-    
     // Defining a function to cancel a booking by its ID.
     const cancelBooking = async (bookingId) => {
         try {
@@ -255,58 +259,50 @@ const TablesPage = ({ room, surveys, selectedDate, selectedTime }) => {
 
     // Returning the JSX for rendering the TablesPage component.
     return (
-        // Main wrapper for the TablesPage component.
-        <div className={styles.TablesPage} style={{ cursor: hovering }}>
-            {/* Displaying an error message if it exists */}
-            {errorMessage && (
+        <div className={styles.TablesPage} style={{ cursor: hovering }}> {/* Main wrapper for the TablesPage component */}
+            {errorMessage && ( /* Displaying an error message if it exists */
                 <div className={styles.ErrorMessage}>
                     {errorMessage} {/* Showing the error message */}
                 </div>
             )}
-    
+
             {/* Button to toggle visibility of user's bookings */}
             <button onClick={fetchMyBookings} className={styles.ViewBookingsButton}>
-                {/* Changing button text based on `showBookings` state */}
-                {showBookings ? "Hide My Bookings" : "View My Bookings"}
+                {showBookings ? "Hide My Bookings" : "View My Bookings"} {/* Changing button text based on `showBookings` state */}
             </button>
-    
+
             {/* Top bar displaying selected date and time slot */}
             <div className={styles.TopBar}>
                 <div className={styles.Info}>
-                    {/* Formatting the date and time to display */}
-                    <p>{`${moment(displayDate).format('LL')} , Time Slot: ${displayTime} - ${moment(displayTime, 'HH:mm').add(1, 'hour').format('HH:mm')}`}</p>
+                    <p>{`${moment(displayDate).format('LL')} , Time Slot: ${displayTime} - ${moment(displayTime, 'HH:mm').add(1, 'hour').format('HH:mm')}`}</p> {/* Formatting the date and time to display */}
                 </div>
             </div>
-    
+
             {/* Conditionally rendering bookings list if `showBookings` is true */}
             {showBookings && (
                 <div className={styles.BookingsList}>
                     <h3>My Bookings</h3> {/* Heading for the bookings list */}
                     {/* Checking if bookings exist */}
                     {myBookings && myBookings.length > 0 ? (
-                        // Mapping through each booking and rendering its details.
                         myBookings.map((booking, index) => (
                             <div key={index} className={styles.BookingItem}>
                                 <p><strong>Room:</strong> {booking.room || "Room info unavailable"}</p>
                                 <p><strong>Table:</strong> {booking.tableNumber}</p>
                                 <p><strong>Date:</strong> {moment(booking.date).format('LL')}</p>
                                 <p><strong>Time:</strong> {booking.timeSlot}</p>
-                                {/* Button to cancel the booking */}
-                                <button onClick={() => cancelBooking(booking._id)} className={styles.CancelButton}>Cancel</button>
+                                <button onClick={() => cancelBooking(booking._id)} className={styles.CancelButton}>Cancel</button> {/* Button to cancel the booking */}
                             </div>
                         ))
                     ) : (
-                        // Message to display if no bookings are found.
-                        <p>No bookings found.</p>
+                        <p>No bookings found.</p> {/* Message to display if no bookings are found */}
                     )}
                 </div>
             )}
-    
+
             {/* Wrapper for the table layout */}
             <div className={styles.Tables}>
                 {/* Konva Stage for table visualization */}
                 <Stage width={1520} height={850}>
-                    {/* Checking if tables data is available */}
                     {tablesIds.size ? (
                         <Layer>
                             {/* Rendering tables of different types based on IDs */}
@@ -349,7 +345,7 @@ const TablesPage = ({ room, surveys, selectedDate, selectedTime }) => {
                     ) : null}
                 </Stage>
             </div>
-    
+
             {/* Rendering the pop-up for booking if `openPopUp` is true */}
             {openPopUp && (
                 <div className={styles.PopUp}>
