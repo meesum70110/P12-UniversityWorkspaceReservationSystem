@@ -1,150 +1,154 @@
 // Importing necessary modules
-const Workspace = require('../models/workspaceData'); // Workspace model to interact with workspaces in the database
-const Booking = require('../models/booking'); // Booking model to interact with bookings
-const mongoose = require('mongoose'); // MongoDB object modeling
-const { io } = require('../server'); // Socket.IO for real-time updates
-const moment = require('moment'); // Moment.js for date and time manipulation
+const Workspace = require('../models/workspaceData'); // Importing the Workspace model for interacting with workspace data
+const Booking = require('../models/booking'); // Importing the Booking model for managing booking data
+const mongoose = require('mongoose'); // Importing Mongoose for interacting with MongoDB
+const { io } = require('../server'); // Importing the Socket.IO instance for real-time updates
+const moment = require('moment'); // Importing Moment.js for date manipulation
 
-// Fetching workspaces with optional filters, including bookings
+// Retrieving workspaces with optional filters and bookings
 const getSurveys = async (req, res) => {
-    const { description, status, room, date, time } = req.query; // Extracting filters from query params
-    const query = {}; // Query object to build search conditions
+    const { description, status, room, date, time } = req.query; // Destructuring query parameters from the request
+    const query = {}; // Initializing an empty query object for filtering workspaces
 
-    // Applying filters based on the provided query parameters
-    if (description && description !== 'All') query.description = description;
+    // Adding filters to the query based on the provided query parameters
+    if (description && description !== "All") query.description = description;
     if (status) query.status = status;
-    if (room && room !== 'All') query.room = room;
+    if (room && room !== "All") query.room = room;
 
-    // If date and time are provided, check for table availability
+    // Handling date and time filters for booking availability
     if (date && time) {
-        const startTime = moment(`${date}T${time}`, "YYYY-MM-DDTHH:mm").toDate(); // Parse the start time
-        const endTime = moment(startTime).add(1, 'hour').toDate(); // Calculate the end time (1 hour later)
-        query['tables.bookingDetails'] = { // Filtering tables based on booking details
+        const startTime = moment(`${date}T${time}`, "YYYY-MM-DDTHH:mm").toDate(); // Converting date and time to a JavaScript Date object
+        const endTime = moment(startTime).add(1, "hour").toDate(); // Adding one hour to the start time for the booking duration
+        query["tables.bookingDetails"] = {
             $not: {
                 $elemMatch: {
-                    date: startTime,
-                    timeSlot: `${time} - ${moment(time, 'HH:mm').add(1, 'hour').format('HH:mm')}` // Matching the exact time slot
-                }
-            }
+                    date: startTime, // Matching the booking date
+                    timeSlot: `${time} - ${moment(time, "HH:mm").add(1, "hour").format("HH:mm")}`, // Matching the time slot
+                },
+            },
         };
     }
 
     try {
-        const workspaces = await Workspace.find(query).sort({ createdAt: -1 }); // Fetch workspaces based on query and sort by creation date
-        res.status(200).json(workspaces); // Return the fetched workspaces
+        const workspaces = await Workspace.find(query).sort({ createdAt: -1 }); // Retrieving workspaces from the database, sorted by creation date
+        console.log("Surveys fetched:", workspaces); // Debugging: logging the retrieved workspaces
+        res.status(200).json(workspaces); // Sending the retrieved workspaces in the response with a success status code
     } catch (error) {
-        console.error('Error fetching workspaces:', error); // Log error if any
-        res.status(400).json({ error: 'Error occurred while fetching workspaces' }); // Return error message
+        console.error("Error fetching workspaces:", error); // Logging any errors that occur
+        res.status(400).json({ error: "Error occurred while fetching workspaces." }); // Returning an error response if fetching fails
     }
 };
 
-// Retrieving user bookings
+// Retrieving user bookings based on email
 const getUserBookings = async (req, res) => {
     try {
-        if (!req.email) {
-            return res.status(400).json({ error: 'User email not provided.' }); // Check if the user's email is available in the request
+        if (!req.email) { // Checking if the user's email is provided in the request
+            return res.status(400).json({ error: 'User email not provided.' }); // Returning a 400 error if email is missing
         }
 
-        const userEmail = req.email.email; // Extract user's email from the request object
-        const bookings = await Booking.find({ email: userEmail }); // Find bookings associated with the user's email
+        const userEmail = req.email.email; // Retrieving the user's email from the request
+        const bookings = await Booking.find({ email: userEmail }); // Retrieving bookings for the user from the database
 
-        if (bookings.length > 0) {
-            res.status(200).json(bookings); // Return the bookings if found
+        if (bookings.length > 0) { // If there are bookings found, returning them
+            res.status(200).json(bookings); // Sending the bookings as the response
         } else {
-            res.status(404).json({ error: 'No bookings found for this user.' }); // Return error if no bookings are found
+            res.status(404).json({ error: 'No bookings found for this user.' }); // Returning a 404 error if no bookings are found
         }
     } catch (error) {
-        console.error("Error retrieving bookings:", error); // Log error if any
-        res.status(500).json({ error: 'Error retrieving bookings.' }); // Return server error message
+        console.error("Error retrieving bookings:", error); // Logging any errors that occur during the retrieval
+        res.status(500).json({ error: 'Error retrieving bookings.' }); // Returning a 500 error if there is a problem with the retrieval
     }
 };
 
 // Adding a comment to a workspace
 const addComment = async (req, res) => {
-    const { id } = req.params; // Extract workspace ID from route parameters
-    const { email } = req.email; // Extract user email from the request object
-    const { response } = req.body; // Extract comment from request body
+    const { id } = req.params; // Retrieving the workspace ID from the request parameters
+    const { email } = req.email; // Retrieving the user's email from the request
+    const { response } = req.body; // Retrieving the response/comment from the request body
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({ error: 'No such workspace exists in the database' }); // Check if the workspace ID is valid
+    if (!mongoose.Types.ObjectId.isValid(id)) { // Validating the workspace ID
+        return res.status(404).json({ error: 'No such workspace exists in the database' }); // Returning a 404 error if the workspace is not found
     }
 
-    if (!response) {
-        return res.status(400).json({ error: 'Please fill out the comment field', errorFields: ['Response'] }); // Check if the response/comment is provided
+    if (!response) { // Checking if the response/comment is provided
+        return res.status(400).json({ error: 'Please fill out the comment field', errorFields: ['Response'] }); // Returning a 400 error if the response is missing
     }
 
-    const responseAppend = `${email};${response}`; // Format the comment with email and response
+    const responseAppend = `${email};${response}`; // Combining the email and response for storing in the responses array
     try {
-        const workspace = await Workspace.findOneAndUpdate(
+        const workspace = await Workspace.findOneAndUpdate( // Finding the workspace and updating its responses
             { _id: id },
-            { $push: { responses: responseAppend } } // Append the comment to the workspace's responses
+            { $push: { responses: responseAppend } } // Adding the new comment to the responses array
         );
         if (workspace) {
-            const allWorkspaces = await Workspace.find({}).sort({ createdAt: -1 }); // Fetch all workspaces to emit updates
-            io.emit('workspaces', allWorkspaces); // Emit the updated list of workspaces through Socket.IO
-            res.status(200).json({ message: 'Comment added' }); // Return success message
+            const allWorkspaces = await Workspace.find({}).sort({ createdAt: -1 }); // Retrieving all workspaces after updating
+            io.emit('workspaces', allWorkspaces); // Emitting the updated workspaces through Socket.IO for real-time updates
+            res.status(200).json({ message: 'Comment added' }); // Sending a success message in the response
         } else {
-            res.status(404).json({ error: 'No such workspace exists in the database' }); // Return error if workspace not found
+            res.status(404).json({ error: 'No such workspace exists in the database' }); // Returning a 404 error if the workspace is not found
         }
     } catch (error) {
-        console.error('Error adding comment:', error); // Log error if any
-        res.status(400).json({ error: error.message }); // Return error message
+        console.error('Error adding comment:', error); // Logging any errors that occur during the update
+        res.status(400).json({ error: error.message }); // Returning the error message in the response
     }
 };
 
 // Fetching availability of tables in a workspace
 const getAvailability = async (req, res) => {
-    const { workspaceId } = req.query; // Extract workspace ID from query params
+    const { workspaceId } = req.query; // Retrieving the workspace ID from the query parameters
 
-    if (!workspaceId) {
-        return res.status(400).json({ error: 'Workspace ID is required.' }); // Return error if workspace ID is not provided
+    if (!workspaceId) { // Checking if the workspace ID is provided
+        return res.status(400).json({ error: 'Workspace ID is required.' }); // Returning a 400 error if the workspace ID is missing
     }
 
     try {
-        const workspace = await Workspace.findById(workspaceId); // Fetch the workspace by ID
-        if (!workspace) {
-            return res.status(404).json({ error: 'Workspace not found' }); // Return error if workspace not found
+        const workspace = await Workspace.findById(workspaceId); // Retrieving the workspace by ID from the database
+        if (!workspace) { // If the workspace is not found
+            return res.status(404).json({ error: 'Workspace not found' }); // Returning a 404 error
         }
 
-        const availability = workspace.tables.map((table) => ({ // Map table availability
+        // Mapping over the tables in the workspace to get their availability status
+        const availability = workspace.tables.map((table) => ({
             tableNumber: table.tableNumber,
-            availabilityStatus: table.availability === 'available' ? 'Available' : 'Booked' // Check the availability status of each table
+            availabilityStatus: table.availability === 'available' ? 'Available' : 'Booked' // Setting availability status based on the table's status
         }));
 
-        res.status(200).json(availability); // Return table availability status
+        res.status(200).json(availability); // Sending the availability status in the response
     } catch (error) {
-        console.error("Error fetching availability:", error); // Log error if any
-        res.status(400).json({ error: error.message }); // Return error message
+        console.error("Error fetching availability:", error); // Logging any errors
+        res.status(400).json({ error: error.message }); // Returning the error message in the response
     }
 };
 
 // Booking a workspace table
 const bookWorkspace = async (req, res) => {
-    const { workspaceId } = req.params; // Extract workspace ID from URL parameters
-    const { tableNumber, firstName, email, date, time, room } = req.body; // Extract booking details from request body
+    const { workspaceId } = req.params; // Retrieving the workspace ID from the request parameters
+    const { tableNumber, firstName, email, date, time, room } = req.body; // Retrieving the booking details from the request body
 
-    if (!workspaceId || !room || !tableNumber || !firstName || !email || !date || !time) {
-        return res.status(400).json({ error: 'All fields are required.' }); // Validate that all fields are provided
+    if (!workspaceId || !room || !tableNumber || !firstName || !email || !date || !time) { // Checking if all required fields are provided
+        return res.status(400).json({ error: 'All fields are required.' }); // Returning a 400 error if any field is missing
     }
 
-    const startTime = moment(`${date}T${time}`, "YYYY-MM-DDTHH:mm").toDate(); // Calculate start time from date and time
-    const timeSlot = `${time} - ${moment(time, 'HH:mm').add(1, 'hour').format('HH:mm')}`; // Generate time slot range
+    const startTime = moment(`${date}T${time}`, "YYYY-MM-DDTHH:mm").toDate(); // Creating a Date object for the start time
+    const timeSlot = `${time} - ${moment(time, "HH:mm").add(1, "hour").format("HH:mm")}`; // Defining the time slot for the booking
 
     try {
-        const activeBookingsCount = await Booking.countDocuments({ email }); // Check if the user has more than 2 active bookings
-        if (activeBookingsCount >= 2) {
-            return res.status(400).json({ error: 'Maximum of two active reservations allowed.' }); // Return error if the user already has 2 bookings
+        console.log("Booking request:", { workspaceId, tableNumber, date, timeSlot }); // Logging the booking request for debugging
+
+        const activeBookingsCount = await Booking.countDocuments({ email }); // Counting the number of active bookings for the user
+        if (activeBookingsCount >= 2) { // If the user already has two active bookings
+            return res.status(400).json({ error: "Maximum of two active reservations allowed." }); // Returning a 400 error
         }
 
         const existingBooking = await Booking.findOne({
             workspace: workspaceId,
             tableNumber,
             date: startTime,
-            timeSlot
-        }); // Check if the table is already booked for the selected time slot
+            timeSlot,
+        }); // Checking if the table is already booked for the selected time slot
 
-        if (existingBooking) {
-            return res.status(400).json({ error: 'Table is already booked for the selected time slot.' }); // Return error if the table is already booked
+        if (existingBooking) { // If the table is already booked
+            return res.status(400).json({ error: "Table is already booked for the selected time slot." }); // Returning a 400 error
         }
 
         const booking = new Booking({
@@ -154,143 +158,138 @@ const bookWorkspace = async (req, res) => {
             firstName,
             email,
             date: startTime,
-            timeSlot
-        });
+            timeSlot,
+        }); // Creating a new booking object
 
-        await booking.save(); // Save the new booking in the database
+        await booking.save(); // Saving the new booking in the database
 
         await Workspace.updateOne(
             { _id: workspaceId, "tables.tableNumber": tableNumber },
-            { $set: { "tables.$.availability": "booked" } } // Update the table's availability to booked
+            { $set: { "tables.$.availability": "booked" } } // Updating the table's availability status to "booked"
         );
 
-        const allWorkspaces = await Workspace.find({}).sort({ createdAt: -1 }); // Fetch updated workspaces
-        io.emit('workspaces', allWorkspaces); // Emit the updated workspaces via Socket.IO
-
-        res.status(201).json({ message: 'Table booking confirmed', booking }); // Return success message with booking details
+        console.log("Booking confirmed:", booking); // Logging the booking confirmation for debugging
+        res.status(201).json({ message: "Table booking confirmed", booking }); // Sending the booking details in the response
     } catch (error) {
-        console.error("Error in booking workspace:", error); // Log error if any
-        res.status(500).json({ error: error.message }); // Return server error message
+        console.error("Error in booking workspace:", error); // Logging any errors that occur
+        res.status(500).json({ error: error.message }); // Returning a 500 error if something goes wrong
     }
 };
 
-// Cancelling a booking
+// Canceling a booking
 const cancelBooking = async (req, res) => {
-    const { bookingId } = req.params; // Extract booking ID from URL parameters
+    const { bookingId } = req.params; // Retrieving the booking ID from the request parameters
 
-    if (!mongoose.Types.ObjectId.isValid(bookingId)) {
-        return res.status(404).json({ error: 'Invalid booking ID' }); // Validate the booking ID
+    if (!mongoose.Types.ObjectId.isValid(bookingId)) { // Validating the booking ID
+        return res.status(404).json({ error: 'Invalid booking ID' }); // Returning a 404 error if the booking ID is invalid
     }
 
     try {
-        const booking = await Booking.findByIdAndDelete(bookingId); // Delete the booking from the database
-        if (!booking) {
-            return res.status(404).json({ error: 'Booking not found' }); // Return error if booking is not found
+        const booking = await Booking.findByIdAndDelete(bookingId); // Finding and deleting the booking by ID
+        if (!booking) { // If the booking is not found
+            return res.status(404).json({ error: 'Booking not found' }); // Returning a 404 error
         }
 
         await Workspace.updateOne(
             { _id: booking.workspace, "tables.tableNumber": booking.tableNumber },
-            { $set: { "tables.$.availability": "available" } } // Update the table's availability to available
+            { $set: { "tables.$.availability": "available" } } // Updating the table's availability status to "available"
         );
 
-        const allWorkspaces = await Workspace.find({}).sort({ createdAt: -1 }); // Fetch updated workspaces
-        io.emit('workspaces', allWorkspaces); // Emit the updated workspaces via Socket.IO
+        const allWorkspaces = await Workspace.find({}).sort({ createdAt: -1 }); // Fetching all workspaces after the update
+        io.emit('workspaces', allWorkspaces); // Emitting the updated workspaces via Socket.IO
 
-        res.status(200).json({ message: 'Booking cancelled successfully' }); // Return success message
+        res.status(200).json({ message: 'Booking cancelled successfully' }); // Sending a success message
     } catch (error) {
-        console.error("Error cancelling booking:", error); // Log error if any
-        res.status(500).json({ error: 'Error cancelling booking' }); // Return server error message
+        console.error("Error cancelling booking:", error); // Logging any errors that occur
+        res.status(500).json({ error: 'Error cancelling booking' }); // Returning a 500 error if something goes wrong
     }
 };
 
-// Fetching all tables' availability for a specific date and time slot
+// Retrieving the availability status of all tables for a specific date and time slot
 const getAllTablesStatus = async (req, res) => {
-    const { date, time } = req.query; // Extract date and time from query parameters
+    const { date, time } = req.query; // Retrieving the date and time from the query parameters
 
-    if (!date || !time) {
-        return res.status(400).json({ error: '' }); // Return error if date or time are missing
+    if (!date || !time) { // Checking if both date and time are provided
+        return res.status(400).json({ error: 'Date and time are required.' }); // Returning an error if either is missing
     }
 
     try {
-        const startTime = moment(`${date}T${time}`, "YYYY-MM-DDTHH:mm").toDate(); // Calculate start time from date and time
-        const timeSlot = `${time} - ${moment(time, 'HH:mm').add(1, 'hour').format('HH:mm')}`; // Generate time slot range
+        const startTime = moment(`${date}T${time}`, "YYYY-MM-DDTHH:mm").toDate(); // Converting the provided date and time into a JavaScript Date object
+        const timeSlot = `${time} - ${moment(time, 'HH:mm').add(1, 'hour').format('HH:mm')}`; // Defining the time slot for the table
 
-        // Fetching bookings for the given date and time slot
+        // Retrieving all bookings for the given date and time slot
         const bookings = await Booking.find({ date: startTime, timeSlot });
-        console.log("Fetched bookings:", bookings); // Debugging
+        const bookedTables = new Set(bookings.map((booking) => booking.tableNumber)); // Creating a set of booked table numbers for faster lookup
 
-        // Mapping booked table numbers for quick lookup
-        const bookedTables = new Set(bookings.map((booking) => booking.tableNumber));
-
-        // Fetching all workspaces and map table availability
+        // Retrieving all workspaces from the database
         const workspaces = await Workspace.find();
         const tablesStatus = workspaces.flatMap((workspace) =>
             workspace.tables.map((table) => ({
                 tableNumber: table.tableNumber,
-                availability: bookedTables.has(table.tableNumber) ? 'booked' : 'available',
+                availability: bookedTables.has(table.tableNumber) ? 'booked' : 'available', // Checking the availability of each table
             }))
         );
 
-        console.log("Tables status:", tablesStatus); // Debugging
-        res.status(200).json(tablesStatus); // Return tables status
+        res.status(200).json(tablesStatus); // Sending the availability status of all tables as the response
     } catch (error) {
-        console.error("Error fetching tables' availability:", error); // Log error if any
-        res.status(500).json({ error: 'Error fetching tables.' }); // Return server error message
+        console.error("Error fetching tables' availability:", error); // Logging any errors that occur during fetching
+        res.status(500).json({ error: 'Error fetching tables.' }); // Returning a 500 error if fetching fails
     }
 };
 
 // Deleting a workspace
 const deleteSurvey = async (req, res) => {
-    const { id } = req.params; // Extract workspace ID from URL parameters
+    const { id } = req.params; // Retrieving the workspace ID from the request parameters
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({ error: 'Invalid workspace ID' }); // Validate the workspace ID
+    if (!mongoose.Types.ObjectId.isValid(id)) { // Checking if the workspace ID is valid
+        return res.status(404).json({ error: 'Invalid workspace ID' }); // Returning a 404 error if the workspace ID is invalid
     }
 
     try {
-        const workspace = await Workspace.findByIdAndDelete(id); // Delete the workspace from the database
-        if (workspace) {
-            const allWorkspaces = await Workspace.find({}).sort({ createdAt: -1 }); // Fetch updated workspaces
-            io.emit('workspaces', allWorkspaces); // Emit the updated workspaces via Socket.IO
-            res.status(200).json({ message: 'Workspace deleted successfully' }); // Return success message
+        const workspace = await Workspace.findByIdAndDelete(id); // Deleting the workspace by its ID
+        if (workspace) { // If the workspace is found and deleted
+            const allWorkspaces = await Workspace.find({}).sort({ createdAt: -1 }); // Retrieving all workspaces after deletion
+            io.emit('workspaces', allWorkspaces); // Emitting the updated list of workspaces via Socket.IO
+            res.status(200).json({ message: 'Workspace deleted successfully' }); // Sending a success message in the response
         } else {
-            res.status(404).json({ error: 'Workspace not found' }); // Return error if workspace not found
+            res.status(404).json({ error: 'Workspace not found' }); // Returning a 404 error if the workspace is not found
         }
     } catch (error) {
-        res.status(400).json({ error: error.message }); // Return error message if deletion fails
+        res.status(400).json({ error: error.message }); // Returning an error if deletion fails
     }
 };
 
-// Updating workspace visibility
+// Updating the visibility of a workspace
 const surveyVisibility = async (req, res) => {
-    const { id } = req.params; // Extract workspace ID from URL parameters
+    const { id } = req.params; // Retrieving the workspace ID from the request parameters
 
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({ error: 'Invalid workspace ID' }); // Validate the workspace ID
+    if (!mongoose.Types.ObjectId.isValid(id)) { // Checking if the workspace ID is valid
+        return res.status(404).json({ error: 'Invalid workspace ID' }); // Returning a 404 error if the workspace ID is invalid
     }
 
     try {
-        const workspace = await Workspace.findOneAndUpdate({ _id: id }, { ...req.body }); // Update workspace visibility
-        if (workspace) {
-            const allWorkspaces = await Workspace.find({}).sort({ createdAt: -1 }); // Fetch updated workspaces
-            io.emit('workspaces', allWorkspaces); // Emit the updated workspaces via Socket.IO
-            res.status(200).json({ message: 'Workspace visibility updated' }); // Return success message
+        const workspace = await Workspace.findOneAndUpdate({ _id: id }, { ...req.body }); // Updating the workspace's visibility based on the request body
+        if (workspace) { // If the workspace is found and updated
+            const allWorkspaces = await Workspace.find({}).sort({ createdAt: -1 }); // Retrieving all workspaces after the update
+            io.emit('workspaces', allWorkspaces); // Emitting the updated workspaces list through Socket.IO for real-time updates
+            res.status(200).json({ message: 'Workspace visibility updated' }); // Sending a success message in the response
         } else {
-            res.status(404).json({ error: 'Workspace not found' }); // Return error if workspace not found
+            res.status(404).json({ error: 'Workspace not found' }); // Returning a 404 error if the workspace is not found
         }
     } catch (error) {
-        res.status(400).json({ error: error.message }); // Return error message if update fails
+        res.status(400).json({ error: error.message }); // Returning the error message if the update fails
     }
 };
 
 module.exports = {
-    getSurveys,
-    addComment,
-    deleteSurvey,
-    surveyVisibility,
-    getAvailability,
-    bookWorkspace,
-    getUserBookings,
-    cancelBooking,
-    getAllTablesStatus
-}; 
+    getSurveys, // Exporting the function to retrieve surveys
+    addComment, // Exporting the function to add a comment to a workspace
+    deleteSurvey, // Exporting the function to delete a workspace
+    surveyVisibility, // Exporting the function to update workspace visibility
+    getAvailability, // Exporting the function to fetch table availability in a workspace
+    bookWorkspace, // Exporting the function to book a workspace table
+    getUserBookings, // Exporting the function to retrieve user bookings
+    cancelBooking, // Exporting the function to cancel a booking
+    getAllTablesStatus, // Exporting the function to fetch the availability of all tables
+};
+
