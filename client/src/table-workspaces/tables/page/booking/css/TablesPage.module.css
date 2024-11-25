@@ -1,69 +1,77 @@
+/* Main wrapper for the TablesPage component */
 .TablesPage {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: scroll;
+    flex: 1; /* Ensures the page takes up remaining available space */
+    display: flex; /* Enables flexbox layout for child elements */
+    flex-direction: column; /* Stacks child elements vertically */
+    align-items: center; /* Centers child elements horizontally */
+    overflow: scroll; /* Allows scrolling when content overflows */
 }
 
+/* Styling for the top bar that contains date and time info */
 .TopBar {
-    display: flex;
-    flex-direction: column; /* Stack elements vertically */
-    align-items: center;
-    width: 100%;
-    padding: 5px;
-    background-color: #f5f5f5;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+    display: flex; /* Enables flexbox layout for child elements */
+    flex-direction: column; /* Stacks elements vertically */
+    align-items: center; /* Centers elements horizontally */
+    width: 100%; /* Full width of the container */
+    padding: 5px; /* Adds space inside the container */
+    background-color: #f5f5f5; /* Light gray background for contrast */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for elevation */
+    margin-bottom: 20px; /* Adds space below the top bar */
 }
 
+/* Styling for the button that toggles booking visibility */
 .ViewBookingsButton {
-    padding: 8px 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-bottom: 10px; /* Adds space between button and the date/time bar */
+    padding: 8px 16px; /* Adds space inside the button for better usability */
+    background-color: #007bff; /* Blue background for emphasis */
+    color: white; /* White text for contrast */
+    border: none; /* Removes default border */
+    border-radius: 5px; /* Rounds the corners for a modern look */
+    cursor: pointer; /* Changes cursor to pointer to indicate interactivity */
+    margin-bottom: 10px; /* Adds space below the button */
 }
 
+/* Styling for the container displaying the user's bookings list */
 .BookingsList {
-    padding: 10px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-top: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px; /* Adds space inside the container */
+    background-color: #f9f9f9; /* Light background for readability */
+    border: 1px solid #ddd; /* Subtle border for distinction */
+    border-radius: 5px; /* Rounds the corners */
+    margin-top: 10px; /* Adds space above the list */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds a shadow for depth */
 }
 
+/* Styling for displaying error messages */
 .ErrorMessage {
-    color: red;
-    font-size: 14px;
-    margin-bottom: 10px;
+    color: red; /* Makes the error message stand out */
+    font-size: 14px; /* Sets an appropriate font size for readability */
+    margin-bottom: 10px; /* Adds space below the message */
 }
 
+/* Styling for the info section displaying date and time */
 .Info {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #333;
-    margin-top: 10px; /* Adds a small gap between button and date/time display */
+    flex: 1; /* Ensures the info section takes up available space */
+    display: flex; /* Enables flexbox layout for child elements */
+    justify-content: center; /* Centers child elements horizontally */
+    align-items: center; /* Centers child elements vertically */
+    color: #333; /* Darker text for readability */
+    margin-top: 10px; /* Adds space above the info section */
 }
 
+/* Styling for the container that holds the table layout */
 .Tables {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; /* Enables flexbox layout for child elements */
+    align-items: center; /* Centers child elements vertically */
+    justify-content: center; /* Centers child elements horizontally */
 }
 
+/* Styling for the pop-up modal */
 .PopUp {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: fixed; /* Fixes the modal's position relative to the viewport */
+    top: 0; /* Aligns the top of the modal to the top of the viewport */
+    bottom: 0; /* Aligns the bottom of the modal to the bottom of the viewport */
+    left: 0; /* Aligns the left of the modal to the left of the viewport */
+    right: 0; /* Aligns the right of the modal to the right of the viewport */
+    display: flex; /* Enables flexbox layout for child elements */
+    align-items: center; /* Centers child elements vertically */
+    justify-content: center; /* Centers child elements horizontally */
 }
