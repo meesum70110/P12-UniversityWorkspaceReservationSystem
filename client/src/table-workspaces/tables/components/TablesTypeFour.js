@@ -10,11 +10,9 @@ const TablesTypeFour = (props) => {
     const width = 80;
     const height = 120;
 
-    // Ensure ids is an array and handle fallback if it’s not
+    // Ensuring ids is an array and handle fallback if it’s not
     const tableIds = Array.isArray(ids) ? ids : [];
 
-    // Debugging: Log the type and content of ids
-    console.log("TypeFourTable IDs:", tableIds);
 
     // Function to calculate the y-coordinate for each table based on the index and adding offset from the wall
     const getTableYDistance = (index) => {
