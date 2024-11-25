@@ -1,273 +1,301 @@
+/* Importing the Ubuntu font from Google Fonts for global use */
 @import url(https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap);
 
-*{
+/* Global font styling applied to all elements */
+* {
     font-family: 'Ubuntu', Verdana, Geneva, Tahoma, sans-serif;
 }
 
-/*----------Navigation Menu----------*/
+/*----------Navigation Menu Styling----------*/
 
-.nav-options{
-	display: grid;
-	gap: 0px;
-	grid-template-columns: 2fr 4fr 2fr;
-    list-style-type: none;
-	text-align: center;
-    background-color: white;
-	margin: 0;
-	padding: 0.625em;
-    /* width: 100%; */
+/* Styling the main navigation menu container */
+.nav-options {
+    display: grid; /* Using a grid layout */
+    gap: 0px; /* No gap between grid items */
+    grid-template-columns: 2fr 4fr 2fr; /* Layout with three columns */
+    list-style-type: none; /* Removing default list styling */
+    text-align: center; /* Center-aligning text */
+    background-color: white; /* White background for the menu */
+    margin: 0; /* Removing default margin */
+    padding: 0.625em; /* Padding around the menu */
 }
 
-.nav-logo{
-	font-size: 2em;
-	width: 4em;
-	height: 1em;
+/* Logo styling */
+.nav-logo {
+    font-size: 2em; /* Adjusting font size */
+    width: 4em; /* Fixed width for logo */
+    height: 1em; /* Fixed height for logo */
 }
 
-.placeholder{
-    margin: 0;
-    padding: 0;
-    width: auto;
-    height: auto;
-    text-decoration: none;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-items: center;
+/* Placeholder styling for navigation links and icons */
+.placeholder {
+    margin: 0; /* No margin */
+    padding: 0; /* No padding */
+    width: auto; /* Dynamic width */
+    height: auto; /* Dynamic height */
+    text-decoration: none; /* Removing underline */
+    display: flex; /* Flex layout */
+    flex-flow: row nowrap; /* Horizontal layout */
+    justify-content: center; /* Centering content */
+    align-items: center; /* Aligning items vertically */
 }
 
-.nav-option-icon, .nav-option-icon-home{
-	width: 2em;
-	height: 2em;
-	color: #333333;
-    cursor: pointer;
-	transition: all 0.5s;
-    text-decoration: none;
+/* Icon styling for navigation menu options */
+.nav-option-icon, .nav-option-icon-home {
+    width: 2em; /* Fixed width */
+    height: 2em; /* Fixed height */
+    color: #333333; /* Gray color */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: all 0.5s; /* Smooth transition for hover effects */
+    text-decoration: none; /* Removing underline */
 }
 
-.nav-option-icon:hover{
-	transform: scale(1.1);
+/* Hover effect for navigation icons */
+.nav-option-icon:hover {
+    transform: scale(1.1); /* Slight scaling effect */
 }
 
-.breadcrums{
-    color: #333333;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-start;
-    align-items: center;
-    width: 100%;
-    font-size: 1em;
-    font-weight: bold;
+/* Breadcrumb navigation styling */
+.breadcrums {
+    color: #333333; /* Gray text color */
+    display: flex; /* Flex layout */
+    flex-flow: row nowrap; /* Horizontal layout */
+    justify-content: flex-start; /* Aligning content to the left */
+    align-items: center; /* Centering items vertically */
+    width: 100%; /* Full width */
+    font-size: 1em; /* Standard font size */
+    font-weight: bold; /* Bold text */
 }
 
-.breadcrums-arrow{
-    font-size: 0.9em;
-    margin: 0px 7px;
+/* Styling the arrow icon in breadcrumbs */
+.breadcrums-arrow {
+    font-size: 0.9em; /* Smaller font size */
+    margin: 0px 7px; /* Margin for spacing */
 }
 
-.align-left, .align-right{
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: flex-start;
-    align-items: center;
+/* Aligning items in the navigation menu */
+.align-left, .align-right {
+    display: flex; /* Flex layout */
+    flex-flow: row nowrap; /* Horizontal layout */
+    justify-content: flex-start; /* Left alignment */
+    align-items: center; /* Centering items vertically */
 }
 
-.align-right{
-    justify-content: flex-end;
+/* Adjusting alignment for right-side menu items */
+.align-right {
+    justify-content: flex-end; /* Right alignment */
 }
 
+/* Styling for the side menu */
 .side-menu {
-    background-color: white;
-    position: fixed;
-    height: 100vh;
-    width: 250px;
-    top: 0;
-    right: -100%;
-    z-index: 2;
-    transition: 850ms;
+    background-color: white; /* White background */
+    position: fixed; /* Fixed position */
+    height: 100vh; /* Full viewport height */
+    width: 250px; /* Fixed width */
+    top: 0; /* Aligning to the top */
+    right: -100%; /* Initially hidden off-screen */
+    z-index: 2; /* Layered above other elements */
+    transition: 850ms; /* Smooth transition for opening/closing */
 }
 
+/* Styling for the active (visible) side menu */
 .side-menu.active {
-    right: 0;
-    transition: 300ms;
+    right: 0; /* Slide into view */
+    transition: 300ms; /* Faster transition */
 }
 
+/* Menu list styling */
 .menu-option-all {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    list-style: none;
+    margin: 0; /* No margin */
+    padding: 0; /* No padding */
+    width: 100%; /* Full width */
+    list-style: none; /* Removing default list styling */
 }
 
+/* Styling for individual menu items */
 .menu-collapse, .menu-option {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin: 0;
-    padding: 5px;
-    width: auto;
+    display: flex; /* Flex layout */
+    justify-content: flex-start; /* Left alignment */
+    align-items: center; /* Centering items vertically */
+    margin: 0; /* No margin */
+    padding: 5px; /* Padding for spacing */
+    width: auto; /* Dynamic width */
 }
 
-.menu-collapse{
-	height: 3.5em;
-    padding: 0;
-    margin-left: 0.625em;
+/* Close button styling for the side menu */
+.menu-collapse {
+    height: 3.5em; /* Fixed height */
+    padding: 0; /* No padding */
+    margin-left: 0.625em; /* Left margin for spacing */
 }
 
-.menu-option{
-    justify-content: start;
+/* Styling for menu options */
+.menu-option {
+    justify-content: start; /* Left alignment */
 }
 
-.option-standard, .option-highlight{
-    color: #615f5f;
-    text-decoration: none;
-    font-size: medium;
-    font-weight: bold;
-    white-space: nowrap;
-    padding: 7px 30px;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    border-radius: 5px;
-    cursor: pointer;
+/* Standard link styling for menu options */
+.option-standard, .option-highlight {
+    color: #615f5f; /* Gray color */
+    text-decoration: none; /* Removing underline */
+    font-size: medium; /* Medium font size */
+    font-weight: bold; /* Bold text */
+    white-space: nowrap; /* Prevent wrapping */
+    padding: 7px 30px; /* Padding around text */
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    display: flex; /* Flex layout */
+    align-items: center; /* Centering items vertically */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor */
 }
 
-.option-highlight{
-    color: #0EBAB1;
-    cursor: default;
+/* Highlighted link styling */
+.option-highlight {
+    color: #0EBAB1; /* Cyan color for highlighted option */
+    cursor: default; /* Default cursor */
 }
 
+/* Hover effect for standard options */
 .option-standard:hover {
-    background-color: rgba(238, 238, 238, 0.7);
+    background-color: rgba(238, 238, 238, 0.7); /* Light gray background */
 }
 
+/* Styling for the logout button */
 .menu-option-btn-logout {
-	font-size: medium;
-    font-weight: 600;
-	color: white;
-	background-color: #0EBAB1;
-    border: 2px solid #0EBAB1;
-	border-radius: 5px;
-
-    margin: 0px 10px;
-    margin-top: 20px;
-    padding: 15px 10px;
-    width: 90%;
-    cursor: pointer;
-    transition: all 0.5s;
+    font-size: medium; /* Medium font size */
+    font-weight: 600; /* Semi-bold text */
+    color: white; /* White text */
+    background-color: #0EBAB1; /* Cyan background */
+    border: 2px solid #0EBAB1; /* Cyan border */
+    border-radius: 5px; /* Rounded corners */
+    margin: 0px 10px; /* Spacing around the button */
+    margin-top: 20px; /* Top margin for spacing */
+    padding: 15px 10px; /* Padding for button text */
+    width: 90%; /* Fixed width */
+    cursor: pointer; /* Pointer cursor */
+    transition: all 0.5s; /* Smooth transition for hover effects */
 }
 
-.menu-option-btn-logout:hover{
-    color: #0EBAB1;
-	background: transparent;
-} 
+/* Hover effect for the logout button */
+.menu-option-btn-logout:hover {
+    color: #0EBAB1; /* Cyan text */
+    background: transparent; /* Transparent background */
+}
 
+/* Styling SweetAlert warning icons */
 .swal2-icon.swal2-warning {
-    color: rgb(207, 68, 68) !important;
-    border-color: rgb(207, 68, 68) !important;
+    color: rgb(207, 68, 68) !important; /* Red color */
+    border-color: rgb(207, 68, 68) !important; /* Red border */
 }
 
+/* Order styling for flexible layouts */
 .order-1 {
-    order: 1;
+    order: 1; /* First order */
 }
   
 .order-2 {
-    order: 2;
+    order: 2; /* Second order */
 }
 
-/*----------Custom Footer----------*/
+/*----------Custom Footer Styling----------*/
 
-.copyright-text{
-	width: 100%;
-	text-align: center;
-	font-weight: bold;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-	color: white;
-	background-color: rgba(0, 0, 0, 0.8);
-    bottom: 0;
+/* Styling the footer text */
+.copyright-text {
+    width: 100%; /* Full width */
+    text-align: center; /* Center-aligning text */
+    font-weight: bold; /* Bold text */
+    font-family: Verdana, Geneva, Tahoma, sans-serif; /* Font family */
+    color: white; /* White text color */
+    background-color: rgba(0, 0, 0, 0.8); /* Black background with opacity */
+    bottom: 0; /* Aligning to the bottom */
 }
 
-.copyright-text p{
-	margin: 0 auto;
-    padding: 6px;
+/* Styling the footer paragraph */
+.copyright-text p {
+    margin: 0 auto; /* Centering text */
+    padding: 6px; /* Padding around text */
 }
 
-/*----------Navigation Menu Media query----------*/
+/*----------Media Queries for Navigation Menu----------*/
+
+/* Adjustments for screens with height below 565px */
 @media only screen and (max-height: 565px) {
-
-    .menu-option{
-        padding: 3px;
+    .menu-option {
+        padding: 3px; /* Reduced padding */
     }
     .menu-option a {
-        font-size: medium;
-        padding: 0px 30px;
+        font-size: medium; /* Medium font size */
+        padding: 0px 30px; /* Adjusted padding */
     }
-
-    .menu-option-btn-logout {    
-        margin-top: 10px;
-        padding: 10px 10px;
+    .menu-option-btn-logout {
+        margin-top: 10px; /* Reduced top margin */
+        padding: 10px 10px; /* Smaller padding */
     }
-    
 }
 
+/* Adjustments for screens with height below 370px */
 @media only screen and (max-height: 370px) {
-
-    .menu-option{
-        padding: 0px;
+    .menu-option {
+        padding: 0px; /* No padding */
     }
     .menu-option a {
-        display: none;
+        display: none; /* Hiding links */
     }
-
-    .menu-option-btn-logout {    
-        margin-top: 4em;
-        padding: 10px 10px;
+    .menu-option-btn-logout {
+        margin-top: 4em; /* Increased margin */
+        padding: 10px 10px; /* Smaller padding */
     }
-    
 }
 
-@media  only screen and (max-width:500px) {
-    .breadcrums{
-        display: none;
+/* Adjustments for screens with width below 500px */
+@media only screen and (max-width: 500px) {
+    .breadcrums {
+        display: none; /* Hiding breadcrumbs */
     }
-    
 }
 
-/*----------Loading----------*/
+/*----------Loading Animation Styling----------*/
 
+/* Keyframes for rolling spinner animation */
 @keyframes ldio-yzaezf3dcmj {
-    0% { transform: translate(-50%,-50%) rotate(0deg); }
-    100% { transform: translate(-50%,-50%) rotate(360deg); }
-  }
-  .ldio-yzaezf3dcmj div {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    border: 5px solid #0EBAB1;
-    border-top-color: transparent;
-    border-radius: 50%;
-  }
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
 
-  .ldio-yzaezf3dcmj div {
-    animation: ldio-yzaezf3dcmj 1s linear infinite;
-    top: 100px;
-    left: 100px
-  }
-  .loadingio-spinner-rolling-2by998twmg8 {
-    width: 200px;
-    height: 200px;
-    display: inline-block;
-    overflow: hidden;
-    background: inherit;
-  }
-  .ldio-yzaezf3dcmj {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    transform: translateZ(0) scale(1);
-    backface-visibility: hidden;
-    transform-origin: 0 0; /* see note above */
-  }
-  .ldio-yzaezf3dcmj div { box-sizing: content-box; }
-  /* [ldio] generated by https://loading.io */
+/* Spinner styling */
+.ldio-yzaezf3dcmj div {
+    position: absolute;
+    width: 40px; /* Fixed width */
+    height: 40px; /* Fixed height */
+    border: 5px solid #0EBAB1; /* Cyan border */
+    border-top-color: transparent; /* Transparent top border for animation */
+    border-radius: 50%; /* Circular shape */
+    animation: ldio-yzaezf3dcmj 1s linear infinite; /* Continuous rotation */
+    top: 100px; /* Positioning */
+    left: 100px; /* Positioning */
+}
+
+/* Container for the loading spinner */
+.loadingio-spinner-rolling-2by998twmg8 {
+    width: 200px; /* Fixed width */
+    height: 200px; /* Fixed height */
+    display: inline-block; /* Inline-block layout */
+    overflow: hidden; /* Hiding overflow content */
+    background: inherit; /* Inheriting background */
+}
+
+/* Container for the animation */
+.ldio-yzaezf3dcmj {
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    position: relative; /* Relative positioning */
+    transform: translateZ(0) scale(1); /* Scaling */
+    backface-visibility: hidden; /* Preventing backface visibility */
+    transform-origin: 0 0; /* Transformation origin */
+}
+
+/* Ensuring proper box-sizing */
+.ldio-yzaezf3dcmj div {
+    box-sizing: content-box; /* Content-box sizing */
+}
