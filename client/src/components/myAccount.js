@@ -1,417 +1,398 @@
-import React, { useState, useEffect} from "react";
+// Importing React and necessary hooks
+import React, { useState, useEffect } from "react";
 
-// For accessing global state for logged in users
+// Importing the authorization hook to access global state for logged-in users
 import { useAuthorize } from "../context/hook/useAuthorization";
 
-import '../styles/myaccount.css'
-import '../styles/signup.css'
+// Importing styles for the account and signup pages
+import '../styles/myaccount.css';
+import '../styles/signup.css';
+
+// Importing animation library for transitions
 import 'animate.css';
 
+// Importing icons used in the component
+import { IoCamera } from "react-icons/io5"; // Icon for uploading a photo
+import { IoIosRemoveCircle } from "react-icons/io"; // Icon for removing a photo
+import * as FiIcons from "react-icons/fi"; // Icon library for password visibility toggling
+import { MdEdit } from "react-icons/md"; // Edit icon
+import { FaAngleDown } from "react-icons/fa6"; // Dropdown arrow icon
 
-// Importing icons
-import { IoCamera } from "react-icons/io5";
-import { IoIosRemoveCircle } from "react-icons/io";
-import * as FiIcons from "react-icons/fi";
-import { MdEdit } from "react-icons/md";
-import { FaAngleDown } from "react-icons/fa6";
-import no_photo_icon from './Images/Profile/no-profile-img.png'
+// Placeholder image for profiles without a photo
+import no_photo_icon from './Images/Profile/no-profile-img.png';
 
-// Antd components
-import {DatePicker} from "antd";
+// Importing Ant Design's DatePicker component
+import { DatePicker } from "antd";
+
+// Importing moment.js for date handling
 import moment from 'moment';
 
-//Importing Shared Components
-import NavMenu from "./SharedComponents/navMenu";
-import {convertToBase64, validateImage} from "./SharedComponents/base64"
+// Importing shared components
+import NavMenu from "./SharedComponents/navMenu"; // Navigation menu component
+import { convertToBase64, validateImage } from "./SharedComponents/base64"; // Functions for image validation and conversion
 
-// Importing Alerts
+// Importing SweetAlert for user-friendly alerts
 import Swal from "sweetalert2";
 
-// Importing Tooltips
+// Importing and styling tooltips
 import 'react-tooltip/dist/react-tooltip.css';
 import { Tooltip } from 'react-tooltip';
 
-const MyAccount = (prop)=>{
-    
-    // userAccount object stores the current state including email, occupation, jwt
-    const {userAccount} = useAuthorize();
+// Functional component definition for MyAccount
+const MyAccount = (prop) => {
+    // Extracting userAccount object from the authorization context
+    const { userAccount } = useAuthorize();
 
-    // Account summary states
-    const [photo, setPhoto] = useState('');
-    const [email, setEmail] = useState('');
-    const [fname, setFName] = useState('');
-    const [lname, setLName] = useState('')
-    const [dob, setDob] = useState('');
-    const [gender, setGender] = useState('');
+    // State variables for managing account summary details
+    const [photo, setPhoto] = useState(''); // User profile photo
+    const [email, setEmail] = useState(''); // User email
+    const [fname, setFName] = useState(''); // User first name
+    const [lname, setLName] = useState(''); // User last name
+    const [dob, setDob] = useState(''); // User date of birth
+    const [gender, setGender] = useState(''); // User gender
+    const [salary, setSalary] = useState(''); // User salary
+    const [department, setDepartment] = useState(''); // User department
+    const [residence, setResidence] = useState(''); // User residence
+    const [rank, setRank] = useState(''); // User rank
 
-    const [salary, setSalary] = useState('');
-    const [department, setDepartment] = useState('');
-    const [residence, setResidence] = useState('');
-    const [rank, setRank] = useState('');
-
-    // Photo states
+    // State variables for photo upload and removal
     const [isPhotoUploading, setPhotoUploading] = useState(false);
 
-    // Basic info states
-    const [fnameNew, setFNameNew] = useState('');
-    const [lnameNew, setLNameNew] = useState('');
-    const [dobNew, setDobNew] = useState('');
-    const [genderNew, setGenderNew] = useState('');
-    const [residenceNew, setResidenceNew] = useState('');
+    // State variables for managing basic information updates
+    const [fnameNew, setFNameNew] = useState(''); // Updated first name
+    const [lnameNew, setLNameNew] = useState(''); // Updated last name
+    const [dobNew, setDobNew] = useState(''); // Updated date of birth
+    const [genderNew, setGenderNew] = useState(''); // Updated gender
+    const [residenceNew, setResidenceNew] = useState(''); // Updated residence
 
-    const [fnameNewError, setFNameNewError] = useState('');
-    const [lnameNewError, setLNameNewError] = useState('');
-    const [dobNewError, setDobNewError] = useState('');
-    const [genderNewError, setGenderNewError] = useState('');
-    const [residenceNewError, setResidenceNewError] = useState('');
-    const [basicInfoError, setBasicInfoError] = useState('');
+    const [fnameNewError, setFNameNewError] = useState(''); // Error for first name
+    const [lnameNewError, setLNameNewError] = useState(''); // Error for last name
+    const [dobNewError, setDobNewError] = useState(''); // Error for date of birth
+    const [genderNewError, setGenderNewError] = useState(''); // Error for gender
+    const [residenceNewError, setResidenceNewError] = useState(''); // Error for residence
+    const [basicInfoError, setBasicInfoError] = useState(''); // General error for basic information
 
-    const [basicOptions, setBasicOptions] = useState(false);
-    const [dropValue, setDropValue] = useState('');
-    const [datePickerValue, setDatePickerValue] = useState('');
-    const [basicOptionDisable, setbasicOptionDisable] = useState('option-disable');
-    const [isUpdatingBasicInfo, setUpdatingBasicInfo] = useState(false);
+    const [basicOptions, setBasicOptions] = useState(false); // State to control visibility of basic info edit options
+    const [dropValue, setDropValue] = useState(''); // Dropdown value for residence
+    const [datePickerValue, setDatePickerValue] = useState(''); // Date picker value
+    const [basicOptionDisable, setbasicOptionDisable] = useState('option-disable'); // State to enable/disable basic options
+    const [isUpdatingBasicInfo, setUpdatingBasicInfo] = useState(false); // State to track if basic info is being updated
 
+    // Function to enable basic info edit options
     const handleBasicOptions = () => {
-        setbasicOptionDisable('');
-        setBasicOptions(true);
-    }
+        setbasicOptionDisable(''); // Enabling options
+        setBasicOptions(true); // Showing the options
+    };
 
+    // Dropdown options for residence
     const options = [
-        {label: 'Punjab', value:'Punjab', key: 1},
-        {label: 'Sindh', value:'Sindh', key: 2},
-        {label: 'Balochistan', value:'Balochistan', key: 3},
-        {label: 'Khyber Pakhtunkhwa', value:'Khyber Pakhtunkhwa', key: 4},
-        {label: 'Kashmir', value:'Kashmir', key: 5}
-    ]
+        { label: 'Punjab', value: 'Punjab', key: 1 },
+        { label: 'Sindh', value: 'Sindh', key: 2 },
+        { label: 'Balochistan', value: 'Balochistan', key: 3 },
+        { label: 'Khyber Pakhtunkhwa', value: 'Khyber Pakhtunkhwa', key: 4 },
+        { label: 'Kashmir', value: 'Kashmir', key: 5 }
+    ];
 
+    // Function to set gender to male
     const setGenderNewMale = () => {
-        setGenderNew('male')
-    }
+        setGenderNew('male');
+    };
 
+    // Function to set gender to female
     const setGenderNewFemale = () => {
-        setGenderNew('female')
-    }
+        setGenderNew('female');
+    };
 
+    // Function to handle residence selection from dropdown
     const handleResidenceNew = (e) => {
-        setDropValue(e.target.value);
-        setResidenceNew(e.target.value);
-    }
+        setDropValue(e.target.value); // Updating dropdown value
+        setResidenceNew(e.target.value); // Updating residence state
+    };
 
+    // Function to handle date of birth selection
     const handleDobNew = async (date, dateString) => {
-        setDatePickerValue(date);
-        if(date)
-        {
-            const sDate = moment(dateString).format('YYYY/MM/DD');
-            setDobNew(sDate);
+        setDatePickerValue(date); // Setting date picker value
+        if (date) {
+            const sDate = moment(dateString).format('YYYY/MM/DD'); // Formatting date
+            setDobNew(sDate); // Setting formatted date
+        } else {
+            setDobNew(''); // Clearing the date
         }
-        else
-        {
-            setDobNew('');
-        }
-    }
+    };
 
+    // Function to reset the basic info form to its initial state
     const resetBasicForm = () => {
         setFNameNew('');
         setLNameNew('');
         setDobNew('');
         setGenderNew(gender);
         setResidenceNew('');
-    
         setFNameNewError('');
         setLNameNewError('');
         setDobNewError('');
         setGenderNewError('');
         setResidenceNewError('');
         setBasicInfoError('');
-
         setDatePickerValue('');
         setbasicOptionDisable('option-disable');
-
         setBasicOptions(false);
-    }
+    };
 
+    // Function to cancel basic info update
     const handleBasicCancel = () => {
-        setUpdatingBasicInfo(true);
-        resetBasicForm();
-        setUpdatingBasicInfo(false);
-    }
+        setUpdatingBasicInfo(true); // Indicating the update process has started
+        resetBasicForm(); // Resetting the form
+        setUpdatingBasicInfo(false); // Indicating the update process has ended
+    };
 
+    // Function to update basic information
     const UpdateBasicInfo = async (e) => {
+        e.preventDefault(); // Preventing the default form submission behavior
 
-        // Prevents default action of page refresh on form submission
-        e.preventDefault();
-
-        if(!userAccount)
-        {
-            setBasicInfoError('You are not logged in');
+        if (!userAccount) {
+            setBasicInfoError('You are not logged in'); // Setting an error if the user is not logged in
             return;
         }
 
-        setUpdatingBasicInfo(true);
+        setUpdatingBasicInfo(true); // Indicating that the update process has started
 
+        // Resetting error states
         setFNameNewError('');
         setLNameNewError('');
         setDobNewError('');
         setGenderNewError('');
-        setResidenceNewError('')
+        setResidenceNewError('');
 
-        let updateList = {}
-        if(fnameNew && fnameNew.toLowerCase() !== fname.toLowerCase()){updateList.fname=fnameNew}
-        if(lnameNew && lnameNew.toLowerCase() !== lname.toLowerCase()){updateList.lname=lnameNew}
-        if(dobNew && dobNew !== dob){updateList.dob=dobNew}
-        if(genderNew && genderNew !== gender){updateList.gender=genderNew}
-        if(residenceNew && residenceNew !== residence){updateList.residence=residenceNew}
+        // Creating an object to store fields that need to be updated
+        let updateList = {};
+        if (fnameNew && fnameNew.toLowerCase() !== fname.toLowerCase()) {
+            updateList.fname = fnameNew;
+        }
+        if (lnameNew && lnameNew.toLowerCase() !== lname.toLowerCase()) {
+            updateList.lname = lnameNew;
+        }
+        if (dobNew && dobNew !== dob) {
+            updateList.dob = dobNew;
+        }
+        if (genderNew && genderNew !== gender) {
+            updateList.gender = genderNew;
+        }
+        if (residenceNew && residenceNew !== residence) {
+            updateList.residence = residenceNew;
+        }
 
-        if(Object.keys(updateList).length === 0)
-        {
+        // If no fields are updated, show an error and stop the update process
+        if (Object.keys(updateList).length === 0) {
             setBasicInfoError('No fields to update');
             setUpdatingBasicInfo(false);
             return;
         }
 
+        // Sending the updated fields to the server
         const result = await fetch('https://workspacereservation-backend.onrender.com/api/account/info', {
-            method: 'PATCH',
-            body: JSON.stringify({...updateList}),
+            method: 'PATCH', // Using the PATCH method for partial updates
+            body: JSON.stringify({ ...updateList }), // Sending the updated fields as JSON
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${userAccount.userToken}`
+                'Content-Type': 'application/json', // Setting the content type
+                'Authorization': `Bearer ${userAccount.userToken}` // Including the user's token for authentication
             }
-        })
+        });
 
-        const resultJson = await result.json();
+        const resultJson = await result.json(); // Parsing the server response
 
-        if (result.ok)
-        {
-            if(fnameNew)
-                setFName(fnameNew.toLowerCase());
-            if(lnameNew)
-                setLName(lnameNew.toLowerCase());
-            if(dobNew)
-                setDob(dobNew);
+        if (result.ok) {
+            // Updating the states with the new values if the update is successful
+            if (fnameNew) setFName(fnameNew.toLowerCase());
+            if (lnameNew) setLName(lnameNew.toLowerCase());
+            if (dobNew) setDob(dobNew);
             setGender(genderNew);
-            if(residenceNew)
-                setResidence(residenceNew);
+            if (residenceNew) setResidence(residenceNew);
 
+            // Resetting the form and showing a success alert
             resetBasicForm();
-            setGenderNew(genderNew);
-
             Swal.fire({
                 icon: "success",
                 title: "Basic Info Updated!",
                 confirmButtonColor: "#1d578a",
             });
 
-            setUpdatingBasicInfo(false);
-        }
-        else
-        {
+            setUpdatingBasicInfo(false); // Indicating the update process has ended
+        } else {
+            // Handling errors if the update fails
             setBasicInfoError(resultJson.error);
 
-            if(resultJson.errorList)
-            {
-                if (resultJson.errorList.fname)
-                    setFNameNewError(resultJson.errorList.fname);
-
-                if (resultJson.errorList.lname)
-                    setLNameNewError(resultJson.errorList.lname);
-
-                if (resultJson.errorList.dob)
-                    setDobNewError(resultJson.errorList.dob);
-
-                if (resultJson.errorList.gender)
-                {
-                    setGenderNewError(resultJson.errorList.gender);
-                }
-
-                if (resultJson.errorList.residence)
-                    setResidenceNewError(resultJson.errorList.residence);
+            if (resultJson.errorList) {
+                if (resultJson.errorList.fname) setFNameNewError(resultJson.errorList.fname);
+                if (resultJson.errorList.lname) setLNameNewError(resultJson.errorList.lname);
+                if (resultJson.errorList.dob) setDobNewError(resultJson.errorList.dob);
+                if (resultJson.errorList.gender) setGenderNewError(resultJson.errorList.gender);
+                if (resultJson.errorList.residence) setResidenceNewError(resultJson.errorList.residence);
             }
-            setUpdatingBasicInfo(false);
+
+            setUpdatingBasicInfo(false); // Indicating the update process has ended
         }
+    };
 
-    }
+    // State variables for password form
+    const [oldPassword, setOldPassword] = useState(''); // State for the old password
+    const [newPassword1, setNewPassword1] = useState(''); // State for the new password
+    const [newPassword2, setNewPassword2] = useState(''); // State for confirming the new password
 
-    // Password form states
-    const [oldPassword, setOldPassword] = useState('');
-    const [newPassword1, setNewPassword1] = useState('');
-    const [newPassword2, setNewPassword2] = useState('');
-
+    // States for toggling password visibility
     const [oldPasswordShow, setOldPasswordShow] = useState('password');
     const [newPassword1Show, setNewPassword1Show] = useState('password');
     const [newPassword2Show, setNewPassword2Show] = useState('password');
 
+    // State variables for password errors
     const [oldPasswordError, setOldPasswordError] = useState('');
     const [newPassword1Error, setNewPassword1Error] = useState('');
     const [newPassword2Error, setNewPassword2Error] = useState('');
     const [passwordError, setPasswordError] = useState('');
 
-    const [passwordOptions, setPasswordOptions] = useState(false);
-    const [passwordOptionDisable, setpasswordOptionDisable] = useState('option-disable');
-    const [isUpdatingPassword, setUpdatingPassword] = useState(false);
+    const [passwordOptions, setPasswordOptions] = useState(false); // State to toggle password update form visibility
+    const [passwordOptionDisable, setpasswordOptionDisable] = useState('option-disable'); // State to enable/disable password fields
+    const [isUpdatingPassword, setUpdatingPassword] = useState(false); // State to track if the password update is in progress
 
+    // Function to enable password update options
     const handlePasswordOptions = () => {
-        setpasswordOptionDisable('');
-        setPasswordOptions(true);
-    }
+        setpasswordOptionDisable(''); // Enabling password fields
+        setPasswordOptions(true); // Showing the options
+    };
 
+    // Rules for password validation
     const rules = [
-        {id: 1, condition:'Minimum of 8 characters'},
-        {id: 2, condition:'At least one number'},
-        {id: 3, condition:'At least one special character'},
-        {id: 4, condition:'At least one uppercase letter'},
-        {id: 5, condition:'At least one lowercase letter'},
-    ]
+        { id: 1, condition: 'Minimum of 8 characters' },
+        { id: 2, condition: 'At least one number' },
+        { id: 3, condition: 'At least one special character' },
+        { id: 4, condition: 'At least one uppercase letter' },
+        { id: 5, condition: 'At least one lowercase letter' },
+    ];
 
+    // Functions to toggle password visibility for each field
     const showOldPassword = () => {
-        if(oldPasswordShow === 'password')
-            setOldPasswordShow('text');
-        else
-            setOldPasswordShow('password');
-    }
+        setOldPasswordShow(oldPasswordShow === 'password' ? 'text' : 'password');
+    };
 
     const showNewPassword1 = () => {
-        if(newPassword1Show === 'password')
-            setNewPassword1Show('text');
-        else
-            setNewPassword1Show('password');
-    }
+        setNewPassword1Show(newPassword1Show === 'password' ? 'text' : 'password');
+    };
 
     const showNewPassword2 = () => {
-        if(newPassword2Show === 'password')
-            setNewPassword2Show('text');
-        else
-            setNewPassword2Show('password');
-    }
+        setNewPassword2Show(newPassword2Show === 'password' ? 'text' : 'password');
+    };
 
+    // Function to reset the password form
     const resetPasswordForm = () => {
         setOldPassword('');
         setNewPassword1('');
         setNewPassword2('');
-    
         setOldPasswordShow('password');
         setNewPassword1Show('password');
         setNewPassword2Show('password');
-    
         setOldPasswordError('');
         setNewPassword1Error('');
         setNewPassword2Error('');
         setPasswordError('');
-
         setpasswordOptionDisable('option-disable');
         setPasswordOptions(false);
-    }
+    };
 
+    // Function to cancel the password update process
     const handlePasswordCancel = () => {
-        setUpdatingPassword(true);
-        resetPasswordForm();
-        setUpdatingPassword(false);
-    }
+        setUpdatingPassword(true); // Indicating the update process has started
+        resetPasswordForm(); // Resetting the form
+        setUpdatingPassword(false); // Indicating the update process has ended
+    };
 
+    // Function to update the user's password
     const updatePassword = async (e) => {
+        e.preventDefault(); // Preventing the default form submission behavior
 
-        // Prevents default action of page refresh on form submission
-        e.preventDefault();
-
-        if(!userAccount)
-        {
-            setPasswordError('You are not logged in');
+        if (!userAccount) {
+            setPasswordError('You are not logged in'); // Setting an error if the user is not logged in
             return;
         }
 
-        setUpdatingPassword(true);
+        setUpdatingPassword(true); // Indicating the update process has started
 
+        // Resetting password error states
         setOldPasswordError('');
         setNewPassword1Error('');
         setNewPassword2Error('');
 
+        // Sending the password update request to the server
         const result = await fetch('https://workspacereservation-backend.onrender.com/api/account/password', {
-            method: 'PATCH',
-            body: JSON.stringify({oldPassword, newPassword1, newPassword2}),
+            method: 'PATCH', // Using the PATCH method to update the password
+            body: JSON.stringify({ oldPassword, newPassword1, newPassword2 }), // Sending the password details as JSON
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${userAccount.userToken}`
+                'Content-Type': 'application/json', // Setting the content type
+                'Authorization': `Bearer ${userAccount.userToken}` // Including the user's token for authentication
             }
-        })
+        });
 
-        const resultJson = await result.json();
+        const resultJson = await result.json(); // Parsing the server response
 
-        if (result.ok)
-        {
+        if (result.ok) {
+            // If the password update is successful, reset the form and show a success alert
             resetPasswordForm();
-
             Swal.fire({
                 icon: "success",
                 title: "Password Updated!",
                 confirmButtonColor: "#1d578a",
             });
-            setUpdatingPassword(false);
-        }
-        else
-        {
+
+            setUpdatingPassword(false); // Indicating the update process has ended
+        } else {
+            // Handling errors if the password update fails
             setPasswordError(resultJson.error);
 
-            if(resultJson.errorList)
-            {
-                if (resultJson.errorList.oldPassword)
-                    setOldPasswordError(resultJson.errorList.oldPassword);
-
-                if (resultJson.errorList.newPassword1)
-                    setNewPassword1Error(resultJson.errorList.newPassword1);
-
-                if (resultJson.errorList.newPassword2)
-                {
-                    setNewPassword2Error(resultJson.errorList.newPassword2);
-                }
+            if (resultJson.errorList) {
+                if (resultJson.errorList.oldPassword) setOldPasswordError(resultJson.errorList.oldPassword);
+                if (resultJson.errorList.newPassword1) setNewPassword1Error(resultJson.errorList.newPassword1);
+                if (resultJson.errorList.newPassword2) setNewPassword2Error(resultJson.errorList.newPassword2);
             }
-            setUpdatingPassword(false);
-        }
 
-    }
- 
-    // Use effect hook only run once initially when the page in rendered.
+            setUpdatingPassword(false); // Indicating the update process has ended
+        }
+    };
+
+    // useEffect hook to fetch and populate the user's profile when the component is mounted
     useEffect(() => {
         const fetchProfile = async () => {
             const result = await fetch('https://workspacereservation-backend.onrender.com/api/account/', {
                 headers: {
-                    'Authorization': `Bearer ${userAccount.userToken}`
+                    'Authorization': `Bearer ${userAccount.userToken}` // Including the user's token for authentication
                 }
             });
-    
-            // Parsing json results as array of objects.
-            const resultJson = await result.json();
-    
-            if (result.ok)
-            {
-                if (resultJson.photo){
-                    setPhoto(resultJson.photo);
-                }
+
+            const resultJson = await result.json(); // Parsing the server response
+
+            if (result.ok) {
+                // Populating the states with the fetched profile details
+                if (resultJson.photo) setPhoto(resultJson.photo);
                 setEmail(resultJson.email);
                 setFName(resultJson.fname);
                 setLName(resultJson.lname);
-                setDob(moment(resultJson.dob).format('YYYY/MM/DD'))
+                setDob(moment(resultJson.dob).format('YYYY/MM/DD')); // Formatting the date of birth
                 setGender(resultJson.gender);
-                setGenderNew(resultJson.gender)
+                setGenderNew(resultJson.gender);
                 setSalary(resultJson.salary);
                 setDepartment(resultJson.department);
                 setResidence(resultJson.residence);
                 setRank(resultJson.occupation);
             }
 
-            console.log(resultJson);
-        }
-           
-        if(userAccount)
-            fetchProfile();
-            
-    }, [userAccount]);
+            console.log(resultJson); // Logging the result for debugging purposes
+        };
 
+        if (userAccount) fetchProfile(); // Fetching the profile if the user is logged in
+    }, [userAccount]); // Dependency array to refetch if userAccount changes
 
-    const handlePhotoRemove = async (e) => {
-        if(!userAccount)
-            return;
+    // Function to handle removing the user's profile photo
+    const handlePhotoRemove = async () => {
+        if (!userAccount) return; // Preventing action if the user is not logged in
 
-        let cancelOperation = false;
+        let cancelOperation = false; // Variable to track if the operation is canceled
         await Swal.fire({
             title: "Are you sure?",
             text: "Remove profile picture?",
@@ -420,94 +401,87 @@ const MyAccount = (prop)=>{
             confirmButtonColor: "#d33",
             cancelButtonColor: "#1d578a",
             confirmButtonText: "Yes",
-            }).then((result) => {
-            if (!result.isConfirmed) {
-                cancelOperation = true;
-            }
-          });
+        }).then((result) => {
+            if (!result.isConfirmed) cancelOperation = true; // Canceling the operation if not confirmed
+        });
 
-        if (cancelOperation) {return;}
+        if (cancelOperation) return; // Exiting if the operation is canceled
 
-        setPhotoUploading(true);
+        setPhotoUploading(true); // Indicating that the photo removal process has started
 
         const result = await fetch('https://workspacereservation-backend.onrender.com/api/account/photo', {
-            method: 'PATCH',
-            body: JSON.stringify({photo : ''}),
+            method: 'PATCH', // Using the PATCH method to remove the photo
+            body: JSON.stringify({ photo: '' }), // Sending an empty photo field
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${userAccount.userToken}`
+                'Content-Type': 'application/json', // Setting the content type
+                'Authorization': `Bearer ${userAccount.userToken}` // Including the user's token for authentication
             }
-        })
+        });
 
-        await result.json();
-        if (result.ok){
+        await result.json(); // Parsing the server response
+
+        if (result.ok) {
+            // If the photo is successfully removed, reset the photo state and show a success alert
             setPhoto('');
             Swal.fire({
                 icon: "success",
                 title: "Profile Photo Removed!",
                 confirmButtonColor: "#1d578a",
             });
-        }
-            
-        else{
+        } else {
+            // Handling errors if the photo removal fails
             Swal.fire({
                 icon: "error",
                 title: "Unable To Remove Profile Photo",
                 confirmButtonColor: "#1d578a",
             });
         }
-        
-        setPhotoUploading(false);
-    }
 
+        setPhotoUploading(false); // Indicating that the photo removal process has ended
+    };
 
+    // Function to handle uploading a new profile photo
     const handlePhotoUpload = async (e) => {
-        if(!userAccount)
-            return;
-        setPhotoUploading(true);
-        try{
-            const fileValidity = validateImage(e.target.files[0]);
-            if(fileValidity !== 'Accepted')
-            {
-                if(fileValidity === "File is not an image")
-                {
-                    Swal.fire({
-                        icon: "error",
-                        title: "File is not an image!",
-                        confirmButtonColor: "#1d578a",
-                    });
-                }
-                else if(fileValidity === "File too large (Max limit: 40 MB)")
-                {
-                    Swal.fire({
-                        icon: "error",
-                        title: "File too large (Max limit: 40 MB)",
-                        confirmButtonColor: "#1d578a",
-                    });
-                }
-            }
-            else
-            {
+        if (!userAccount) return; // Preventing action if the user is not logged in
+
+        setPhotoUploading(true); // Indicating that the photo upload process has started
+
+        try {
+            const fileValidity = validateImage(e.target.files[0]); // Validating the selected file
+            if (fileValidity !== 'Accepted') {
+                // Handling errors based on the validation result
+                const errorTitle = fileValidity === "File is not an image"
+                    ? "File is not an image!"
+                    : "File too large (Max limit: 40 MB)";
+                Swal.fire({
+                    icon: "error",
+                    title: errorTitle,
+                    confirmButtonColor: "#1d578a",
+                });
+            } else {
+                // Converting the image to base64 format
                 const base64 = await convertToBase64(e.target.files[0]);
                 const result = await fetch('https://workspacereservation-backend.onrender.com/api/account/photo', {
-                    method: 'PATCH',
-                    body: JSON.stringify({photo : base64}),
+                    method: 'PATCH', // Using the PATCH method to upload the photo
+                    body: JSON.stringify({ photo: base64 }), // Sending the photo as base64
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${userAccount.userToken}`
+                        'Content-Type': 'application/json', // Setting the content type
+                        'Authorization': `Bearer ${userAccount.userToken}` // Including the user's token for authentication
                     }
-                })
+                });
 
-                await result.json();
-                if (result.ok){
+                await result.json(); // Parsing the server response
+
+                if (result.ok) {
+                    // If the photo is successfully uploaded, update the photo state and show a success alert
                     setPhoto(base64);
                     Swal.fire({
                         icon: "success",
                         title: "Profile Photo Updated!",
                         confirmButtonColor: "#1d578a",
                     });
-                }
-                else{
+                } else {
+                    // Handling errors if the photo upload fails
                     Swal.fire({
                         icon: "error",
                         title: "Unable To Update Profile Photo",
@@ -515,15 +489,14 @@ const MyAccount = (prop)=>{
                     });
                 }
             }
-            setPhotoUploading(false);
-
+        } catch (error) {
+            console.error("Error uploading photo:", error); // Logging the error for debugging
+        } finally {
+            setPhotoUploading(false); // Indicating that the photo upload process has ended
         }
-        catch (error){
-            setPhotoUploading(false);
-        }
-    }
+    };
 
-    // Tooltip style
+    // Tooltip styling configuration
     const style = { backgroundColor: "#cbd6e2", color: "#222", fontSize: "13px", fontWeight: "normal" };
 
     return (   
