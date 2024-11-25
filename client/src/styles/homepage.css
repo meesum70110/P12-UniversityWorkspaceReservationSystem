@@ -1,103 +1,114 @@
+/* Importing the 'Ubuntu' font and applying it globally to the page */
 @import url(https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap);
 
-*{
-    font-family: 'Ubuntu', Verdana, Geneva, Tahoma, sans-serif;
+* {
+    font-family: 'Ubuntu', Verdana, Geneva, Tahoma, sans-serif; /* Sets the default font for the page */
 }
 
-/*----------cover----------*/
-.cover-wrapper{
-    margin-top: 10px;
-    height: max(50vh, 200px);
-    width: 100%;
-    display: flex;
-    flex-flow: row wrap;
-    align-items: center;
-    justify-content: center;
+/*----------Cover Section----------*/
+/* Styling the wrapper for the cover image */
+.cover-wrapper {
+    margin-top: 10px; /* Adds spacing above the cover */
+    height: max(50vh, 200px); /* Ensures the height is at least 200px or 50% of the viewport height */
+    width: 100%; /* Expands the wrapper to fill the width of the page */
+    display: flex; /* Uses flexbox for layout */
+    flex-flow: row wrap; /* Allows items to wrap if necessary */
+    align-items: center; /* Centers items vertically */
+    justify-content: center; /* Centers items horizontally */
 }
 
-.cover-wrapper img{
-    height: 70%;
-    transform: scaleX(-1);
+/* Styling the cover image */
+.cover-wrapper img {
+    height: 70%; /* Sets the height relative to the wrapper */
+    transform: scaleX(-1); /* Flips the image horizontally */
 }
 
-/*----------Collection----------*/
-.scrolling-wrapper{
-    display: flex;
-    overflow-x: auto;
+/*----------Collection Section----------*/
+/* Styling for a horizontally scrollable section */
+.scrolling-wrapper {
+    display: flex; /* Uses flexbox for horizontal layout */
+    overflow-x: auto; /* Allows horizontal scrolling */
 }
 
+/* Customizing the scrollbar appearance */
 .scrolling-wrapper::-webkit-scrollbar {
-    height: 12px;
+    height: 12px; /* Sets the scrollbar height */
 }
 
 .scrolling-wrapper::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 5px rgba(127, 126, 126, 0.5);
+    -webkit-box-shadow: inset 0 0 5px rgba(127, 126, 126, 0.5); /* Adds a shadow to the scrollbar track */
 }
 
 .scrolling-wrapper::-webkit-scrollbar-thumb {
-    background-color: rgba(29, 87, 138, 1);
-    border-radius: 3px;
+    background-color: rgba(29, 87, 138, 1); /* Sets the scrollbar thumb color */
+    border-radius: 3px; /* Rounds the edges of the thumb */
 }
 
-.tile-admin, .tile-emp{
-    margin: 10px;
-    padding: 10px;
-    border-radius: 5px;
+/* Styling for individual tiles in the collection */
+.tile-admin, .tile-emp {
+    margin: 10px; /* Adds spacing around each tile */
+    padding: 10px; /* Adds inner padding within the tile */
+    border-radius: 5px; /* Rounds the edges of the tile */
 
-    height: 270px;
-    min-width: 270px;
+    height: 270px; /* Sets a fixed height for tiles */
+    min-width: 270px; /* Ensures a minimum width for tiles */
 
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-    justify-content: center;
+    display: flex; /* Uses flexbox for layout */
+    flex-flow: column nowrap; /* Aligns items in a vertical column */
+    align-items: center; /* Centers items horizontally */
+    justify-content: center; /* Centers items vertically */
 
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-    background-color: #fafafa;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow for depth */
+    background-color: #fafafa; /* Sets the background color */
 }
 
-.tile-admin:hover, .tile-emp:hover{
-    background-color: white;
+/* Adds hover effect for tiles */
+.tile-admin:hover, .tile-emp:hover {
+    background-color: white; /* Changes background color on hover */
 }
 
-.tile-admin img, .tile-emp img{
-    height: 10.6em;
-    width: 10.6em;
-    margin: 10px;
-    filter: grayscale(40%);
+/* Styling for images within the tiles */
+.tile-admin img, .tile-emp img {
+    height: 10.6em; /* Sets a consistent height for images */
+    width: 10.6em; /* Sets a consistent width for images */
+    margin: 10px; /* Adds spacing around the image */
+    filter: grayscale(40%); /* Applies a grayscale filter for visual effect */
 }
 
-/*----------Button----------*/
-.form_btn{
-    text-decoration: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #1d578a;
-    font-size: medium;
-    font-weight: 600;
-    color: white;
-    background-color: #1d578a;
-    border: 2px solid #1d578a;
-    border-radius: 3px;
-    margin: 10px;
-    height: 40px;
-    width: 90%;
-    cursor: pointer;
-    transition: all 0.5s;
+/*----------Button Styling----------*/
+/* Styling for buttons used in forms */
+.form_btn {
+    text-decoration: none; /* Removes underline from links */
+    display: flex; /* Uses flexbox for alignment */
+    justify-content: center; /* Centers text horizontally */
+    align-items: center; /* Centers text vertically */
+    background: #1d578a; /* Sets the button background color */
+    font-size: medium; /* Sets a medium font size */
+    font-weight: 600; /* Makes the font semi-bold */
+    color: white; /* Sets the text color */
+    border: 2px solid #1d578a; /* Adds a border matching the background */
+    border-radius: 3px; /* Rounds the button edges */
+    margin: 10px; /* Adds spacing around the button */
+    height: 40px; /* Sets a fixed height */
+    width: 90%; /* Makes the button occupy 90% of its container's width */
+    cursor: pointer; /* Changes cursor to pointer on hover */
+    transition: all 0.5s; /* Adds smooth transition effects */
 }
 
-.form_btn:hover{
-    color: #1d578a;
-    background: transparent;
+/* Hover effect for buttons */
+.form_btn:hover {
+    color: #1d578a; /* Changes text color on hover */
+    background: transparent; /* Makes background transparent on hover */
 }
 
-@media only screen and (max-width: 650px){
-    .cover-wrapper{
-        flex-flow: column wrap;
+/*----------Responsive Design----------*/
+/* Adjustments for screens with a max width of 650px */
+@media only screen and (max-width: 650px) {
+    .cover-wrapper {
+        flex-flow: column wrap; /* Stacks items vertically */
     }
-    .cover-wrapper img{
-        height: 30%;
-        transform: scaleX(-1);
+    .cover-wrapper img {
+        height: 30%; /* Reduces image size */
+        transform: scaleX(-1); /* Maintains horizontal flip */
     }
 }
