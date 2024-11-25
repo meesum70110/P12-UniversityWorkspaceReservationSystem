@@ -1,234 +1,214 @@
+// Importing necessary libraries and hooks
 import React, { useState, useEffect, useContext } from "react";
 
-// For accessing global state for logged in users
+// Importing the authorization hook to manage global state for logged-in users
 import { useAuthorize } from "../context/hook/useAuthorization";
 
-import '../styles/formCards.css'
-import '../styles/faqs.css'
+// Importing CSS styles for forms and FAQs
+import '../styles/formCards.css';
+import '../styles/faqs.css';
+
+// Importing animation library
 import 'animate.css';
 
-// Importing icon images to be used in course cards
+// Importing icons for delete actions
 import * as MdIcons from "react-icons/md";
-import no_record_icon from './Images/Record/no-record-img.png'
 
-// Date formatting
-import {format} from "date-fns";
+// Placeholder image for no records
+import no_record_icon from './Images/Record/no-record-img.png';
 
-//Importing Shared Components
-import NavMenu from "./SharedComponents/navMenu";
-import LoadingIcon from "./SharedComponents/loading";
+// Importing date formatting utility
+import { format } from "date-fns";
 
-// Importing Alerts
+// Importing shared components
+import NavMenu from "./SharedComponents/navMenu"; // Navigation menu component
+import LoadingIcon from "./SharedComponents/loading"; // Loading spinner
+
+// Importing SweetAlert for better alerts
 import Swal from "sweetalert2";
 
-//Importing socket with shared context
+// Importing socket context for real-time updates
 import { SocketContext } from "../context/socket";
 
-// Importing Tooltips
+// Importing and styling tooltips
 import 'react-tooltip/dist/react-tooltip.css';
 import { Tooltip } from 'react-tooltip';
 
-const FaqsManage = (prop)=>{
-    
-    // userAccount object stores the current state including email, occupation, jwt
-    const {userAccount} = useAuthorize();
+// Functional component definition for FAQ management
+const FaqsManage = (prop) => {
+    // Extracting user account data from the authorization context
+    const { userAccount } = useAuthorize();
 
-    // Socket with shared context for the entire app
+    // Accessing the socket context for real-time data updates
     const socket = useContext(SocketContext);
 
-    const [faqs, setFaqs] = useState(null);
-    const [faqsExist, setExist] = useState(true);
+    // State variables for FAQ data
+    const [faqs, setFaqs] = useState(null); // Array of FAQs
+    const [faqsExist, setExist] = useState(true); // Boolean to track if FAQs exist
 
-    const [question, setQuestion] = useState('');
-    const [answer, setAnswer] = useState('');
-    const [error, setError] = useState('');
-    const [isLoading, setIsLoading] = useState(null);
-    const [isFetching, setFetching] = useState(true);
+    // State variables for new FAQ form
+    const [question, setQuestion] = useState(''); // Question input
+    const [answer, setAnswer] = useState(''); // Answer input
+    const [error, setError] = useState(''); // Error message
+    const [isLoading, setIsLoading] = useState(null); // Loading spinner for the form
+    const [isFetching, setFetching] = useState(true); // Loading spinner for fetching FAQs
 
-    // State kept to highlight input tags incase of blank field.
-    const [blankFields, setBlankFields] = useState([]);
+    // State variable to track blank fields
+    const [blankFields, setBlankFields] = useState([]); // Tracks which fields are blank
 
-    // Use effect hook only run once initially when the page in rendered.
+    // useEffect hook to fetch FAQs when the component mounts
     useEffect(() => {
         const fetchFaqs = async () => {
-            setFetching(true);
+            setFetching(true); // Enabling the fetching spinner
 
+            // Fetching FAQs from the server
             const result = await fetch('https://workspacereservation-backend.onrender.com/api/faqs/', {
                 headers: {
-                    'Authorization': `Bearer ${userAccount.userToken}`
+                    'Authorization': `Bearer ${userAccount.userToken}` // Including user token for authentication
                 }
             });
-    
-            // Parsing json results as array of objects.
-            const resultJson = await result.json();
-    
-            if (result.ok)
-            {
-                setFaqs(resultJson);
-                if(resultJson.length !== 0)
-                    setExist(true);
-                else
-                    setExist(false);
 
+            const resultJson = await result.json(); // Parsing the response
+
+            if (result.ok) {
+                setFaqs(resultJson); // Updating the FAQs state
+                setExist(resultJson.length !== 0); // Updating whether FAQs exist
             }
 
-            setFetching(false);
-        }
-           
-        if(userAccount && userAccount.occupation === 'admin'){
+            setFetching(false); // Disabling the fetching spinner
+        };
+
+        if (userAccount && userAccount.occupation === 'admin') {
+            // Fetching FAQs and notifying the socket server
             fetchFaqs();
             socket.emit('faqs', socket.id);
         }
-            
-    }, [userAccount]);
+    }, [userAccount, socket]);
 
-    useEffect(()=>{
-        socket.on('faqs', (newFaqsAll)=>{
-            setFaqs(newFaqsAll);
-            if(newFaqsAll.length === 0){
-                setExist(false);
-            }
-            else{
-                setExist(true);
-            }
-        })
+    // useEffect hook to handle real-time updates for FAQs
+    useEffect(() => {
+        socket.on('faqs', (newFaqsAll) => {
+            setFaqs(newFaqsAll); // Updating FAQs state with real-time data
+            setExist(newFaqsAll.length > 0); // Updating whether FAQs exist
+        });
+    }, [socket]);
 
-    }, []);
-
+    // Function to handle adding a new FAQ
     const handleNewFaq = async (e) => {
+        e.preventDefault(); // Preventing default form submission
 
-        // Prevents default action of page refresh on form submission
-        e.preventDefault();
-
-        if(!userAccount)
-        {
-            setError('You are not logged in');
+        if (!userAccount) {
+            setError('You are not logged in'); // Showing an error if the user is not logged in
             return;
-        }
-        else if(userAccount.occupation !== 'admin')
-        {
-            setError('You are not an admin');
+        } else if (userAccount.occupation !== 'admin') {
+            setError('You are not an admin'); // Showing an error if the user is not an admin
             return;
         }
 
-        setIsLoading(true);
-        
-        if((!question || question.trim().length === 0) || (!answer || answer.trim().length === 0)){
-            setBlankFields([]);
-            setError('Please fill out all the fields');
-            let emptyfields = []
-            if(!question || question.trim().length === 0){
-                emptyfields.push('Question');
-            }
-            if(!answer || answer.trim().length === 0){
-                emptyfields.push('Answer');
-            }
-            setBlankFields(emptyfields);
-            setIsLoading(false);
+        setIsLoading(true); // Enabling the loading spinner
+
+        // Checking for blank fields
+        if ((!question || question.trim().length === 0) || (!answer || answer.trim().length === 0)) {
+            setBlankFields([]); // Resetting blank fields
+            setError('Please fill out all the fields'); // Showing an error message
+            let emptyFields = [];
+            if (!question || question.trim().length === 0) emptyFields.push('Question');
+            if (!answer || answer.trim().length === 0) emptyFields.push('Answer');
+            setBlankFields(emptyFields); // Highlighting blank fields
+            setIsLoading(false); // Disabling the loading spinner
             return;
         }
 
-        const newFaq = {question, answer};
+        // Creating a new FAQ object
+        const newFaq = { question, answer };
 
+        // Sending the new FAQ to the server
         const result = await fetch('https://workspacereservation-backend.onrender.com/api/faqs/', {
-            method: 'POST',
-            body: JSON.stringify(newFaq),
+            method: 'POST', // Using POST to add a new FAQ
+            body: JSON.stringify(newFaq), // Sending FAQ data as JSON
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${userAccount.userToken}`
+                'Authorization': `Bearer ${userAccount.userToken}` // Including user token for authentication
             }
-        })
-        const resultJson = await result.json();
+        });
 
-        if (result.ok)
-        {
+        const resultJson = await result.json(); // Parsing the server response
+
+        if (result.ok) {
+            // Clearing form fields and showing a success message
             setError(null);
             setBlankFields([]);
             setQuestion('');
             setAnswer('');
-            console.log("New faq added: ",resultJson);
+            console.log("New FAQ added: ", resultJson);
             Swal.fire({
                 icon: "success",
-                title: "New Faq Added!",
+                title: "New FAQ Added!",
                 confirmButtonColor: "#1d578a",
             });
-            setIsLoading(false);
-        }
-        else
-        {
+        } else {
+            // Handling errors if the FAQ creation fails
             setError(resultJson.error);
-            if(resultJson.errorFields)
-            {
-                setBlankFields(resultJson.errorFields);
-            }
-            else
-            {
-                setBlankFields([]);
-            }
-            setIsLoading(false);
+            setBlankFields(resultJson.errorFields || []);
         }
-        
-    }
 
+        setIsLoading(false); // Disabling the loading spinner
+    };
+
+    // Function to handle deleting an FAQ
     const handleDeleteFaq = async (id) => {
-        if(!userAccount)
-            return;
-        else if(userAccount.occupation !== 'admin')
-            return;
+        if (!userAccount || userAccount.occupation !== 'admin') return; // Ensuring the user is an admin
 
-        let cancelOperation = false;
+        let cancelOperation = false; // Variable to track if the operation is canceled
 
         await Swal.fire({
             title: "Are you sure?",
-            text: "Delete this faq?",
+            text: "Delete this FAQ?",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#d33",
             cancelButtonColor: "#1d578a",
             confirmButtonText: "Yes",
-            }).then((result) => {
-            if (!result.isConfirmed) {
-                cancelOperation = true;
-            }
+        }).then((result) => {
+            if (!result.isConfirmed) cancelOperation = true; // Canceling the operation if not confirmed
         });
 
-        if (cancelOperation) {return;}
+        if (cancelOperation) return; // Exiting if the operation is canceled
 
+        // Sending a delete request to the server
         const result = await fetch('https://workspacereservation-backend.onrender.com/api/faqs/' + id, {
             method: 'DELETE',
             headers: {
-                'Authorization': `Bearer ${userAccount.userToken}`
+                'Authorization': `Bearer ${userAccount.userToken}` // Including user token for authentication
             }
-        })
+        });
 
-        const resultJson = await result.json();
+        const resultJson = await result.json(); // Parsing the server response
 
-        if (result.ok)
-        {
-            console.log("faq deleted: ",resultJson);
+        if (result.ok) {
+            // Showing a success message if the FAQ is deleted
+            console.log("FAQ deleted: ", resultJson);
             Swal.fire({
                 icon: "success",
-                title: "Faq deleted!",
+                title: "FAQ deleted!",
                 confirmButtonColor: "#1d578a",
             });
+        } else {
+            console.error(resultJson.error); // Logging any errors
         }
-        else
-        {
-            console.log(resultJson.error)
-        }
-    }
+    };
 
-    // Tooltip style
+    // Tooltip style configuration
     const style = { backgroundColor: "#cbd6e2", color: "#222", fontSize: "13px", fontWeight: "normal" };
 
-    return (   
+    return (
         <div className="faqspage">
-
-            {/* Main Nav Bar */}
-            <NavMenu isAdmin={true} breadcrum="FAQS" pagePath="/faqs-manage"/>
+            {/* Main Navigation Bar */}
+            <NavMenu isAdmin={true} breadcrum="FAQS" pagePath="/faqs-manage" />
             
-            {/* Faq Add Form */}
+            {/* FAQ Management Section */}
             <div className="faq-management">
+                {/* Add FAQ Form */}
                 <div className="faq-add-form">
                     <form onSubmit={handleNewFaq}>
                         <h1>Add A New Question</h1>
@@ -255,7 +235,7 @@ const FaqsManage = (prop)=>{
                     </form>
                 </div>
 
-                {/* Faq Cards */}
+                {/* FAQ Cards */}
                 <div className="faqs">
                     {isFetching && <div className="loading-spinner-wrapper-faqs"><LoadingIcon /></div>}
                     {!isFetching && !faqsExist && 
@@ -267,8 +247,8 @@ const FaqsManage = (prop)=>{
                     {!isFetching && faqsExist && faqs && faqs.map((faq) => (
                         <div key={faq._id} className="faq-card animate__animated animate__fadeInUp">
                             <div className="faq-card-delete-wrapper">
-                                <MdIcons.MdDelete data-tooltip-id="delete" data-tooltip-content="Delete faq" className="faq-card-delete-icon" onClick={()=>handleDeleteFaq(faq._id)} />
-                                <Tooltip id="delete" place="left" style={style}/>
+                                <MdIcons.MdDelete data-tooltip-id="delete" data-tooltip-content="Delete faq" className="faq-card-delete-icon" onClick={() => handleDeleteFaq(faq._id)} />
+                                <Tooltip id="delete" place="left" style={style} />
                             </div>
                             <div className="faq-card-content-wrapper">
                                 <h2>{faq.question}</h2>
@@ -277,17 +257,15 @@ const FaqsManage = (prop)=>{
                             <div className="faq-card-date-wrapper">
                                 <div className="faq-card-date">
                                     {faq.createdAt && !isNaN(new Date(faq.createdAt)) ? format(new Date(faq.createdAt), "dd/MM/yyyy") : 'Invalid Date'}
-
                                 </div>
                             </div>
                         </div>
                     ))}
                 </div>
             </div>
-
         </div>
-    )
+    );
+};
 
-}
-
-export default FaqsManage
+// Exporting the FaqsManage component
+export default FaqsManage;
