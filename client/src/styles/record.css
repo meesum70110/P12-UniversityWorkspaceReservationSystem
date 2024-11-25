@@ -1,188 +1,222 @@
 /*----------Record Management Page----------*/
 
-.profile-form-search-secondary{
-    margin: 0;
-    padding: 0;
-    width: 100%;
+/* Styles for the secondary search form used in profile management */
+.profile-form-search-secondary {
+    margin: 0; /* Removes default margin for a clean layout */
+    padding: 0; /* Removes default padding */
+    width: 100%; /* Ensures the form spans the entire width */
 }
 
-.profile-card-option-wrapper{
-    width: 100%;
-    height: 1.6em;
-    display: flex;
-    justify-content: space-between;
+/* Wrapper for edit and delete icons in the profile card */
+.profile-card-option-wrapper {
+    width: 100%; /* Full width of the parent container */
+    height: 1.6em; /* Fixed height for consistent layout */
+    display: flex; /* Flexbox for horizontal alignment */
+    justify-content: space-between; /* Spreads icons evenly across the wrapper */
 }
 
-.profile-card-edit-icon{
-    height: 1.6em;
-    width: 1.6em;
-    color: #333333;
-    opacity: 0.5;
-    cursor: pointer;
-    transition: all 0.5s;
-    transform: scaleX(-1);
+/* Styling for the profile card edit icon */
+.profile-card-edit-icon {
+    height: 1.6em; /* Matches the wrapper height */
+    width: 1.6em; /* Square icon dimensions */
+    color: #333333; /* Dark gray color */
+    opacity: 0.5; /* Semi-transparent for a subtle look */
+    cursor: pointer; /* Changes cursor to pointer for interactivity */
+    transition: all 0.5s; /* Smooth transition on hover */
+    transform: scaleX(-1); /* Flips the icon horizontally */
 }
 
-.profile-card-edit-icon:hover{
-    transform: scaleX(-1) scale(1.1);
+/* Hover effect for the edit icon */
+.profile-card-edit-icon:hover {
+    transform: scaleX(-1) scale(1.1); /* Enlarges the icon on hover while keeping it flipped */
 }
 
-.profile-card-edit-icon:focus{
-    outline: none;
+/* Removes focus outline for better aesthetics */
+.profile-card-edit-icon:focus {
+    outline: none; /* Eliminates the default outline on focus */
 }
 
-.profile-card img{
-    border-radius: 50%;
-    border: 3px solid white;
-    margin: 20px;
-    height: 120px;
-    width: 120px;
-
+/* Circular profile image within the profile card */
+.profile-card img {
+    border-radius: 50%; /* Makes the image circular */
+    border: 3px solid white; /* Adds a white border around the image */
+    margin: 20px; /* Spacing around the image */
+    height: 120px; /* Fixed height for consistency */
+    width: 120px; /* Matches height for a square aspect ratio */
 }
 
-.profile-card-content-wrapper{
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    justify-content: flex-start;
-    list-style: none;
-    margin: 0 auto;
-    padding: 0;
+/* Wrapper for profile card content */
+.profile-card-content-wrapper {
+    display: flex; /* Flexbox for horizontal layout */
+    flex-flow: row nowrap; /* Aligns items in a single row */
+    align-items: center; /* Vertically centers content */
+    justify-content: flex-start; /* Aligns content to the left */
+    list-style: none; /* Removes default list styling */
+    margin: 0 auto; /* Centers the content horizontally */
+    padding: 0; /* Removes padding */
 }
 
-.profile-card-info-wrapper{
-    margin: 0 20px;
-    padding: 0;
-    width: max(calc(100% - 180px), 300px);
+/* Wrapper for profile card information */
+.profile-card-info-wrapper {
+    margin: 0 20px; /* Adds horizontal spacing */
+    padding: 0; /* Removes padding */
+    width: max(calc(100% - 180px), 300px); /* Dynamically adjusts width */
 }
 
+/* Styles for individual profile information items */
 .li-content-profile {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    justify-content: space-between;
+    display: flex; /* Flexbox for horizontal alignment */
+    flex-flow: row nowrap; /* Ensures items are in a single row */
+    align-items: center; /* Centers items vertically */
+    justify-content: space-between; /* Spreads items evenly across the row */
 }
 
-.li-content-profile label, .li-content-profile p{
-    margin: 0;
-    padding: 0;
-    line-height: 20px;
-    font-family: 'Ubuntu';
-    font-size: 1em;
-    word-break: break-word;
+/* Common styles for labels and text within profile information */
+.li-content-profile label,
+.li-content-profile p {
+    margin: 0; /* Removes margin */
+    padding: 0; /* Removes padding */
+    line-height: 20px; /* Sets consistent line spacing */
+    font-family: 'Ubuntu'; /* Uses the Ubuntu font for consistency */
+    font-size: 1em; /* Standard text size */
+    word-break: break-word; /* Ensures text breaks properly */
 }
 
-.li-content-profile label{
-    font-size: 14px;
-    color: #5b6d7d
+/* Specific styling for labels in the profile card */
+.li-content-profile label {
+    font-size: 14px; /* Slightly smaller font size */
+    color: #5b6d7d; /* Muted gray-blue color */
 }
 
-.li-content-profile p{
-    color: rgba(8, 62, 59, 0.5);
-    margin: 5px;
+/* Specific styling for profile text */
+.li-content-profile p {
+    color: rgba(8, 62, 59, 0.5); /* Muted greenish-gray color */
+    margin: 5px; /* Adds spacing around text */
 }
 
-.li-profile-capitalize{
-    text-transform: capitalize;
+/* Ensures text in the profile card is capitalized */
+.li-profile-capitalize {
+    text-transform: capitalize; /* Capitalizes the first letter of each word */
 }
 
-@media only screen and (max-width: 900px){
-    
-    .profile-form-search-secondary{
-        display: grid;
-        grid-gap: 5px;
-        grid-template-columns: 1fr 1fr;
-        grid-row: 1fr 1fr;
-        grid-template-areas: "user-heading user-heading"
-                             "user-department user-email";
-        width: 100%;
+/* Responsive design for screens smaller than 900px */
+@media only screen and (max-width: 900px) {
+
+    /* Adjusts the layout for the secondary search form */
+    .profile-form-search-secondary {
+        display: grid; /* Changes layout to a grid */
+        grid-gap: 5px; /* Adds spacing between grid items */
+        grid-template-columns: 1fr 1fr; /* Two equal-width columns */
+        grid-row: 1fr 1fr; /* Two equal-height rows */
+        grid-template-areas: 
+            "user-heading user-heading" /* Heading spans both columns */
+            "user-department user-email"; /* Department and email occupy separate columns */
+        width: 100%; /* Full width of the container */
     }
 
-    .user-heading{grid-area: user-heading}
-    .user-department{grid-area: user-department}
-    .user-email{grid-area: user-email}
+    /* Assigns specific areas in the grid for elements */
+    .user-heading {
+        grid-area: user-heading; /* Places heading in the specified area */
+    }
+    .user-department {
+        grid-area: user-department; /* Places department in the specified area */
+    }
+    .user-email {
+        grid-area: user-email; /* Places email in the specified area */
+    }
 }
 
-@media only screen and (max-width: 500px){
-    
-    .profile-form-search-secondary{
-        display: flex;
-        flex-flow: column wrap;
+/* Responsive design for screens smaller than 500px */
+@media only screen and (max-width: 500px) {
 
+    /* Stacks the search form vertically */
+    .profile-form-search-secondary {
+        display: flex; /* Changes layout to flex */
+        flex-flow: column wrap; /* Stacks items in a column */
     }
 
-    .profile-card-content-wrapper{
-        display: flex;
-        flex-flow: column wrap;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .profile-card-info-wrapper{
-        margin: 0;
-        padding: 0;
-        width: 100%;
+    /* Stacks the profile card content vertically */
+    .profile-card-content-wrapper {
+        display: flex; /* Flexbox for layout */
+        flex-flow: column wrap; /* Stacks items in a column */
+        align-items: center; /* Centers items horizontally */
+        justify-content: center; /* Centers items vertically */
     }
 
+    /* Adjusts the width of the profile card information */
+    .profile-card-info-wrapper {
+        margin: 0; /* Removes margin */
+        padding: 0; /* Removes padding */
+        width: 100%; /* Full width of the container */
+    }
 }
 
 /*----------Record Page----------*/
 
-.employee-p-wrapper{
-    line-height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* Wrapper for employee profile information */
+.employee-p-wrapper {
+    line-height: 20px; /* Sets consistent line height */
+    display: flex; /* Flexbox for horizontal alignment */
+    align-items: center; /* Vertically centers content */
+    justify-content: center; /* Horizontally centers content */
 }
 
-.employee-gender-icon{
-    height: 20px;
-    width: 20px;
-    margin: 0 10px 0 0;
-    padding: 0;
-    font-weight: bold;
+/* Styling for gender icon in employee record */
+.employee-gender-icon {
+    height: 20px; /* Fixed height for the icon */
+    width: 20px; /* Fixed width for the icon */
+    margin: 0 10px 0 0; /* Adds right margin for spacing */
+    padding: 0; /* Removes padding */
+    font-weight: bold; /* Makes the icon bold for visibility */
 }
 
-.employee-record-heading{
-    font-size: larger;
-    color: #3c5267;
-    width: 100%;
-    margin: 0 0 18px 0;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: center;
+/* Styling for the employee record heading */
+.employee-record-heading {
+    font-size: larger; /* Enlarges the font for emphasis */
+    color: #3c5267; /* Muted dark blue color */
+    width: 100%; /* Full width of the parent container */
+    margin: 0 0 18px 0; /* Adds bottom spacing for separation */
+    display: flex; /* Flexbox for layout */
+    flex-flow: row nowrap; /* Ensures items are in a single row */
+    justify-content: space-between; /* Spreads items evenly */
+    align-items: center; /* Vertically aligns items */
 }
 
-.employee-form-unit{
-    width: 100% !important;
-    margin: 0 !important;
+/* Styling for individual form units in the employee record form */
+.employee-form-unit {
+    width: 100% !important; /* Full width for responsiveness */
+    margin: 0 !important; /* Removes margin for consistency */
 }
 
-.employee-form-unit input{
-    margin: 0;
-    padding: 0 10px;
-    width: 100%;
-	height: 40px;
-    box-sizing: border-box;
-	border-radius: 3px;
-    border: 1px solid #cbd6e2;
-    background-color: white;
-    color: #333333;
-    cursor: text;
-    appearance: none;
+/* Input field styling for employee form */
+.employee-form-unit input {
+    margin: 0; /* Removes default margin */
+    padding: 0 10px; /* Adds padding inside the input field */
+    width: 100%; /* Full width of the parent container */
+    height: 40px; /* Fixed height for uniformity */
+    box-sizing: border-box; /* Ensures padding and borders are included in width/height */
+    border-radius: 3px; /* Adds rounded corners */
+    border: 1px solid #cbd6e2; /* Light gray border for subtle design */
+    background-color: white; /* White background for clarity */
+    color: #333333; /* Dark gray text color */
+    cursor: text; /* Changes cursor to text */
+    appearance: none; /* Removes default browser styling */
 }
 
-.employee-form-unit input[type=number]:focus{
-    border-color: rgba(82, 168, 236, 0.8);
-    outline: none;
+/* Focus effect for number input fields */
+.employee-form-unit input[type=number]:focus {
+    border-color: rgba(82, 168, 236, 0.8); /* Light blue border on focus */
+    outline: none; /* Removes default outline */
 }
 
-.update-btn-margin{
-    margin-top:  0 !important;
-    margin-bottom: 8px !important;
+/* Margins for update buttons in employee forms */
+.update-btn-margin {
+    margin-top: 0 !important; /* Removes top margin */
+    margin-bottom: 8px !important; /* Adds bottom margin for spacing */
 }
 
-.error-update-margin{
-    margin-bottom: 0 !important;
+/* Error message styling to adjust spacing */
+.error-update-margin {
+    margin-bottom: 0 !important; /* Removes bottom margin for error messages */
 }
+
