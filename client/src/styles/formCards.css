@@ -1,319 +1,352 @@
 /*----------Wrapper For Content Form and Content Cards----------*/
 
-.content-management{
-    display: grid;
-    gap: 5px;
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: 1fr;
-    grid-template-areas: "content-cards course-form";
-    background-color: rgb(238, 238, 238);
+/* Main wrapper for the content management section, including form and cards */
+.content-management {
+    display: grid; /* Using grid layout */
+    gap: 5px; /* Gap between grid items */
+    grid-template-columns: 2fr 1fr; /* Two columns: 2 parts content cards, 1 part form */
+    grid-template-rows: 1fr; /* Single row layout */
+    grid-template-areas: "content-cards course-form"; /* Assigning areas for grid items */
+    background-color: rgb(238, 238, 238); /* Light gray background */
 }
 
 /*----------Content Form----------*/
 
-.item-add-form{
-    margin: 0;
-    padding: 10px 10px 0 10px;
-    min-height: 440px;
+/* Styling the content addition form */
+.item-add-form {
+    margin: 0; /* Removing margin */
+    padding: 10px 10px 0 10px; /* Padding inside the form */
+    min-height: 440px; /* Minimum height for the form */
 }
 
-.item-add-form h1{
-    font-size: xx-large;
-    margin-top: 10px;
-    color: #3c5267;
-    text-align: center;
+/* Styling the form heading */
+.item-add-form h1 {
+    font-size: xx-large; /* Extra-large font size */
+    margin-top: 10px; /* Top margin for spacing */
+    color: #3c5267; /* Dark gray-blue color */
+    text-align: center; /* Center-aligning the heading */
 }
 
-.form-unit{
-    display: flex;
-    flex-flow: column wrap;
-    margin: 0 0 16px 0;
-    padding: 0;
+/* Styling form fields */
+.form-unit {
+    display: flex; /* Flex layout */
+    flex-flow: column wrap; /* Column alignment */
+    margin: 0 0 16px 0; /* Bottom margin for spacing */
+    padding: 0; /* Removing padding */
 }
 
-label{
-    margin: 0 0 5px 0;
-    font-size: 14px;
-    font-family: sans-serif, 'Ubuntu', Verdana, Geneva, Tahoma;
-    font-weight: bold;
-    line-height: 20px;
-    color: rgba(0, 0, 0, 0.8);
+/* Styling labels in the form */
+label {
+    margin: 0 0 5px 0; /* Bottom margin for spacing */
+    font-size: 14px; /* Font size */
+    font-family: sans-serif, 'Ubuntu', Verdana, Geneva, Tahoma; /* Font family */
+    font-weight: bold; /* Bold font */
+    line-height: 20px; /* Line height */
+    color: rgba(0, 0, 0, 0.8); /* Semi-transparent black color */
 }
 
-.form-required{
-    color: red;
-    margin: 0;
-    padding: 0;
+/* Styling required field indicator */
+.form-required {
+    color: red; /* Red color for required fields */
+    margin: 0; /* Removing margin */
+    padding: 0; /* Removing padding */
 }
 
-.item-add-form input{
-    margin: 0;
-    padding: 0 10px;
-    width: 270px;
-	height: 40px;
-    box-sizing: border-box;
-	border-radius: 3px;
-    border: 1px solid #cbd6e2;
-    background-color: white;
-    color: #333333;
-    cursor: text;
+/* Styling input fields in the form */
+.item-add-form input {
+    margin: 0; /* Removing margin */
+    padding: 0 10px; /* Padding inside the input */
+    width: 270px; /* Fixed width */
+    height: 40px; /* Fixed height */
+    box-sizing: border-box; /* Includes padding and border in width and height */
+    border-radius: 3px; /* Rounded corners */
+    border: 1px solid #cbd6e2; /* Light blue border */
+    background-color: white; /* White background */
+    color: #333333; /* Dark gray text */
+    cursor: text; /* Text cursor */
 }
 
+/* Styling input fields on focus */
 .item-add-form input[type=text]:focus {
-    border-color: rgba(82, 168, 236, 0.8);
-    outline: none;
+    border-color: rgba(82, 168, 236, 0.8); /* Blue border on focus */
+    outline: none; /* Removing default outline */
 }
 
-.item-add-form button{
-    font-size: small;
-    font-weight: 600;
-	color: white;
-	background-color: #0C3A53;
-    border: 2px solid #0C3A53;
-	border-radius: 3px;
-    margin: 8px 0 16px 0;
-    padding: 12px 24px;
-    cursor: pointer;
-    transition: all 0.5s
+/* Styling the form button */
+.item-add-form button {
+    font-size: small; /* Small font size */
+    font-weight: 600; /* Bold font weight */
+    color: white; /* White text */
+    background-color: #0C3A53; /* Dark green background */
+    border: 2px solid #0C3A53; /* Matching border */
+    border-radius: 3px; /* Rounded corners */
+    margin: 8px 0 16px 0; /* Margin around the button */
+    padding: 12px 24px; /* Padding inside the button */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: all 0.5s; /* Smooth hover transition */
 }
 
-.item-add-form button:hover{
-    color: #0C3A53;
-    background: transparent;    
+/* Hover effect for the button */
+.item-add-form button:hover {
+    color: #0C3A53; /* Dark green text color */
+    background: transparent; /* Transparent background */
 }
 
-.error{
-    font-size: 1em;
-    text-align: center;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    word-break: break-word;
-    margin: 8px 0 16px 0;
-    padding: 5px 10px;
-    max-width: 260px;
-    box-sizing: border-box;
-	border-radius: 3px;
-    border: none;
-    background-color: #edcaca;
-    color: #D63301;
-    cursor: text; 
+/* Styling for error messages */
+.error {
+    font-size: 1em; /* Standard font size */
+    text-align: center; /* Center-aligning text */
+    overflow-wrap: break-word; /* Wrapping long text */
+    word-wrap: break-word; /* Wrapping long text */
+    word-break: break-word; /* Breaking long words */
+    margin: 8px 0 16px 0; /* Margin around the error message */
+    padding: 5px 10px; /* Padding inside the error box */
+    max-width: 260px; /* Maximum width */
+    border-radius: 3px; /* Rounded corners */
+    background-color: #edcaca; /* Light red background */
+    color: #D63301; /* Dark red text */
 }
 
-.empty-error{
-    border: 1px solid #D63301 !important;
+/* Highlighting input fields with errors */
+.empty-error {
+    border: 1px solid #D63301 !important; /* Red border for errors */
 }
 
 /*----------Content Card----------*/
 
-.no-courses{
-    height: 100%;
-    display: flex;
-    flex-flow: column wrap;
-    align-content: center;
-    justify-content: center;
-    margin: 40px 10px
+/* Styling for when there are no courses/content */
+.no-courses {
+    height: 100%; /* Full height */
+    display: flex; /* Flex layout */
+    flex-flow: column wrap; /* Vertical alignment */
+    align-content: center; /* Center-aligning content */
+    justify-content: center; /* Centering items */
+    margin: 40px 10px; /* Margin around the container */
 }
 
-.no-items h2{
-    font-size: large;
-    color: #3c5267;
-    text-align: center;
-    margin: 0;
+/* Styling the message displayed when there are no items */
+.no-items h2 {
+    font-size: large; /* Large font size */
+    color: #3c5267; /* Dark gray-blue color */
+    text-align: center; /* Center-aligning text */
+    margin: 0; /* Removing margin */
 }
 
+/* Styling the image displayed when there are no items */
 .no-items img {
-    max-height: 250px;
-    margin: 10px 20px;
-    filter: grayscale(20%);
+    max-height: 250px; /* Maximum height for the image */
+    margin: 10px 20px; /* Spacing around the image */
+    filter: grayscale(20%); /* Slight grayscale effect */
 }
 
-.item-card{
-    box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    background-color: #fafafa;
-    margin: 10px;
-    padding: 10px;
-    max-width: 600px;
-    font-size: medium;
-    font-weight: 700;
-    color: #333333;
-    transition: all 0.5s;
+/* Styling individual content cards */
+.item-card {
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #fafafa; /* Light gray background */
+    margin: 10px; /* Margin around the card */
+    padding: 10px; /* Padding inside the card */
+    max-width: 600px; /* Maximum width for the card */
+    font-size: medium; /* Medium font size */
+    font-weight: 700; /* Bold font weight */
+    color: #333333; /* Dark gray text */
+    transition: all 0.5s; /* Smooth hover transition */
 }
 
-.item-card:hover{
-    background-color: white;
+/* Hover effect for content cards */
+.item-card:hover {
+    background-color: white; /* White background on hover */
 }
 
-.item-card-delete-wrapper, .item-card-link-wrapper{
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
+/* Styling for the delete icon wrapper and link wrapper */
+.item-card-delete-wrapper, .item-card-link-wrapper {
+    width: 100%; /* Full width */
+    display: flex; /* Flex layout */
+    justify-content: flex-end; /* Right-align content */
 }
 
-.item-card-delete-icon{
-    height: 1.6em;
-    width: 1.6em;
-    color: #333333;
-    opacity: 0.5;
-    cursor: pointer;
-    transition: all 0.5s;
+/* Styling the delete icon in content cards */
+.item-card-delete-icon {
+    height: 1.6em; /* Fixed height */
+    width: 1.6em; /* Fixed width */
+    color: #333333; /* Dark gray color */
+    opacity: 0.5; /* Slight transparency */
+    cursor: pointer; /* Pointer cursor */
+    transition: all 0.5s; /* Smooth hover transition */
 }
 
-.item-card-delete-icon:hover{
-	transform: scale(1.1);
+/* Hover effect for the delete icon */
+.item-card-delete-icon:hover {
+    transform: scale(1.1); /* Slight scaling effect */
 }
 
-.item-card-delete-icon:focus{
-    outline: none;
+/* Styling the content inside content cards */
+.item-card-content-wrapper {
+    display: grid; /* Grid layout */
+    gap: 0px; /* No gap between grid items */
+    grid-template-columns: 1fr 4fr; /* Two columns: image and content */
+    list-style: none; /* Removing list styling */
+    margin: 0 auto; /* Centering the content */
+    padding: 10px 0 0 0; /* Top padding */
+    min-height: 115px; /* Minimum height */
 }
 
-.item-card-content-wrapper{
-	display: grid;
-	gap: 0px;
-	grid-template-columns: 1fr 4fr;
-    list-style: none;
-    margin: 0 auto;
-    padding: 10px 0 0 0;
-    min-height: 115px;
+/* Styling the image inside content cards */
+.item-card img {
+    width: 100px; /* Fixed width */
+    border-radius: 50%; /* Circular image */
+    margin-right: 10px; /* Right margin for spacing */
 }
 
-.item-card img{
-    width: 100px;
-    border-radius: 50%;
-    margin-right: 10px;
+/* Styling the title text in content cards */
+.item-card h2 {
+    color: #0EBAB1; /* Light blue text color */
+    text-transform: capitalize; /* Capitalizing the first letter */
+    font-weight: bolder; /* Bolder font */
+    font-size: 1.5em; /* Large font size */
+    word-wrap: break-word; /* Wrapping long text */
+    margin: 0; /* Removing margin */
 }
 
-.item-card h2{
-    color: #0EBAB1;
-    text-transform: capitalize;
-    font-weight: bolder;
-    font-size: 1.5em;
-    word-wrap: break-word;
-    margin: 0;
+/* Styling the description text in content cards */
+.item-card p {
+    font-size: 1em; /* Standard font size */
+    overflow-wrap: break-word; /* Wrapping long text */
 }
 
-.item-card p{
-    font-size: 1em;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    word-break: break-word;
-} 
-
-.item-card h2, .item-card p{
-    max-width: 450px;
-    line-height: 1.5;
-} 
-
-.item-card a{
-    text-decoration: none;
-    word-spacing: 10px;
-    font-size: 1em;
-    padding: 5px 25px;
-    background-color: #0EBAB1;
-    color: white;
-    border: 2px solid #0EBAB1;
-    border-radius: 5px;
-    cursor: pointer;
+/* Styling shared between title and description */
+.item-card h2, .item-card p {
+    max-width: 450px; /* Maximum width for text */
+    line-height: 1.5; /* Line height */
 }
 
-.item-card a:hover{
-    background: transparent;
-    color: #0EBAB1;
+/* Styling links in content cards */
+.item-card a {
+    text-decoration: none; /* Removing underline */
+    word-spacing: 10px; /* Spacing between words */
+    font-size: 1em; /* Standard font size */
+    padding: 5px 25px; /* Padding inside the link */
+    background-color: #0EBAB1; /* Light blue background */
+    color: white; /* White text */
+    border: 2px solid #0EBAB1; /* Border matching background color */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor */
 }
 
-.item-card-link-icon{
-    font-size: large;
-    font-weight: 600;
+/* Hover effect for links */
+.item-card a:hover {
+    background: transparent; /* Transparent background */
+    color: #0EBAB1; /* Light blue text */
+}
+
+.item-card-link-icon {
+    font-size: large; /* Sets a larger font size for better visibility */
+    font-weight: 600; /* Applies a semi-bold font weight for prominence */
 }
 
 
-/*----------Making content cards And Form Responive----------*/
+/*----------Making Content Cards And Form Responsive----------*/
 
-.content-cards{
-    grid-area: content-cards;
-    display: flex;
-    flex-flow: column wrap;
-    align-items: center;
+/* Styling the content card layout for the main content section */
+.content-cards {
+    grid-area: content-cards; /* Assigning grid area */
+    display: flex; /* Flex layout */
+    flex-flow: column wrap; /* Vertical alignment */
+    align-items: center; /* Center-aligning items */
 }
 
-.item-add-form{
-    grid-area: course-form;
+/* Styling the form for adding items/content */
+.item-add-form {
+    grid-area: course-form; /* Assigning grid area */
 }
 
-.content-cards, .item-add-form{
-    display: flex;
-    flex-flow: column wrap;
-    align-items: center;
+/* Shared styling for content cards and form */
+.content-cards, .item-add-form {
+    display: flex; /* Flex layout */
+    flex-flow: column wrap; /* Vertical alignment */
+    align-items: center; /* Center-aligning items */
 }
 
-.content-cards{
-    margin: 10px 0;
+/* Adding spacing for the content cards section */
+.content-cards {
+    margin: 10px 0; /* Vertical margin */
 }
 
-.loading-spinner-wrapper-content{
-    height: max(calc(100vh - 76px), 430px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* Styling the spinner wrapper for loading animations */
+.loading-spinner-wrapper-content {
+    height: max(calc(100vh - 76px), 430px); /* Adjust height based on viewport and header height */
+    display: flex; /* Flex layout */
+    align-items: center; /* Center-aligning items */
+    justify-content: center; /* Centering items horizontally */
 }
 
-.loading-spinner-wrapper-surveys{
-    height: max(calc(100vh - 76px), 370px);
-    display: flex;
-    align-items: center;
-    justify-content: center; 
+/* Additional spinner wrapper for surveys */
+.loading-spinner-wrapper-surveys {
+    height: max(calc(100vh - 76px), 370px); /* Adjust height based on viewport and header height */
+    display: flex; /* Flex layout */
+    align-items: center; /* Center-aligning items */
+    justify-content: center; /* Centering items horizontally */
 }
 
-.loading-spinner-wrapper-courses-view{
-    height: max(calc(100vh - 76px), 200px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* Spinner wrapper for viewing content in smaller areas */
+.loading-spinner-wrapper-courses-view {
+    height: max(calc(100vh - 76px), 200px); /* Adjust height based on viewport and header height */
+    display: flex; /* Flex layout */
+    align-items: center; /* Center-aligning items */
+    justify-content: center; /* Centering items horizontally */
 }
 
-.content-access{
-    display: grid;
-    gap: 5px;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
-    grid-template-areas: "content-cards";
-    background-color: rgb(238, 238, 238);
+/* Styling for content access wrapper */
+.content-access {
+    display: grid; /* Grid layout */
+    gap: 5px; /* Spacing between grid items */
+    grid-template-columns: 1fr; /* Single column layout */
+    grid-template-rows: 1fr; /* Single row layout */
+    grid-template-areas: "content-cards"; /* Assigning grid area */
+    background-color: rgb(238, 238, 238); /* Light gray background */
 }
 
-@media only screen and (max-width: 800px){
+/* Media query for smaller screens */
+@media only screen and (max-width: 800px) {
     
-    .content-management{
-        display: flex;
-        flex-flow: column wrap;
-    } 
-
-    .content-cards{
-        margin: 10px;
+    /* Adjusting content management layout for smaller screens */
+    .content-management {
+        display: flex; /* Flex layout */
+        flex-flow: column wrap; /* Vertical alignment */
     }
 
+    /* Adjusting margins for content cards on smaller screens */
+    .content-cards {
+        margin: 10px; /* All-around margin */
+    }
+
+    /* Styling the message when no items are present */
     .no-items {
-        margin-top: 0;
+        margin-top: 0; /* Removing top margin */
     }
 
+    /* Adjusting the size of the image displayed for no items */
     .no-items img {
-        height: 150px;
-        margin: 0px 10px 10px 10px;
+        height: 150px; /* Smaller height */
+        margin: 0px 10px 10px 10px; /* Adjusted margin */
     }
 
-    .loading-spinner-wrapper-content, .loading-spinner-wrapper-surveys{
-        height: normal;
-        align-items: flex-start;
+    /* Adjusting spinner wrapper height for smaller screens */
+    .loading-spinner-wrapper-content, .loading-spinner-wrapper-surveys {
+        height: normal; /* Default height */
+        align-items: flex-start; /* Aligning items to the top */
     }
 
+    /* Styling for the view when no content is present */
     .no-content-view {
-        margin-top: 100px;
+        margin-top: 100px; /* Adding top margin */
     }
-    
 }
 
-@media only screen and (max-width: 310px){
-    .item-add-form input{
-        width: 100%
+/* Media query for very small screens */
+@media only screen and (max-width: 310px) {
+    /* Adjusting input field width for very small screens */
+    .item-add-form input {
+        width: 100%; /* Full width */
     }
-
 }
