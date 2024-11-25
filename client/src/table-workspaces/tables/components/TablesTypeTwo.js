@@ -9,11 +9,9 @@ const TablesTypeTwo = (props) => {
     const width = 140; // Table width
     const height = 70; // Table height
 
-    // Ensure ids is an array and handle fallback if it’s not
+    // Ensuring ids is an array and handle fallback if it’s not
     const tableIds = Array.isArray(ids) ? ids : [];
 
-    // Debugging: Log the type and content of ids
-    console.log("TablesTypeTwo received IDs:", tableIds);
 
     return (
         <>
