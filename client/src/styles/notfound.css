@@ -1,33 +1,39 @@
-.not-found-wrapper{
-    margin: 50px 10px;
-    padding: 0;
-    display: flex;
-    flex-flow: column wrap;
-    align-items: center;
-    justify-content: center;
+/*----------404 Not Found Section----------*/
+
+/* Wrapper for the 'Not Found' page layout */
+.not-found-wrapper {
+    margin: 50px 10px; /* Adds spacing around the wrapper */
+    padding: 0; /* Removes internal padding */
+    display: flex; /* Establishes a flex container */
+    flex-flow: column wrap; /* Arranges items in a vertical flow */
+    align-items: center; /* Centers items horizontally */
+    justify-content: center; /* Centers items vertically */
 }
 
-.not-found-wrapper img{
-    max-height: 250px;
-    margin: 10px 20px;
-    filter: grayscale(20%);
+/* Image styling for the 'Not Found' graphic */
+.not-found-wrapper img {
+    max-height: 250px; /* Restricts the maximum height of the image */
+    margin: 10px 20px; /* Adds spacing around the image */
+    filter: grayscale(20%); /* Applies a slight grayscale filter for effect */
 }
 
-.not-found-wrapper a{
-    text-decoration: none;
-    text-align: center;
-    font-size: small;
-    font-weight: 600;
-	color: white;
-	background-color: #00c4ff;
-    border: 2px solid #00c4ff;
-	border-radius: 20px;
-    padding: 10px 40px;
-    cursor: pointer;
-    transition: all 0.5s
+/* Link/button styling for navigation from the 'Not Found' page */
+.not-found-wrapper a {
+    text-decoration: none; /* Removes underline from text links */
+    text-align: center; /* Centers the text within the button */
+    font-size: small; /* Sets a small font size */
+    font-weight: 600; /* Makes the text slightly bold */
+    color: white; /* Sets the text color to white */
+    background-color: #00c4ff; /* Sets a blue background color */
+    border: 2px solid #00c4ff; /* Adds a matching border */
+    border-radius: 20px; /* Rounds the button corners */
+    padding: 10px 40px; /* Adds spacing inside the button */
+    cursor: pointer; /* Changes the cursor to a pointer on hover */
+    transition: all 0.5s; /* Adds a smooth transition effect */
 }
 
-.not-found-wrapper a:hover{
-    color: #00c4ff;
-    background: transparent;    
+/* Hover effect for the link/button */
+.not-found-wrapper a:hover {
+    color: #00c4ff; /* Changes text color to blue */
+    background: transparent; /* Makes the background transparent */
 }
