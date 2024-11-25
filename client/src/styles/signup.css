@@ -1,267 +1,297 @@
-.signup-form-wrapper{
-    display: flex;
-    justify-content: center;
-    background-color: rgb(238, 238, 238);
-    margin: auto;
-    padding: 40px 10px;
+/*----------Record Management Page----------*/
+
+/* Wrapper for the entire signup form section */
+.signup-form-wrapper {
+    display: flex; /* Establishes a flex container */
+    justify-content: center; /* Centers form horizontally */
+    background-color: rgb(238, 238, 238); /* Light gray background */
+    margin: auto; /* Centers the form in the parent container */
+    padding: 40px 10px; /* Adds spacing inside the wrapper */
 }
 
-.signup-form{
-    margin: 10px 20px;
-    padding: 20px;
-    border-radius: 7px;
-    background-color: white;
+/* Styling for the signup form container */
+.signup-form {
+    margin: 10px 20px; /* Adds space around the form */
+    padding: 20px; /* Adds space inside the form */
+    border-radius: 7px; /* Rounds the corners of the form */
+    background-color: white; /* White background for clarity */
 }
 
-.signup-form-grid, .signup-setup-grid{
-    margin: 0;
-    padding: 0;
-    display: grid;
-    gap: 10px;
-    grid-template-columns: 1.5fr 1.5fr;
-    grid-template-rows: 1fr 1fr;
-    grid-template-areas: "signup-email signup-department" 
-                         "signup-salary signup-occupation" 
+/* Grid layout for email, department, salary, and occupation fields */
+.signup-form-grid, .signup-setup-grid {
+    margin: 0; /* Removes default margin */
+    padding: 0; /* Removes default padding */
+    display: grid; /* Establishes a grid layout */
+    gap: 10px; /* Adds space between grid items */
+    grid-template-columns: 1.5fr 1.5fr; /* Two equal-width columns */
+    grid-template-rows: 1fr 1fr; /* Two rows */
+    grid-template-areas: "signup-email signup-department"
+                         "signup-salary signup-occupation"; /* Defines grid areas */
 }
 
-.signup-setup-grid{
-    grid-template-columns: 1.5fr 1.5fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-template-areas: "signup-fname signup-lname" 
-                         "signup-age signup-gender" 
-                         "signup-residence signup-btn"  
+/* Additional grid layout for setup fields like name, age, and gender */
+.signup-setup-grid {
+    grid-template-rows: 1fr 1fr 1fr; /* Three rows for additional fields */
+    grid-template-areas: "signup-fname signup-lname"
+                         "signup-age signup-gender"
+                         "signup-residence signup-btn"; /* Defines grid areas */
 }
 
-.signup-heading{
-    font-size: x-large;
-    color: #3c5267;
-    text-align: center;
-    width: 100%;
-    margin: 1em 0 1.5em 0;
-} 
-
-.question-icon{
-    color: inherit;
-    width: 13px;
-    height: 13px;
-    cursor: pointer;
-    margin: auto 5px 0 7px;
+/* Styling for the signup page heading */
+.signup-heading {
+    font-size: x-large; /* Large font for emphasis */
+    color: #3c5267; /* Muted dark blue color */
+    text-align: center; /* Centers the heading */
+    width: 100%; /* Full width of the parent container */
+    margin: 1em 0 1.5em 0; /* Adds spacing above and below */
 }
 
-.signup-form-unit{
-    display: flex;
-    flex-flow: column nowrap;
-    margin: 0 0 16px 0;
-    padding: 0;
-    min-height: 91.2px;
-    width: 100%;
+/* Small icon next to labels for additional context */
+.question-icon {
+    color: inherit; /* Matches the text color */
+    width: 13px; /* Fixed size for consistency */
+    height: 13px; /* Fixed size for consistency */
+    cursor: pointer; /* Indicates the icon is interactive */
+    margin: auto 5px 0 7px; /* Adds spacing around the icon */
 }
 
-.signup-form-unit label{
-    margin: 0 0 5px 0;
-    font-size: 14px;
-    font-family: sans-serif, 'Ubuntu', Verdana, Geneva, Tahoma;
-    font-weight: bold;
-    line-height: 20px !important;
-    color: rgba(0, 0, 0, 0.8);
+/* Individual form unit styling */
+.signup-form-unit {
+    display: flex; /* Flex container for vertical layout */
+    flex-flow: column nowrap; /* Ensures items stack vertically */
+    margin: 0 0 16px 0; /* Adds spacing between units */
+    padding: 0; /* Removes padding */
+    min-height: 91.2px; /* Sets a minimum height for uniformity */
+    width: 100%; /* Full width of the container */
 }
 
-.form-required{
-    color: red;
-    margin: 0;
-    padding: 0;
+/* Styling for form labels */
+.signup-form-unit label {
+    margin: 0 0 5px 0; /* Adds spacing below the label */
+    font-size: 14px; /* Standard font size */
+    font-family: sans-serif, 'Ubuntu', Verdana, Geneva, Tahoma; /* Font stack for consistency */
+    font-weight: bold; /* Bold text for emphasis */
+    line-height: 20px !important; /* Consistent line height */
+    color: rgba(0, 0, 0, 0.8); /* Dark gray color for readability */
 }
 
-.signup-form input, .dep-drop, .signup-date-unit{
-    margin: 0;
-    padding: 0 10px;
-    width: 300px;
-	height: 40px;
-    box-sizing: border-box;
-	border-radius: 3px;
-    border: 1px solid #cbd6e2;
-    background-color: white;
-    color: #333333;
-    cursor: text;
-    appearance: none;
+/* Required field indicator */
+.form-required {
+    color: red; /* Red color for emphasis */
+    margin: 0; /* Removes margin */
+    padding: 0; /* Removes padding */
 }
 
-.dep-drop{
-    width: 100%;
-    padding-right: 31px;
-    cursor: pointer;
-    color: #333333 !important;
+/* General input field styling */
+.signup-form input, .dep-drop, .signup-date-unit {
+    margin: 0; /* Removes default margin */
+    padding: 0 10px; /* Adds horizontal padding */
+    width: 300px; /* Fixed width for consistency */
+    height: 40px; /* Fixed height for uniformity */
+    box-sizing: border-box; /* Ensures padding and borders are included in width/height */
+    border-radius: 3px; /* Rounds the corners of input fields */
+    border: 1px solid #cbd6e2; /* Light gray border for subtle design */
+    background-color: white; /* White background for clarity */
+    color: #333333; /* Dark gray text color */
+    cursor: text; /* Indicates text input */
+    appearance: none; /* Removes default browser styling */
 }
 
-.signup-date-unit:hover{
-    border: 1px solid #cbd6e2;
+/* Dropdown field specific styling */
+.dep-drop {
+    width: 100%; /* Full width of the parent container */
+    padding-right: 31px; /* Adds space for dropdown icon */
+    cursor: pointer; /* Indicates interactivity */
+    color: #333333 !important; /* Ensures text is visible */
 }
 
-.signup-form input[type=email]:focus, .signup-form input[type=number]:focus, .signup-form input[type=text]:focus, .dep-drop:focus{
-    border-color: rgba(82, 168, 236, 0.8);
-    outline: none;
+/* Hover effect for date fields */
+.signup-date-unit:hover {
+    border: 1px solid #cbd6e2; /* Maintains the border on hover */
 }
 
-.radio-wrapper, .radio-error{
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    width: 100%;
-    height: 40px;
+/* Focus effect for input fields */
+.signup-form input[type=email]:focus, 
+.signup-form input[type=number]:focus, 
+.signup-form input[type=text]:focus, 
+.dep-drop:focus {
+    border-color: rgba(82, 168, 236, 0.8); /* Light blue border on focus */
+    outline: none; /* Removes default outline */
 }
 
-.radio-option, .radio-option-selected, .radio-option-error{
-    margin: 0;
-    padding: 0 10px;
-    height: 100%;
-    width: 49%;
-    border-radius: 3px;
-    border: 1px solid #cbd6e2;
-    background-color: inherit;
-    color: #333333;
-    font-weight: 600;
-    font-size: small;
-    cursor: pointer;
+/* Wrapper for radio button options */
+.radio-wrapper, .radio-error {
+    display: flex; /* Flex container for horizontal layout */
+    flex-flow: row nowrap; /* Ensures items are in a single row */
+    justify-content: space-between; /* Spreads items evenly */
+    width: 100%; /* Full width of the container */
+    height: 40px; /* Fixed height for consistency */
 }
 
-.radio-option-selected{
-    background-color: #cbd6e2;
+/* Radio button styling */
+.radio-option, .radio-option-selected, .radio-option-error {
+    margin: 0; /* Removes margin */
+    padding: 0 10px; /* Adds horizontal padding */
+    height: 100%; /* Full height of the parent container */
+    width: 49%; /* Half the width of the container, with space for gap */
+    border-radius: 3px; /* Rounds the corners */
+    border: 1px solid #cbd6e2; /* Light gray border */
+    background-color: inherit; /* Transparent background */
+    color: #333333; /* Dark gray text */
+    font-weight: 600; /* Bold text */
+    font-size: small; /* Smaller font size */
+    cursor: pointer; /* Indicates interactivity */
 }
 
-.radio-option-error{
-    border: 1px solid #D63301;
-    background-color: #edcaca;;
+/* Selected radio button state */
+.radio-option-selected {
+    background-color: #cbd6e2; /* Light gray background */
 }
 
-.radio-option-selected:hover, .radio-option:hover, .radio-option-error:hover{
-    border-color: rgba(82, 168, 236, 0.8);
+/* Error state for radio buttons */
+.radio-option-error {
+    border: 1px solid #D63301; /* Red border */
+    background-color: #edcaca; /* Light red background */
 }
 
-.signup-btn-submit{
-    font-size: medium;
-    font-weight: 600;
-	color: white;
-    background-color: #0C3A53;
-    border: 1px solid #0C3A53;
-	border-radius: 3px;
-    margin: 25.8px 0 16px 0;
-    padding: 0 10px;
-    width: 100%;
-	height: 40px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.5s
+/* Hover effect for radio buttons */
+.radio-option-selected:hover, 
+.radio-option:hover, 
+.radio-option-error:hover {
+    border-color: rgba(82, 168, 236, 0.8); /* Light blue border on hover */
 }
 
-.signup-btn-submit:hover{
-	background-color: #0EBAB1;
-    border: 2px solid #0EBAB1;
+/* Submit button styling */
+.signup-btn-submit {
+    font-size: medium; /* Medium font size */
+    font-weight: 600; /* Bold text */
+    color: white; /* White text */
+    background-color: #0C3A53; /* Dark blue-green background */
+    border: 1px solid #0C3A53; /* Matching border */
+    border-radius: 3px; /* Rounds the corners */
+    margin: 25.8px 0 16px 0; /* Adds spacing above and below */
+    padding: 0 10px; /* Adds horizontal padding */
+    width: 100%; /* Full width of the container */
+    height: 40px; /* Fixed height */
+    cursor: pointer; /* Indicates interactivity */
+    display: flex; /* Flex container for centering content */
+    justify-content: center; /* Centers content horizontally */
+    align-items: center; /* Centers content vertically */
+    transition: all 0.5s; /* Smooth transition effect */
 }
 
-.error-text{
-    margin: 2px 0 0 0;
-    font-size: 13px;
-    font-weight: bold;
-    line-height: 20px;
-    color: #D63301;
+/* Hover effect for submit button */
+.signup-btn-submit:hover {
+    background-color: #0EBAB1; /* Light blue-green background */
+    border: 2px solid #0EBAB1; /* Matching border */
 }
 
-.field-error{
-    border: 1px solid #D63301 !important;
+/* Error message text styling */
+.error-text {
+    margin: 2px 0 0 0; /* Adds spacing above */
+    font-size: 13px; /* Small font size */
+    font-weight: bold; /* Bold text */
+    line-height: 20px; /* Sets line height */
+    color: #D63301; /* Red text */
 }
 
-.signup-error{
-    font-size: 1em;
-    text-align: center;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    word-break: break-word;
-    margin: 0 0 16px 0;
-    padding: 5px 10px;
-    width: 100%;
-    box-sizing: border-box;
-	border-radius: 3px;
-    border: none;
-    background-color: #edcaca;
-    color: #D63301;
-    cursor: text; 
+/* Error state for input fields */
+.field-error {
+    border: 1px solid #D63301 !important; /* Red border */
 }
 
-
-/*----------Making Signup Page responive----------*/
-
-.signup-email{
-    grid-area: signup-email;
+/* General error message styling */
+.signup-error {
+    font-size: 1em; /* Standard font size */
+    text-align: center; /* Centers text */
+    overflow-wrap: break-word; /* Prevents text overflow */
+    word-wrap: break-word; /* Breaks long words */
+    word-break: break-word; /* Breaks words */
+    margin: 0 0 16px 0; /* Adds spacing below */
+    padding: 5px 10px; /* Adds padding inside */
+    width: 100%; /* Full width */
+    box-sizing: border-box; /* Includes padding and borders */
+    border-radius: 3px; /* Rounds the corners */
+    border: none; /* Removes border */
+    background-color: #edcaca; /* Light red background */
+    color: #D63301; /* Red text */
+    cursor: text; /* Indicates the text is selectable */
 }
 
-.signup-salary{
-    grid-area: signup-salary;
+/*----------Making Signup Page Responsive----------*/
+
+/* Individual grid area styling */
+.signup-email {
+    grid-area: signup-email; /* Assigns to grid area */
 }
 
-.signup-occupation{
-    grid-area: signup-occupation;
+.signup-salary {
+    grid-area: signup-salary; /* Assigns to grid area */
 }
 
-.signup-submit{
-    grid-area: signup-submit;
+.signup-occupation {
+    grid-area: signup-occupation; /* Assigns to grid area */
 }
 
-.signup-fname{
-    grid-area: signup-fname;
+.signup-submit {
+    grid-area: signup-submit; /* Assigns to grid area */
 }
 
-.signup-lname{
-    grid-area: signup-lname;
+.signup-fname {
+    grid-area: signup-fname; /* Assigns to grid area */
 }
 
-.signup-age{
-    grid-area: signup-age;
+.signup-lname {
+    grid-area: signup-lname; /* Assigns to grid area */
 }
 
-.signup-gender{
-    grid-area: signup-gender;
+.signup-age {
+    grid-area: signup-age; /* Assigns to grid area */
 }
 
-.signup-residence{
-    grid-area: signup-residence;
+.signup-gender {
+    grid-area: signup-gender; /* Assigns to grid area */
 }
 
-.signup-btn{
-    grid-area: signup-btn;
+.signup-residence {
+    grid-area: signup-residence; /* Assigns to grid area */
 }
 
-@media only screen and (max-width: 800px){
-    .signup-form-unit input, .dep-drop, .signup-date-unit{
-        width: 250px;
+.signup-btn {
+    grid-area: signup-btn; /* Assigns to grid area */
+}
+
+/* Responsive styles for tablets */
+@media only screen and (max-width: 800px) {
+    .signup-form-unit input, .dep-drop, .signup-date-unit {
+        width: 250px; /* Adjusts width for smaller screens */
     }
 }
 
-@media only screen and (max-width: 600px){
-    .signup-form-grid, .signup-setup-grid{
-        background-color: white;
-        display: flex;
-        flex-flow: column wrap;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 0; 
+/* Responsive styles for mobile devices */
+@media only screen and (max-width: 600px) {
+    .signup-form-grid, .signup-setup-grid {
+        background-color: white; /* Maintains white background */
+        display: flex; /* Flex container for stacking */
+        flex-flow: column wrap; /* Vertical layout */
+        justify-content: flex-start; /* Aligns items to the start */
+        align-items: center; /* Centers items horizontally */
+        gap: 0; /* Removes gap between items */
     }
 
-    .signup-form input, .dep-drop, .signup-date-unit{
-        width: max(calc(100vw - 80px), 150px);
+    .signup-form input, .dep-drop, .signup-date-unit {
+        width: max(calc(100vw - 80px), 150px); /* Adjusts width dynamically */
     }
 
-    .signup-heading{
-        margin: 1em 0;
-    } 
-
-    .signup-form-unit{
-        margin: 0 0 8px 0;
+    .signup-heading {
+        margin: 1em 0; /* Adjusts spacing above and below */
     }
 
-    .signup-btn-submit{
-        margin: 1em 0 1em 0;
+    .signup-form-unit {
+        margin: 0 0 8px 0; /* Adjusts spacing below */
     }
-    
+
+    .signup-btn-submit {
+        margin: 1em 0 1em 0; /* Adjusts spacing above and below */
+    }
 }
