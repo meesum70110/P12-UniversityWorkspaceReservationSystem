@@ -1,193 +1,172 @@
 /*----------Wrapper For Content Form and Content Cards----------*/
 
-.leave-management{
-    display: grid;
-    gap: 5px;
-    grid-template-columns: 2.5fr 1fr;
-    grid-template-rows: 1fr;
-    grid-template-areas: "leave-cards leave-form-wrapper";
-    background-color: rgb(238, 238, 238);
+/* Wrapper for managing leave content layout */
+.leave-management {
+    display: grid; /* Establishes a grid container */
+    gap: 5px; /* Adds spacing between grid items */
+    grid-template-columns: 2.5fr 1fr; /* Defines column width ratios */
+    grid-template-rows: 1fr; /* Sets a single row layout */
+    grid-template-areas: "leave-cards leave-form-wrapper"; /* Assigns grid area names */
+    background-color: rgb(238, 238, 238); /* Light gray background */
 }
 
 /*----------Leave Form----------*/
 
-.leave-add-form, .leave-search-form{
-    margin: 10px;
-    padding: 20px;
-    border-radius: 7px;
-    background-color: white;
-    display: flex;
-    flex-flow: column wrap;
-    justify-content: flex-start;
-    align-items: center;
-    width: min(calc(100% - 60px), 300px);
-    min-height : max(calc(100vh - 136px), 300px)
-
+/* Styling for the leave form and search form */
+.leave-add-form, .leave-search-form {
+    margin: 10px; /* Adds outer spacing */
+    padding: 20px; /* Adds inner spacing */
+    border-radius: 7px; /* Rounds the corners */
+    background-color: white; /* White background for clarity */
+    display: flex; /* Establishes a flex container */
+    flex-flow: column wrap; /* Arranges items vertically */
+    justify-content: flex-start; /* Aligns items at the start vertically */
+    align-items: center; /* Centers items horizontally */
+    width: min(calc(100% - 60px), 300px); /* Sets width responsive to container size */
+    min-height: max(calc(100vh - 136px), 300px); /* Sets a minimum height responsive to viewport */
 }
 
-.leave-form-secondary, .leave-form-search-secondary{
-    margin: 0;
-    padding: 0;
-    width: 100%;
+/* Secondary section of the form */
+.leave-form-secondary, .leave-form-search-secondary {
+    margin: 0; /* Removes outer spacing */
+    padding: 0; /* Removes inner spacing */
+    width: 100%; /* Sets full width */
 }
 
-.leave-heading{
-    font-size: x-large;
-    color: #3c5267;
-    text-align: center;
-    width: 100%;
+/* Leave form heading */
+.leave-heading {
+    font-size: x-large; /* Large font size */
+    color: #3c5267; /* Dark gray text color */
+    text-align: center; /* Centers the text */
+    width: 100%; /* Full width alignment */
 }
 
-.leave-form-unit{
-    display: flex;
-    flex-flow: column wrap;
-    margin: 0 0 16px 0;
-    padding: 0;
+/* Form input units */
+.leave-form-unit {
+    display: flex; /* Establishes a flex container */
+    flex-flow: column wrap; /* Arranges items vertically */
+    margin: 0 0 16px 0; /* Adds spacing at the bottom */
+    padding: 0; /* Removes inner spacing */
 }
 
-label{
-    margin: 0 0 5px 0;
-    font-size: 14px;
-    font-family: sans-serif, 'Ubuntu', Verdana, Geneva, Tahoma;
-    font-weight: bold;
-    line-height: 20px;
-    color: rgba(0, 0, 0, 0.8);
+/* Label styling for form elements */
+label {
+    margin: 0 0 5px 0; /* Adds spacing below the label */
+    font-size: 14px; /* Sets font size */
+    font-family: sans-serif, 'Ubuntu', Verdana, Geneva, Tahoma; /* Sets font family */
+    font-weight: bold; /* Bold text for emphasis */
+    line-height: 20px; /* Adjusts line height */
+    color: rgba(0, 0, 0, 0.8); /* Dark gray color */
 }
 
-.form-required{
-    color: red;
-    margin: 0;
-    padding: 0;
+/* Indicator for required fields */
+.form-required {
+    color: red; /* Red text for emphasis */
+    margin: 0; /* Removes outer spacing */
+    padding: 0; /* Removes inner spacing */
 }
 
-.date-range-picker, .date-range-picker-error{
-    width:100%;
-    height: 40px;
-	border-radius: 3px;
-    border: 1px solid #cbd6e2;
-    background-color: white;
-    font-family: 'Ubuntu', Verdana, Geneva, Tahoma, sans-serif;
+/* Date picker styling */
+.date-range-picker, .date-range-picker-error {
+    width: 100%; /* Full width */
+    height: 40px; /* Sets height */
+    border-radius: 3px; /* Rounds the corners */
+    border: 1px solid #cbd6e2; /* Light gray border */
+    background-color: white; /* White background */
+    font-family: 'Ubuntu', Verdana, Geneva, Tahoma, sans-serif; /* Sets font family */
 }
 
-.leave-textarea, .leave-textarea-error{
-    margin: 0;
-    padding: 5px 5px 5px 10px;
-	height: 80px;
-    width: 100%;
-	min-height: 40px;
-    box-sizing: border-box;
-	border-radius: 3px;
-    border: 1px solid #cbd6e2;
-    background-color: white;
-    color: #615f5f;
-    cursor: text;
-    resize: none;
-} 
-
-.leave-textarea:hover, .leave-textarea-error:hover{
-    border-color: rgba(82, 168, 236, 0.8);
+/* Textarea styling for leave descriptions */
+.leave-textarea, .leave-textarea-error {
+    margin: 0; /* Removes outer spacing */
+    padding: 5px 5px 5px 10px; /* Adds padding for text */
+    height: 80px; /* Sets height */
+    width: 100%; /* Full width */
+    min-height: 40px; /* Minimum height */
+    box-sizing: border-box; /* Includes padding and border in size */
+    border-radius: 3px; /* Rounds the corners */
+    border: 1px solid #cbd6e2; /* Light gray border */
+    background-color: white; /* White background */
+    color: #615f5f; /* Medium gray text */
+    cursor: text; /* Text cursor */
+    resize: none; /* Disables resizing */
 }
 
-.leave-textarea:focus, .leave-textarea-error:focus{
-    border-color: rgba(82, 168, 236, 0.8);
-    outline: 1.6px solid rgba(82, 168, 236, 0.2);
+/* Hover effect for textarea */
+.leave-textarea:hover, .leave-textarea-error:hover {
+    border-color: rgba(82, 168, 236, 0.8); /* Changes border to blue on hover */
 }
 
+/* Focus effect for textarea */
+.leave-textarea:focus, .leave-textarea-error:focus {
+    border-color: rgba(82, 168, 236, 0.8); /* Changes border to blue on focus */
+    outline: 1.6px solid rgba(82, 168, 236, 0.2); /* Adds light blue outline */
+}
+
+/* Custom scrollbar styling for textarea */
 textarea::-webkit-scrollbar {
-    width: 8px;
+    width: 8px; /* Sets scrollbar width */
 }
 
 textarea::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 5px rgba(127, 126, 126, 0.3);
+    -webkit-box-shadow: inset 0 0 5px rgba(127, 126, 126, 0.3); /* Adds shadow inside track */
 }
 
 textarea::-webkit-scrollbar-thumb {
-  background-color: #cbd6e2;
-  border-radius: 4px;
-  outline: none
+    background-color: #cbd6e2; /* Light gray scrollbar thumb */
+    border-radius: 4px; /* Rounds scrollbar thumb */
+    outline: none; /* Removes outline */
 }
 
-.file-upload-area, .file-upload-area-error{
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-    justify-content: space-evenly;
-    border: 2px dashed #cbd6e2;
-    border-radius: 3px;
-    cursor: pointer;
-    width: calc(100% - 4px);
-    height: 75px;
-    color: #615f5f;
+/* Upload area styling for file attachments */
+.file-upload-area, .file-upload-area-error {
+    display: flex; /* Establishes a flex container */
+    flex-flow: column nowrap; /* Arranges items vertically */
+    align-items: center; /* Centers items horizontally */
+    justify-content: space-evenly; /* Distributes space evenly */
+    border: 2px dashed #cbd6e2; /* Dashed light gray border */
+    border-radius: 3px; /* Rounds the corners */
+    cursor: pointer; /* Pointer cursor */
+    width: calc(100% - 4px); /* Adjusts width for container */
+    height: 75px; /* Sets height */
+    color: #615f5f; /* Medium gray text */
 }
 
-.file-upload-area img, .file-upload-area-error img{
-    height: 35px;
+/* Upload area hover and focus effects */
+.file-upload-area:hover, .file-upload-area:focus {
+    border-color: rgba(82, 168, 236, 0.8); /* Changes border to blue on hover or focus */
 }
 
-.file-upload-area p, .file-upload-area-error p{
-    margin: 0;
-    font-size: 13px;
-    font-weight: bold;
+/* Error styling for upload area */
+.file-upload-area-error {
+    border: 2px dashed #D63301 !important; /* Red dashed border for errors */
 }
 
-.file-upload-status, .file-upload-status-error{
-    margin-top: 5px;
-    padding: 2px 4px;
-    width: calc(100%-8px);
-    color: #333333;
-    background-color: #cbd6e2;
-    border-radius: 3px;
-    display: grid;
-    grid-template-columns: 7fr 1fr;
-    grid-template-rows: auto;
-    font-size: 13px;
+/* Submit button styling */
+.leave-btn-submit {
+    font-size: medium; /* Sets font size */
+    font-weight: 600; /* Bold text */
+    color: white; /* White text color */
+    background-color: #0C3A53; /* Dark teal background */
+    border: 3px solid #0C3A53; /* Dark teal border */
+    border-radius: 3px; /* Rounds the corners */
+    margin: 8px 0 16px 0; /* Adds spacing around button */
+    padding: 0 10px; /* Adds inner spacing */
+    width: 100%; /* Full width */
+    height: 40px; /* Sets height */
+    cursor: pointer; /* Pointer cursor */
+    display: flex; /* Establishes a flex container */
+    align-items: center; /* Centers content vertically */
+    justify-content: center; /* Centers content horizontally */
+    transition: all 0.5s; /* Adds smooth transition effects */
 }
 
-.filename{
-    margin: 0;
-    padding: 0;
-    margin-right: auto;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    word-break: break-word;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: auto;
+/* Hover effect for submit button */
+.leave-btn-submit:hover {
+    background-color: #0EBAB1; /* Changes background to light teal */
+    border: 2px solid #0EBAB1; /* Changes border to light teal */
 }
 
-.undo-attachment-icon{
-    height: 1.4em;
-    width: 1.4em;
-    margin-left: auto;
-    color: #5b6d7d;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.leave-btn-submit{
-    font-size: medium;
-    font-weight: 600;
-	color: white;
-    background-color: #0C3A53;
-    border: 3px solid #0C3A53;
-	border-radius: 3px;
-    margin: 8px 0 16px 0;
-    padding: 0 10px;
-    width: 100%;
-	height: 40px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.5s
-}
-
-.leave-btn-submit:hover{
-	background-color: #0EBAB1;
-    border: 2px solid #0EBAB1;
-}
 
 .leave-textarea-error, .date-range-picker-error{
     border: 1px solid #D63301;
@@ -221,444 +200,503 @@ textarea::-webkit-scrollbar-thumb {
 
 /*----------leave Card----------*/
 
-.leaves{
-    display: flex;
-    flex-flow: column wrap;
-    align-items: flex-start;
-    justify-content: center;
+/* Wrapper for leave cards */
+.leaves {
+    display: flex; /* Establishes a flex container */
+    flex-flow: column wrap; /* Arranges items in a vertical column */
+    align-items: flex-start; /* Aligns items at the start horizontally */
+    justify-content: center; /* Centers items vertically */
 }
 
-.no-leaves{
-    height: 100%;
-    display: flex;
-    flex-flow: column wrap;
-    align-content: center;
-    justify-content: center;
-    margin: 50px 10px
+/* Styling for the message when no leaves are present */
+.no-leaves {
+    height: 100%; /* Full height for container */
+    display: flex; /* Establishes a flex container */
+    flex-flow: column wrap; /* Arranges items in a vertical column */
+    align-content: center; /* Centers items horizontally */
+    justify-content: center; /* Centers items vertically */
+    margin: 50px 10px; /* Adds outer spacing */
 }
 
-.no-leaves h2{
-    font-size: large;
-    color: #3c5267;
-    text-align: center;
-    margin: 0;
+/* Header for the no leaves message */
+.no-leaves h2 {
+    font-size: large; /* Large font size */
+    color: #3c5267; /* Dark gray text */
+    text-align: center; /* Centers text */
+    margin: 0; /* Removes default margin */
 }
 
-.no-leaves img, .no-leaves-manage img{
-    max-height: 250px;
-    margin: 10px 20px;
-    filter: grayscale(20%);
+/* Image styling for no leaves message */
+.no-leaves img, .no-leaves-manage img {
+    max-height: 250px; /* Limits image height */
+    margin: 10px 20px; /* Adds outer spacing */
+    filter: grayscale(20%); /* Applies grayscale filter */
 }
 
-.no-leaves-manage img{
-    filter: grayscale(40%);
-    width: 150px;
+/* Additional styling for managed no leaves images */
+.no-leaves-manage img {
+    filter: grayscale(40%); /* Darker grayscale filter */
+    width: 150px; /* Sets fixed width */
 }
 
-.leave-card{
-    box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
-    border-radius: 7px;
-    background-color: #fafafa;
-    margin: 10px;
-    padding: 10px;
-    width: min(calc(100% - 40px), 550px);
-    font-size: medium;
-    font-weight: 700;
-    color: #333333;
-    transition: all 0.5s;
+/* Individual leave card styling */
+.leave-card {
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    border-radius: 7px; /* Rounds the corners */
+    background-color: #fafafa; /* Light gray background */
+    margin: 10px; /* Adds spacing around cards */
+    padding: 10px; /* Adds inner spacing */
+    width: min(calc(100% - 40px), 550px); /* Sets responsive width */
+    font-size: medium; /* Medium font size */
+    font-weight: 700; /* Bold text */
+    color: #333333; /* Dark gray text */
+    transition: all 0.5s; /* Smooth transition effects */
 }
 
-.leave-card:hover{
-    background-color: white;
+/* Hover effect for leave cards */
+.leave-card:hover {
+    background-color: white; /* Changes background to white */
 }
 
-.leave-card-delete-wrapper{
-    width: 100%;
-    height: 1.6em;
-    display: flex;
-    justify-content: flex-end;
+/* Wrapper for delete icon in leave card */
+.leave-card-delete-wrapper {
+    width: 100%; /* Full width */
+    height: 1.6em; /* Fixed height */
+    display: flex; /* Establishes a flex container */
+    justify-content: flex-end; /* Aligns icon to the end */
 }
 
-.leave-card-delete-icon{
-    height: 1.6em;
-    width: 1.6em;
-    color: #333333;
-    opacity: 0.5;
-    cursor: pointer;
-    transition: all 0.5s;
+/* Delete icon styling */
+.leave-card-delete-icon {
+    height: 1.6em; /* Fixed height */
+    width: 1.6em; /* Fixed width */
+    color: #333333; /* Dark gray icon */
+    opacity: 0.5; /* Semi-transparent */
+    cursor: pointer; /* Pointer cursor */
+    transition: all 0.5s; /* Smooth transition effects */
 }
 
-.leave-card-delete-icon:hover, .undo-attachment-icon:hover{
-	transform: scale(1.1);
+/* Hover effect for delete icon */
+.leave-card-delete-icon:hover, .undo-attachment-icon:hover {
+    transform: scale(1.1); /* Enlarges icon slightly */
 }
 
-.icon-accept, .icon-reject{
-    opacity: 0.7;
-    transition: all 0.3s;
+/* Accept and reject icons styling */
+.icon-accept, .icon-reject {
+    opacity: 0.7; /* Semi-transparent */
+    transition: all 0.3s; /* Smooth transition effects */
 }
 
-.icon-reject{
-    color: #0C3A53;
+/* Accept icon specific styling */
+.icon-accept {
+    color: #0EBAB1; /* Light teal color */
 }
 
-.icon-accept{
-    color: #0EBAB1;
+/* Reject icon specific styling */
+.icon-reject {
+    color: #0C3A53; /* Dark teal color */
 }
 
-.leave-card-delete-icon:focus, .icon-accept:focus, .icon-reject:focus{
-    outline: none;
+/* Focus effect for icons */
+.leave-card-delete-icon:focus, .icon-accept:focus, .icon-reject:focus {
+    outline: none; /* Removes default outline */
 }
 
-.leave-card-content-wrapper{
-	display: grid;
-	/* gap: 0px;
-	grid-template-columns: 1fr 4fr; */
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    justify-content: space-evenly;
-    list-style: none;
-    margin: 0 auto;
-    padding: 0;
-    min-height: 100px;
+/* Content wrapper within leave card */
+.leave-card-content-wrapper {
+    display: flex; /* Establishes a flex container */
+    flex-flow: row nowrap; /* Arranges items in a single row */
+    align-items: center; /* Centers items vertically */
+    justify-content: space-evenly; /* Distributes space evenly */
+    list-style: none; /* Removes default list styling */
+    margin: 0 auto; /* Centers content horizontally */
+    padding: 0; /* Removes inner spacing */
+    min-height: 100px; /* Sets minimum height */
 }
 
-.leave-card img{
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
-    margin: 0;
+/* Image styling within leave card */
+.leave-card img {
+    height: 100px; /* Fixed height */
+    width: 100px; /* Fixed width */
+    border-radius: 50%; /* Circular shape */
+    margin: 0; /* Removes default margin */
 }
 
+/* Wrapper for profile content within leave card */
 .leave-cotent-profile {
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: flex-start;
-    justify-content: center;
+    display: flex; /* Establishes a flex container */
+    flex-flow: column nowrap; /* Arranges items vertically */
+    align-items: flex-start; /* Aligns items at the start horizontally */
+    justify-content: center; /* Centers items vertically */
 }
 
-.leave-cotent-profile label, .leave-cotent-profile p{
-    margin: 0;
-    padding: 0;
-    line-height: 20px;
-    font-family: 'Ubuntu';
-    font-size: 1em;
-
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    word-break: break-word;
+/* Label and paragraph styling in profile section */
+.leave-cotent-profile label, .leave-cotent-profile p {
+    margin: 0; /* Removes default margin */
+    padding: 0; /* Removes default padding */
+    line-height: 20px; /* Adjusts line height */
+    font-family: 'Ubuntu'; /* Sets font family */
+    font-size: 1em; /* Sets font size */
+    overflow-wrap: break-word; /* Prevents text overflow */
+    word-wrap: break-word; /* Breaks long words */
+    word-break: break-word; /* Breaks text when necessary */
 }
 
-.leave-cotent-profile label{
-    font-size: 14px;
-    color: #5b6d7d
+/* Label-specific styling in profile section */
+.leave-cotent-profile label {
+    font-size: 14px; /* Adjusts font size */
+    color: #5b6d7d; /* Dark gray text */
 }
 
-.leave-cotent-profile p{
-    color: #1d578a;
+/* Paragraph-specific styling in profile section */
+.leave-cotent-profile p {
+    color: #1d578a; /* Medium teal text */
 }
 
-.leave-profile-name{
-    text-transform: capitalize;
+/* Name styling in profile section */
+.leave-profile-name {
+    text-transform: capitalize; /* Capitalizes the first letter */
 }
 
-.leave-profile-date{
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-items: center;
-
+/* Date section within leave profile */
+.leave-profile-date {
+    display: flex; /* Establishes a flex container */
+    flex-flow: row nowrap; /* Arranges items in a single row */
+    justify-content: center; /* Centers items horizontally */
+    align-items: center; /* Centers items vertically */
 }
 
-.leave-date-space-icon{
-    width: 20px;
-    height: 20px;
-    margin: 0 5px;
-} 
-
-.leave-card-description-wrapper{
-    line-height: 20px;
-    font-size: 1em;
-    color:#5b6d7d;
-    margin-top: 10px;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    word-break: break-word;
+/* Icon spacing within date section */
+.leave-date-space-icon {
+    width: 20px; /* Fixed width */
+    height: 20px; /* Fixed height */
+    margin: 0 5px; /* Adds spacing around icon */
 }
 
-.leave-card-description-wrapper label{
-    font-family: 'Ubuntu';
-    font-size: 1em;
-    color:#333333;
-    margin-right: 10px;
+/* Styling for the description section within leave cards */
+.leave-card-description-wrapper {
+    line-height: 20px; /* Adjusts line spacing */
+    font-size: 1em; /* Sets the font size */
+    color: #5b6d7d; /* Medium gray text color */
+    margin-top: 10px; /* Adds spacing above the description */
+    overflow-wrap: break-word; /* Allows breaking words to avoid overflow */
+    word-wrap: break-word; /* Breaks long words */
+    word-break: break-word; /* Ensures text breaks at proper points */
 }
 
-.leave-card-status-wrapper, .leave-card-status{
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: flex-end;
-    font-size: 14px;
-    line-height: 20px;
+/* Label styling for the description section */
+.leave-card-description-wrapper label {
+    font-family: 'Ubuntu'; /* Sets the font family */
+    font-size: 1em; /* Ensures consistency in font size */
+    color: #333333; /* Dark gray text color */
+    margin-right: 10px; /* Adds spacing to the right of the label */
 }
 
-.leave-card-status-wrapper{
-    margin-top: 10px;
+/* Wrapper for status display within leave cards */
+.leave-card-status-wrapper, .leave-card-status {
+    display: flex; /* Establishes a flex container */
+    flex-flow: row nowrap; /* Aligns items in a single row */
+    justify-content: space-between; /* Adds space between items */
+    align-items: flex-end; /* Aligns items at the bottom */
+    font-size: 14px; /* Sets the font size */
+    line-height: 20px; /* Adjusts line spacing */
 }
 
-.leave-card-status{
-    justify-content: center;
+/* Adds margin to the top of the status wrapper */
+.leave-card-status-wrapper {
+    margin-top: 10px; /* Spacing above the status wrapper */
 }
 
-.leave-card-standing, .leave-card-standing-g, .leave-card-standing-r{
-    border: 2px solid #0C3A53;
-    color: #0C3A53;
-    font-weight: bolder;
-    background-color: #cbd6e2;
-    padding: 5px 10px;
-    border-radius: 10px;
-    cursor: default;
+/* Centers the status content */
+.leave-card-status {
+    justify-content: center; /* Centers items horizontally */
 }
 
-.leave-card-standing-g{
-    border-color: rgb(0, 160, 0);
-    color: rgb(0, 160, 0);
-    background: rgb(202, 245, 202);
+/* Styling for leave card status (default) */
+.leave-card-standing, .leave-card-standing-g, .leave-card-standing-r {
+    border: 2px solid #0C3A53; /* Adds a border with dark teal color */
+    color: #0C3A53; /* Sets text color to dark teal */
+    font-weight: bolder; /* Makes the text bold */
+    background-color: #cbd6e2; /* Light gray background */
+    padding: 5px 10px; /* Adds spacing around the text */
+    border-radius: 10px; /* Rounds the corners */
+    cursor: default; /* Indicates the status is not interactive */
 }
 
-.leave-card-standing-r{
-    border-color: #D63301;
-    color: #D63301;
-    background-color: #edcaca;
+/* Styling for approved leave status */
+.leave-card-standing-g {
+    border-color: rgb(0, 160, 0); /* Green border */
+    color: rgb(0, 160, 0); /* Green text */
+    background: rgb(202, 245, 202); /* Light green background */
 }
 
-.leave-card-attach{
-    border-radius: 12px;
-    border: 2px solid #0EBAB1;
-    background-color: #0EBAB1;
-    padding: 5px;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 7px;
+/* Styling for rejected leave status */
+.leave-card-standing-r {
+    border-color: #D63301; /* Red border */
+    color: #D63301; /* Red text */
+    background-color: #edcaca; /* Light red background */
 }
 
-.attach-icon{
-    width: 20px;
-    height: 20px;   
-    cursor: pointer;
-    transition: all 0.5s;
+/* Styling for attachment button within leave cards */
+.leave-card-attach {
+    border-radius: 12px; /* Rounds the corners */
+    border: 2px solid #0EBAB1; /* Teal border */
+    background-color: #0EBAB1; /* Teal background */
+    padding: 5px; /* Adds padding */
+    color: white; /* White text color */
+    display: flex; /* Establishes a flex container */
+    align-items: center; /* Centers items vertically */
+    justify-content: center; /* Centers items horizontally */
+    margin: 0 7px; /* Adds spacing around the button */
 }
 
-.attach-icon:hover{
-    transform: scale(1.1);
+/* Styling for attachment icon */
+.attach-icon {
+    width: 20px; /* Sets the width */
+    height: 20px; /* Sets the height */
+    cursor: pointer; /* Pointer cursor indicates interactivity */
+    transition: all 0.5s; /* Smooth transition for hover effect */
 }
 
-
-.distance-now{
-    color:#5b6d7d;
-    margin: 0 6.4px 0 0;
+/* Hover effect for attachment icon */
+.attach-icon:hover {
+    transform: scale(1.1); /* Enlarges the icon slightly */
 }
 
-/*----------Making Leave Cards And Form Responive----------*/
-
-.leaves{
-    grid-area: leave-cards;
-    display: flex;
-    flex-flow: column wrap;
-    align-items: center;
-    justify-content: center;
+/* Styling for the distance text in leave cards */
+.distance-now {
+    color: #5b6d7d; /* Medium gray text color */
+    margin: 0 6.4px 0 0; /* Adds spacing to the right */
 }
 
-.leave-form-wrapper{
-    grid-area: leave-form-wrapper;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    margin-top: 10px;
-    width: 100%;
+/*----------Making Leave Cards And Form Responsive----------*/
+
+/* Wrapper for leave cards in responsive layout */
+.leaves {
+    grid-area: leave-cards; /* Associates the wrapper with the leave-cards grid area */
+    display: flex; /* Establishes a flex container */
+    flex-flow: column wrap; /* Arranges items in a vertical column */
+    align-items: center; /* Centers items horizontally */
+    justify-content: center; /* Centers items vertically */
 }
 
-.leaves{
-    margin: 10px 0;
-    width: calc(100% - 20px);
+/* Wrapper for leave form in responsive layout */
+.leave-form-wrapper {
+    grid-area: leave-form-wrapper; /* Associates the wrapper with the leave-form-wrapper grid area */
+    display: flex; /* Establishes a flex container */
+    align-items: flex-start; /* Aligns items to the start vertically */
+    justify-content: center; /* Centers items horizontally */
+    margin-top: 10px; /* Adds spacing above the form */
+    width: 100%; /* Full width of the container */
 }
 
-@media only screen and (max-width: 900px){
+/* Adjusts the layout of leave cards for responsive view */
+.leaves {
+    margin: 10px 0; /* Adds spacing around the cards */
+    width: calc(100% - 20px); /* Sets width with padding adjustment */
+}
 
-    .leave-add-form{
-        width: min(calc(100vw - 100px), 530px);
+/* Responsive design for devices with max width of 900px */
+@media only screen and (max-width: 900px) {
+
+    /* Adjusts the width of the leave form for smaller screens */
+    .leave-add-form {
+        width: min(calc(100vw - 100px), 530px); /* Responsive width adjustment */
     }
 
-    
-    .leave-management{
-        display: flex;
-        flex-flow: column wrap;
-        align-items: center;
-    } 
-
-    .leaves{
-        margin: 10px;
+    /* Changes leave management layout to a column-based structure */
+    .leave-management {
+        display: flex; /* Establishes a flex container */
+        flex-flow: column wrap; /* Arranges items in a vertical column */
+        align-items: center; /* Centers items horizontally */
     }
 
-    .no-leaves{
-        margin-top: 0;
+    /* Adjusts the margins for leave cards */
+    .leaves {
+        margin: 10px; /* Adds spacing around the cards */
     }
 
-    .no-leaves-manage{
-        margin-top: 50px;
+    /* Adjusts spacing for no-leaves message */
+    .no-leaves {
+        margin-top: 0; /* Removes extra margin above */
     }
 
+    /* Adds spacing for managed no-leaves message */
+    .no-leaves-manage {
+        margin-top: 50px; /* Adds spacing above */
+    }
+
+    /* Adjusts image size for no-leaves message */
     .no-leaves img {
-        height: 150px;
-        margin: 0px 10px 10px 10px;
+        height: 150px; /* Limits the height of the image */
+        margin: 0px 10px 10px 10px; /* Adds spacing around the image */
     }
 
-    .leave-add-form{
-        min-height: auto;
+    /* Ensures consistent height for leave form */
+    .leave-add-form {
+        min-height: auto; /* Removes height constraint */
     }
 
-    .leave-search-form{
-        min-height: auto;
-        width: calc(100% - 40px);
-        margin-right: 20px;
-        margin-left: 20px;
-        margin-bottom: 0;
+    /* Adjusts the width and margins for search form */
+    .leave-search-form {
+        min-height: auto; /* Removes height constraint */
+        width: calc(100% - 40px); /* Sets responsive width */
+        margin-right: 20px; /* Adds spacing to the right */
+        margin-left: 20px; /* Adds spacing to the left */
+        margin-bottom: 0; /* Removes bottom margin */
     }
 
-    .leave-form-search-secondary{
-        display: grid;
-        grid-gap: 5px;
-        grid-template-columns: 1fr 1fr;
-        grid-row: 1fr 1fr 1fr;
+    /* Defines the layout for secondary search form elements */
+    .leave-form-search-secondary {
+        display: grid; /* Establishes a grid layout */
+        grid-gap: 5px; /* Adds spacing between grid items */
+        grid-template-columns: 1fr 1fr; /* Two equal-width columns */
+        grid-row: 1fr 1fr 1fr; /* Three rows */
         grid-template-areas: "leave-heading leave-heading"
                              "leave-sort leave-status"
-                             "leave-date leave-email";
-        width: 100%;
+                             "leave-date leave-email"; /* Defines grid areas */
+        width: 100%; /* Full width of the container */
     }
 
-    .leave-area-heading{grid-area: leave-heading}
-    .leave-area-sort{grid-area: leave-sort}
-    .leave-area-status{grid-area: leave-status}
-    .leave-area-date{grid-area: leave-date}
-    .leave-area-email{grid-area: leave-email}
+    /* Assigns specific areas for secondary form elements */
+    .leave-area-heading { grid-area: leave-heading; }
+    .leave-area-sort { grid-area: leave-sort; }
+    .leave-area-status { grid-area: leave-status; }
+    .leave-area-date { grid-area: leave-date; }
+    .leave-area-email { grid-area: leave-email; }
 }
 
-/* The styling classes below tend to style leaveManagement.js building upon previous style for applyLeave.js */
-
-.search-unit{
-    margin: 0;
-    padding: 0 10px;
-    width: 100%;
-	height: 40px;
-    box-sizing: border-box;
-	border-radius: 3px;
-    border: 1px solid #cbd6e2;
-    background-color: white;
-    color: #333333;
-    appearance: none;
+/* Styling for search input fields in the leave form */
+.search-unit {
+    margin: 0; /* Removes default margin */
+    padding: 0 10px; /* Adds horizontal padding */
+    width: 100%; /* Full width of the container */
+    height: 40px; /* Fixed height for the input field */
+    box-sizing: border-box; /* Includes padding and border in the element's total width and height */
+    border-radius: 3px; /* Rounds the corners of the input field */
+    border: 1px solid #cbd6e2; /* Light gray border */
+    background-color: white; /* White background color */
+    color: #333333; /* Dark gray text color */
+    appearance: none; /* Removes the default styling of input elements */
 }
 
-.cursor-pointer{
-    cursor: pointer;
+/* Adds pointer cursor to indicate interactivity */
+.cursor-pointer {
+    cursor: pointer; /* Changes the cursor to a pointer */
 }
 
-.search-unit:hover, .search-unit:focus, .sort-wrapper button:hover{
-    border-color: rgba(82, 168, 236, 0.8);
+/* Hover and focus styling for input fields and buttons */
+.search-unit:hover, 
+.search-unit:focus, 
+.sort-wrapper button:hover {
+    border-color: rgba(82, 168, 236, 0.8); /* Light blue border on hover or focus */
 }
 
-.search-unit:focus, .sort-wrapper button:hover{
-    outline: 1.6px solid rgba(82, 168, 236, 0.2);
+/* Adds focus outline for accessibility */
+.search-unit:focus, 
+.sort-wrapper button:hover {
+    outline: 1.6px solid rgba(82, 168, 236, 0.2); /* Light blue outline */
 }
 
-.absolute-icon-wrapper{
-    margin: 0;
-    padding: 0;
-    position: relative;
-    display: flex;
-    flex-flow: column wrap;
-    align-items: flex-end;
-    justify-content: center;
+/* Wrapper for icons positioned within input fields */
+.absolute-icon-wrapper {
+    margin: 0; /* Removes default margin */
+    padding: 0; /* Removes default padding */
+    position: relative; /* Positions child elements relative to this wrapper */
+    display: flex; /* Establishes a flex container */
+    flex-flow: column wrap; /* Arranges items in a vertical column */
+    align-items: flex-end; /* Aligns items to the end horizontally */
+    justify-content: center; /* Centers items vertically */
 }
 
-.drop-icon{
-    position: absolute;
-    pointer-events: none;
-    height: 15px;
-    width: 15px;
-    padding: 0 8px;
-    cursor: pointer;
-    color: #cbd6e2;
+/* Drop icon styling within search input fields */
+.drop-icon {
+    position: absolute; /* Positions the icon within the wrapper */
+    pointer-events: none; /* Prevents mouse events from affecting the icon */
+    height: 15px; /* Fixed height */
+    width: 15px; /* Fixed width */
+    padding: 0 8px; /* Adds padding around the icon */
+    cursor: pointer; /* Pointer cursor indicates interactivity */
+    color: #cbd6e2; /* Light gray color for the icon */
 }
 
-.absolute-icon-wrapper button{
-    position: absolute;
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    background-color: transparent;
+/* Button styling within icon wrapper */
+.absolute-icon-wrapper button {
+    position: absolute; /* Positions the button within the wrapper */
+    margin: 0; /* Removes default margin */
+    padding: 0; /* Removes default padding */
+    height: 100%; /* Full height of the wrapper */
+    display: flex; /* Establishes a flex container */
+    justify-content: center; /* Centers items horizontally */
+    align-items: center; /* Centers items vertically */
+    border: none; /* Removes the default border */
+    background-color: transparent; /* Transparent background */
 }
 
-.checkmark-icon{
-    height: 15px;
-    width: 15px;
-    padding: 0px 8px;
-    color: rgba(82, 168, 236, 0.8);
-    cursor: pointer;
+/* Checkmark icon styling for selected items */
+.checkmark-icon {
+    height: 15px; /* Fixed height */
+    width: 15px; /* Fixed width */
+    padding: 0px 8px; /* Adds horizontal padding */
+    color: rgba(82, 168, 236, 0.8); /* Light blue color */
+    cursor: pointer; /* Pointer cursor indicates interactivity */
 }
 
-.hide-icon{
-    display: none;
+/* Hides icons when not needed */
+.hide-icon {
+    display: none; /* Hides the element */
 }
 
-.absolute-icon-wrapper .search-unit, .absolute-icon-wrapper .search-unit:focus{
-    padding-right: 31px;
+/* Adjusts padding for input fields with icons */
+.absolute-icon-wrapper .search-unit, 
+.absolute-icon-wrapper .search-unit:focus {
+    padding-right: 31px; /* Adds space on the right for the icon */
 }
 
-.absolute-icon-wrapper:focus-within::after{
-    color: red;
+/* Focus styling for the icon wrapper */
+.absolute-icon-wrapper:focus-within::after {
+    color: red; /* Changes the color when focused */
 }
 
-.sort-wrapper{
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    width: 100%;
-    height: 40px;
+/* Wrapper for sorting options in the leave form */
+.sort-wrapper {
+    display: flex; /* Establishes a flex container */
+    flex-flow: row nowrap; /* Arranges items in a single row */
+    justify-content: space-between; /* Adds space between items */
+    width: 100%; /* Full width of the container */
+    height: 40px; /* Fixed height */
 }
 
-.sort-wrapper button{
-    margin: 0;
-    padding: 0 10px;
-    height: 100%;
-    width: 49%;
-    border-radius: 3px;
-    border: 1px solid #cbd6e2;
-    background-color: white;
-    color: #333333;
-    font-weight: 500;
-    font-size: small;
-    cursor: pointer;
+/* Button styling within the sorting options */
+.sort-wrapper button {
+    margin: 0; /* Removes default margin */
+    padding: 0 10px; /* Adds horizontal padding */
+    height: 100%; /* Full height */
+    width: 49%; /* Width is nearly half the container */
+    border-radius: 3px; /* Rounds the corners */
+    border: 1px solid #cbd6e2; /* Light gray border */
+    background-color: white; /* White background */
+    color: #333333; /* Dark gray text color */
+    font-weight: 500; /* Medium font weight */
+    font-size: small; /* Small font size */
+    cursor: pointer; /* Pointer cursor indicates interactivity */
 }
 
-.sort-selection{
-    border-color: rgba(82, 168, 236, 0.8) !important;
+/* Adds a border to the selected sorting option */
+.sort-selection {
+    border-color: rgba(82, 168, 236, 0.8) !important; /* Light blue border */
 }
 
-.email-search-response{
-    margin-top: 5px;
-    padding: 2px 4px;
-    width: calc(100%-8px);
-    color: #333333;
-    background-color: #cbd6e2;
-    border-radius: 3px;
-    display: flex;
-    justify-content: center;
-    font-size: 13.5px;
-    line-height: 20px;
+/* Styling for the email search response */
+.email-search-response {
+    margin-top: 5px; /* Adds spacing above the response */
+    padding: 2px 4px; /* Adds padding inside the response */
+    width: calc(100%-8px); /* Adjusts width with padding */
+    color: #333333; /* Dark gray text color */
+    background-color: #cbd6e2; /* Light gray background */
+    border-radius: 3px; /* Rounds the corners */
+    display: flex; /* Establishes a flex container */
+    justify-content: center; /* Centers items horizontally */
+    font-size: 13.5px; /* Slightly larger font size */
+    line-height: 20px; /* Adjusts line spacing */
 }
