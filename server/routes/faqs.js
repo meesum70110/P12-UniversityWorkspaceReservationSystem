@@ -1,23 +1,29 @@
+// Importing required dependencies and controller functions
 const express = require('express');
 const {
-    getAllFaqs,
-    addFaq,
-    deleteFaq
-} = require('../controllers/faqsController')
+    getAllFaqs, // Controller to retrieve all FAQs
+    addFaq, // Controller to add a new FAQ
+    deleteFaq // Controller to delete an FAQ by ID
+} = require('../controllers/faqsController');
 
+// Creating a new Express router instance
 const router = express.Router();
+
+// Importing the middleware to authenticate requests
 const authenticateRequest = require('../middleware/authorize');
 
-// JSON WEB TOKEN validation. If valid only then subsequent routes are invoked and access to controller functions is granted.
+// Applying the authentication middleware to validate the JSON Web Token (JWT)
+// If the token is valid, it allows access to the subsequent routes and controller functions
 router.use(authenticateRequest);
 
-// GET all faqs
+// Defining the route to GET all FAQs
 router.get('/', getAllFaqs);
 
-// POST a new faq
-router.post('/', addFaq)
+// Defining the route to POST a new FAQ
+router.post('/', addFaq);
 
-// DELETE a faq
+// Defining the route to DELETE an FAQ by its ID
 router.delete('/:id', deleteFaq);
 
-module.exports = router
+// Exporting the router to be used in the main app
+module.exports = router;
