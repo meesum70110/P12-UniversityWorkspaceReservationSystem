@@ -1,50 +1,43 @@
-// Importing necessary libraries and components
 import React from 'react';
-import TypeFourTable from './TypeFourTable'; // Importing the TypeFourTable component
+import TypeFourTable from './TypeFourTable';
 
-// Defining the TablesTypeFour component
 const TablesTypeFour = (props) => {
-    // Destructuring props for better readability
     const { x, ids, handleHovering, handlePopUp, dimReserved } = props;
 
-    // Defining constants for table positioning
-    const yStart = 50; // Initial Y-coordinate for the first table
-    const yDistance = 66; // Vertical distance between consecutive tables
-    const tableDistanceFromWalls = 40; // Offset distance from the walls
-    const width = 80; // Width of each table
-    const height = 120; // Height of each table
+    const yStart = 50;
+    const yDistance = 66;
+    const tableDistanceFromWalls = 40;
+    const width = 80;
+    const height = 120;
 
-    // Ensuring ids is an array, providing a fallback if it’s not
+    // Ensure ids is an array and handle fallback if it’s not
     const tableIds = Array.isArray(ids) ? ids : [];
 
-    // Debugging: Logging the content and type of table IDs
+    // Debugging: Log the type and content of ids
     console.log("TypeFourTable IDs:", tableIds);
 
-    // Function to calculate the Y-coordinate for each table
-    // It considers the index, vertical distance, and wall offset
+    // Function to calculate the y-coordinate for each table based on the index and adding offset from the wall
     const getTableYDistance = (index) => {
         return (yDistance * index) + yStart + tableDistanceFromWalls;
     };
 
-    // Rendering the list of tables using the map method
     return (
         <>
             {tableIds.map((id, index) => (
                 <TypeFourTable
-                    key={id[0]} // Setting a unique key for each table based on its ID
-                    id={id[0]} // Passing the table's ID to the component
-                    booked={dimReserved(id[0])} // Dynamically passing the booking status
-                    x={x} // Keeping the X-coordinate constant for all tables in this row
-                    y={getTableYDistance(index)} // Dynamically calculating the Y-coordinate
-                    width={width} // Passing the predefined width
-                    height={height} // Passing the predefined height
-                    handleHovering={handleHovering} // Passing the hover handler
-                    handlePopUp={handlePopUp} // Passing the pop-up handler
+                    key={id[0]} // Unique key for each table based on ID
+                    id={id[0]} // Pass only the ID
+                    booked={dimReserved(id[0])} // Pass booking status dynamically
+                    x={x} // Keep x constant for this row
+                    y={getTableYDistance(index)} // Dynamically calculate y based on the index
+                    width={width}
+                    height={height}
+                    handleHovering={handleHovering}
+                    handlePopUp={handlePopUp}
                 />
             ))}
         </>
     );
 };
 
-// Exporting the TablesTypeFour component as the default export
 export default TablesTypeFour;
