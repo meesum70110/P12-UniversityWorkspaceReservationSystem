@@ -257,54 +257,68 @@ const TablesPage = ({ room, surveys, selectedDate, selectedTime }) => {
         }
     };
 
-    // Returning the JSX for rendering the TablesPage component.
+    // Rendering the JSX for the TablesPage component
     return (
         <div className={styles.TablesPage} style={{ cursor: hovering }}>
+            {/* Displaying an error message if it exists */}
             {errorMessage && (
                 <div className={styles.ErrorMessage}>
-                    {errorMessage}
+                    {errorMessage} {/* Showing the error message */}
                 </div>
             )}
-
+    
+            {/* Button to toggle visibility of user's bookings */}
             <button onClick={fetchMyBookings} className={styles.ViewBookingsButton}>
+                {/* Changing button text based on `showBookings` state */}
                 {showBookings ? "Hide My Bookings" : "View My Bookings"}
             </button>
-
+    
+            {/* Top bar displaying selected date and time slot */}
             <div className={styles.TopBar}>
                 <div className={styles.Info}>
+                    {/* Formatting and displaying the date and time */}
                     <p>{`${moment(displayDate).format('LL')} , Time Slot: ${displayTime} - ${moment(displayTime, 'HH:mm').add(1, 'hour').format('HH:mm')}`}</p>
                 </div>
             </div>
-
+    
+            {/* Conditionally rendering bookings list if `showBookings` is true */}
             {showBookings && (
                 <div className={styles.BookingsList}>
-                    <h3>My Bookings</h3>
+                    <h3>My Bookings</h3> {/* Heading for the bookings list */}
+                    {/* Checking if bookings exist */}
                     {myBookings && myBookings.length > 0 ? (
+                        // Iterating over each booking and rendering its details
                         myBookings.map((booking, index) => (
                             <div key={index} className={styles.BookingItem}>
                                 <p><strong>Room:</strong> {booking.room || "Room info unavailable"}</p>
                                 <p><strong>Table:</strong> {booking.tableNumber}</p>
                                 <p><strong>Date:</strong> {moment(booking.date).format('LL')}</p>
                                 <p><strong>Time:</strong> {booking.timeSlot}</p>
+                                {/* Button to cancel the booking */}
                                 <button onClick={() => cancelBooking(booking._id)} className={styles.CancelButton}>Cancel</button>
                             </div>
                         ))
                     ) : (
+                        // Displaying a message when no bookings are found
                         <p>No bookings found.</p>
                     )}
                 </div>
             )}
-
+    
+            {/* Wrapper for the table layout */}
             <div className={styles.Tables}>
+                {/* Konva Stage for table visualization */}
                 <Stage width={1520} height={850}>
+                    {/* Checking if tables data is available */}
                     {tablesIds.size ? (
                         <Layer>
+                            {/* Rendering different types of tables based on IDs */}
                             <TablesTypeTwo
-                                ids={sliceMap(tablesIds, 18, 22)}
-                                handleHovering={handleHovering}
-                                handlePopUp={handlePopUp}
-                                x={970}
-                                dimReserved={(id) => !!tablesIds.get(id)}
+                                ids={sliceMap(tablesIds, 18, 22)} // Slicing IDs for this type
+                                handleHovering={handleHovering} // Handling hover events
+                                handlePopUp={handlePopUp} // Handling pop-up events
+                                x={970} // Setting position
+                                dimReserved={(id) => !!tablesIds.get(id)} // Dim reserved tables
                             />
                             <TablesTypeThree
                                 ids={sliceMap(tablesIds, 11, 15)}
@@ -338,21 +352,23 @@ const TablesPage = ({ room, surveys, selectedDate, selectedTime }) => {
                     ) : null}
                 </Stage>
             </div>
-
+    
+            {/* Rendering the pop-up for booking if `openPopUp` is true */}
             {openPopUp && (
                 <div className={styles.PopUp}>
                     <PopUp
-                        handlePopUp={handlePopUp}
-                        handleReservation={handleReservation}
-                        from={`${displayDate} ${displayTime}`}
-                        to={toDateTime}
-                        first_name={userFirstName}
-                        last_name={userLastName}
+                        handlePopUp={handlePopUp} // Function to close the pop-up
+                        handleReservation={handleReservation} // Function to handle booking
+                        from={`${displayDate} ${displayTime}`} // Start time for the booking
+                        to={toDateTime} // End time for the booking
+                        first_name={userFirstName} // User's first name
+                        last_name={userLastName} // User's last name
                     />
                 </div>
             )}
         </div>
     );
+
 };
 
 export default TablesPage;
