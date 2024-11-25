@@ -1,97 +1,100 @@
-import { useState } from "react";
+// Importing React hooks and libraries
+import { useState } from "react"; // Hook for managing component state
 
-// For accessing global state for logged in users
+// Importing authorization hook to access global state for logged-in users
 import { useAuthorize } from "../context/hook/useAuthorization";
 
-import '../styles/signup.css'
-import '../styles/profile.css'
+// Importing CSS styles for the signup and profile components
+import '../styles/signup.css';
+import '../styles/profile.css';
+
+// Importing animation library for transitions
 import 'animate.css';
 
-// Importing icons to be used in signup card
-import * as BsTcons from "react-icons/bs";
-import { FaAngleDown } from "react-icons/fa6";
+// Importing icons for the signup form
+import * as BsTcons from "react-icons/bs"; // Icon library for question icon
+import { FaAngleDown } from "react-icons/fa6"; // Icon for dropdown menu
 
-//Importing Shared Components
-import NavMenu from "./SharedComponents/navMenu";
+// Importing shared components
+import NavMenu from "./SharedComponents/navMenu"; // Navigation menu component
 
-// Importing Alerts
+// Importing SweetAlert for user-friendly alerts
 import Swal from "sweetalert2";
 
-// Loading slider
+// Importing a loading spinner for the create button
 import { BarLoader } from "react-spinners";
 
-const SignUp = (prop)=>{
+const SignUp = (prop) => {
+    // Destructuring userAccount object from the authorization context
+    const { userAccount } = useAuthorize();
 
-    // userAccount object stores the current state including email, occupation, jwt
-    const {userAccount} = useAuthorize();
+    // Defining state variables for form fields and error messages
+    const [email, setEmail] = useState(''); // State for user email
+    const [salary, setSalary] = useState(''); // State for user salary
+    const [occupation, setOccupation] = useState(''); // State for user occupation (admin or employee)
+    const [department, setDepartment] = useState(''); // State for user department
+    const [dropValue, setDropValue] = useState(''); // State for dropdown value
 
-    const [email, setEmail] = useState('');
-    const [salary, setSalary] = useState('');
-    const [occupation, setOccupation] = useState('');
-    const [department, setDepartment] = useState('');
-    const [dropValue, setDropValue] = useState('');
+    const [error, setError] = useState(''); // General error state
+    const [emailError, setEmailError] = useState(''); // Email-specific error state
+    const [salaryError, setSalaryError] = useState(''); // Salary-specific error state
+    const [occupationError, setOccupationError] = useState(''); // Occupation-specific error state
+    const [departmentError, setDepartmentError] = useState(''); // Department-specific error state
 
-    const [error, setError] = useState('');
-    const [emailError, setEmailError] = useState('');
-    const [salaryError, setSalaryError] = useState('');
-    const [occupationError, setOccupationError] = useState('');
-    const [departmentError, setDepartmentError] = useState('');
-
-    // To highlight error by changing class in case radio option not selected
+    // State for changing the radio button class for error highlighting
     const [occupationErrorClass, setOccupationErrorClass] = useState('radio-option');
 
-    const [isLoading, setIsLoading] = useState(null);
+    const [isLoading, setIsLoading] = useState(null); // State to indicate if the form is submitting
 
+    // Options for the department dropdown menu
     const options = [
-        {label: 'Marketing', value:'Marketing', key: 1},
-        {label: 'Finance', value:'Finance', key: 2},
-        {label: 'Design', value:'Design', key: 3},
-        {label: 'Sales', value:'Sales', key: 4},
-        {label: 'Other', value:'Other', key: 5}
-    ]
+        { label: 'Marketing', value: 'Marketing', key: 1 },
+        { label: 'Finance', value: 'Finance', key: 2 },
+        { label: 'Design', value: 'Design', key: 3 },
+        { label: 'Sales', value: 'Sales', key: 4 },
+        { label: 'Other', value: 'Other', key: 5 }
+    ];
 
+    // Function to show informational alert about the form
     const showPageInfo = () => {
-    Swal.fire({
-        text: "For account creation complete the following fields. Login credentials including password will be emailed automatically.",
-        confirmButtonColor: "#1d578a",
-        });   
-    }
+        Swal.fire({
+            text: "For account creation complete the following fields. Login credentials including password will be emailed automatically.",
+            confirmButtonColor: "#1d578a",
+        });
+    };
 
+    // Function to toggle occupation to admin
     const setOccupationAdmin = () => {
-        if(occupation === 'admin')
-            setOccupation('');
-        else
-            setOccupation('admin')
-    }
+        if (occupation === 'admin') setOccupation('');
+        else setOccupation('admin');
+    };
 
+    // Function to toggle occupation to employee
     const setOccupationEmployee = () => {
-        if(occupation === 'employee')
-            setOccupation('');
-        else
-            setOccupation('employee')
-    }
+        if (occupation === 'employee') setOccupation('');
+        else setOccupation('employee');
+    };
 
+    // Function to handle department selection from dropdown
     const handleDepartment = (e) => {
-        setDropValue(e.target.value);
-        setDepartment(e.target.value);
-    }
+        setDropValue(e.target.value); // Updating the dropdown value
+        setDepartment(e.target.value); // Updating the department state
+    };
 
+    // Function to handle account creation form submission
     const handleAccountCreation = async (e) => {
+        e.preventDefault(); // Preventing the default form submission behavior
 
-        // Prevents default action of page refresh on form submission
-        e.preventDefault();
-
-        if(!userAccount)
-        {
+        // Validating user authorization and role
+        if (!userAccount) {
             setError('You are not logged in');
             return;
-        }
-        else if(userAccount.occupation !== 'admin')
-        {
+        } else if (userAccount.occupation !== 'admin') {
             setError('You are not an admin');
             return;
         }
 
+        // Resetting error messages and starting the loading spinner
         setIsLoading(true);
         setEmailError('');
         setSalaryError('');
@@ -99,26 +102,21 @@ const SignUp = (prop)=>{
         setOccupationErrorClass('radio-option');
         setDepartmentError('');
 
+        // Sending account creation data to the backend
         const result = await fetch('/api/signup', {
             method: 'POST',
-            body: JSON.stringify({email, salary, occupation, department}),
+            body: JSON.stringify({ email, salary, occupation, department }),
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${userAccount.userToken}`
+                'Authorization': `Bearer ${userAccount.userToken}` // Adding the authorization token
             }
-        })
+        });
 
-        const resultJson = await result.json();
+        const resultJson = await result.json(); // Parsing the JSON response
 
-        if (result.ok)
-        {
+        if (result.ok) {
+            // Resetting form fields and showing success alert
             setError('');
-            setEmailError('');
-            setSalaryError('');
-            setOccupationError('');
-            setOccupationErrorClass('radio-option');
-            setDepartmentError('');
-
             setEmail('');
             setSalary('');
             setOccupation('');
@@ -131,48 +129,44 @@ const SignUp = (prop)=>{
                 text: "User has been emailed the account credentials.",
                 confirmButtonColor: "#1d578a",
             });
-            console.log(resultJson);
+
+            console.log(resultJson); // Logging the result for debugging
             setIsLoading(false);
-        }
-        else
-        {
+        } else {
+            // Handling errors and displaying appropriate error messages
             setError(resultJson.error);
 
-            if(resultJson.errorList)
-            {
-                if (resultJson.errorList.email)
-                    setEmailError(resultJson.errorList.email);
-
-                if (resultJson.errorList.salary)
-                    setSalaryError(resultJson.errorList.salary);
-
-                if (resultJson.errorList.occupation)
-                {
+            if (resultJson.errorList) {
+                if (resultJson.errorList.email) setEmailError(resultJson.errorList.email);
+                if (resultJson.errorList.salary) setSalaryError(resultJson.errorList.salary);
+                if (resultJson.errorList.occupation) {
                     setOccupationError(resultJson.errorList.occupation);
                     setOccupationErrorClass('radio-option-error');
                 }
-
-                if (resultJson.errorList.department)
-                    setDepartmentError(resultJson.errorList.department);
+                if (resultJson.errorList.department) setDepartmentError(resultJson.errorList.department);
             }
-            setIsLoading(false);
+
+            setIsLoading(false); // Stopping the loading spinner
         }
+    };
 
-    }
-
-    return (   
+    // JSX for rendering the SignUp component
+    return (
         <div className="signup">
 
-            {/* Main Nav Bar */}
-            <NavMenu isAdmin={true} breadcrum="Add Employee" pagePath="/create-account"/>
+            {/* Main Navigation Menu */}
+            <NavMenu isAdmin={true} breadcrum="Add Employee" pagePath="/create-account" />
 
             <div className="signup-form-wrapper">
+                {/* Form for creating a new account */}
                 <form className="signup-form animate__animated animate__fadeInUp" onSubmit={handleAccountCreation}>
                     <h1 className="signup-heading">
                         Create Account 
                         <BsTcons.BsQuestionCircleFill className="question-icon" onClick={showPageInfo} />
                     </h1>
+
                     <div className="signup-form-grid">
+                        {/* Email input field */}
                         <div className="signup-form-unit signup-email">
                             <label>Email<span className="form-required">*</span></label>
                             <input 
@@ -183,6 +177,8 @@ const SignUp = (prop)=>{
                             />
                             {emailError && <div className="error-text">{emailError}</div>}
                         </div>
+
+                        {/* Department dropdown */}
                         <div className="signup-form-unit signup-department">
                             <label>Department<span className="form-required">*</span></label>
                             <span className="absolute-icon-wrapper">
@@ -194,14 +190,16 @@ const SignUp = (prop)=>{
                                     <option hidden></option>
                                     {options.map(option => (
                                         <option key={option.key} value={option.value}>
-                                        {option.label}
+                                            {option.label}
                                         </option>
                                     ))}
                                 </select>
-                                    <FaAngleDown className="drop-icon" />
+                                <FaAngleDown className="drop-icon" />
                             </span>
                             {departmentError && <div className="error-text">{departmentError}</div>}
                         </div>
+
+                        {/* Salary input field */}
                         <div className="signup-form-unit signup-salary">
                             <label>Salary<span className="form-required">*</span></label>
                             <input 
@@ -213,15 +211,19 @@ const SignUp = (prop)=>{
                             />
                             {salaryError && <div className="error-text">{salaryError}</div>}
                         </div>
+
+                        {/* Occupation radio buttons */}
                         <div className="signup-form-unit signup-occupation">
                             <label>Rank<span className="form-required">*</span></label>
                             <div className="radio-wrapper"> 
-                                <button type="button" 
+                                <button 
+                                    type="button" 
                                     className={occupation === 'admin' ? 'radio-option-selected' : occupationErrorClass} 
                                     onClick={setOccupationAdmin}>
                                     Admin
                                 </button>
-                                <button type="button"
+                                <button 
+                                    type="button"
                                     className={occupation === 'employee' ? 'radio-option-selected' : occupationErrorClass} 
                                     onClick={setOccupationEmployee}>
                                     Employee
@@ -230,17 +232,18 @@ const SignUp = (prop)=>{
                             {occupationError && <div className="error-text">{occupationError}</div>}
                         </div>
                     </div>
+
+                    {/* Submit button with loading spinner */}
                     <button disabled={isLoading} className="signup-btn-submit">
-                        {
-                            !isLoading ? 'Create' : <BarLoader size={20} color="white"  />
-                        }
+                        {!isLoading ? 'Create' : <BarLoader size={20} color="white" />}
                     </button>
+
+                    {/* General error message */}
                     {error && <div className="signup-error">{error}</div>}
                 </form>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default SignUp
-
+export default SignUp;
