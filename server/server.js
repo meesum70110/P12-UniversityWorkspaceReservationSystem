@@ -29,7 +29,6 @@ module.exports = { io };
 // API Routes
 const loginRoutes = require('./routes/login.js');
 const signupRoute = require('./routes/signup.js');
-const courseRoutes = require('./routes/courses.js');
 const faqRoutes = require('./routes/faqs.js');
 const accountRoutes = require('./routes/account.js');
 const surveyRoutes = require('./routes/workspace.js');
@@ -43,7 +42,6 @@ app.use((req, res, next) => {
 
 app.use('/api/login', loginRoutes);
 app.use('/api/signup', signupRoute);
-app.use('/api/courses', courseRoutes);
 app.use('/api/faqs', faqRoutes);
 app.use('/api/account', accountRoutes);
 app.use('/api/survey', surveyRoutes);
