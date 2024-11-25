@@ -1,131 +1,124 @@
-// Importing necessary components from react-konva to render shapes on canvas
-import React from 'react'; // Importing React for component functionality
-import { Rect, Text, Circle } from 'react-konva'; // Importing Rect, Text, and Circle from react-konva to draw shapes
+import React from 'react';
+import {Rect, Text, Circle}   from 'react-konva'
 
 const TypeThreeTable = (props) => {
-    const { id, x, y, width, height, handlePopUp, handleHovering, booked } = props; // Destructuring props passed to the component
+    const { id, x, y, width, height, handlePopUp, handleHovering, booked } = props;
 
-    // Defining the handleClick function that opens the popup if the table is not booked
+    // Define the handleClick function that opens the popup if the table is not booked
     const handleClick = (e) => {
-        !booked && handlePopUp(true, id); // If table is not booked, open the popup and pass the table ID
+        !booked && handlePopUp(true, id);
     };
 
-    // Defining the handleHover function to change the cursor style based on booking status
+    // Define the handleHover function to set the cursor style based on the booking status
     const handleHover = (e) => {
         if (e.type === 'mouseenter') {
-            booked ? handleHovering('not-allowed') : handleHovering('pointer'); // If booked, set cursor to 'not-allowed', otherwise 'pointer'
+            booked ? handleHovering('not-allowed') : handleHovering('pointer');
         } else if (e.type === 'mouseleave') {
-            handleHovering('default'); // Reset cursor to default on mouse leave
+            handleHovering('default');
         }
     };
 
+
     /** RECTANGLES */
 
-    // Defining properties for the main table rectangle with conditional color based on booking status
+    //main table rect
     const tableRectProps = {
-        x: x, // X-coordinate for positioning
-        y: y, // Y-coordinate for positioning
-        width: width, // Table width
-        height: height, // Table height
-        fill: booked ? "rgb(164, 54, 4, .2)" : "#228B22", // Green if available, semi-transparent red if booked
-        shadowColor: 'black', // Shadow color for the rectangle
-        shadowOffsetX: 2, // Horizontal offset for the shadow
-        shadowOffsetY: 2, // Vertical offset for the shadow
-        shadowOpacity: 0.5, // Shadow opacity
-        shadowBlur: 4, // Shadow blur intensity
-    };
+        x                   : x,
+        y                   : y,
+        width               : width,
+        height              : height,
+        fill                : booked? "rgb(164, 54, 4, .2)" : "#228B22",
+        shadowColor         : 'black',
+        shadowOffsetX       : 2,
+        shadowOffsetY       : 2,
+        shadowOpacity       : 0.5,
+        shadowBlur          : 4
+    }
 
-    // Defining properties for the selected table rectangle with conditional color based on booking status
+    //select table rect
     const selectRectProps = {
-        x: tableRectProps.x, // Using x position from table rect
-        y: (tableRectProps.y + tableRectProps.height) - (tableRectProps.height / 4), // Adjusting y position
-        width: tableRectProps.width, // Table width
-        height: tableRectProps.height / 4, // Reducing height for selected rectangle
-        fill: booked ? "rgb(81, 202, 81, .2)" : "#51CA47", // Green if available, semi-transparent green if booked
-        stroke: booked ? "rgb(78, 89, 224, .2)" : "#4E59E0", // Blue border for available tables, dimmed for booked ones
-    };
+        x                   : tableRectProps.x,
+        y                   : (tableRectProps.y + tableRectProps.height)    - (tableRectProps.height / 4),
+        width               : tableRectProps.width,
+        height              : tableRectProps.height / 4,
+        fill                : booked? "rgb(81, 202, 81, .2)" : "#51CA47",
+        stroke              : booked? "rgb(78, 89, 224, .2)" : "#4E59E0"
+    }
 
-    /** SEAT CIRCLES */
+    //table seats circle (top and bottom)
 
-    // Defining properties for the seat circle on top of the table
-    const seatCircleProps = {
-        x: tableRectProps.x + 42, // Positioning x relative to table rectangle
-        y: tableRectProps.y - 23, // Positioning y relative to table rectangle
-        width: 30, // Circle width
-        height: 30, // Circle height
-        fill: booked ? "rgb(22, 31, 33, 0.2)" : "rgb(22, 31, 33, 0.5)", // Color changes based on booking status
-    };
-
-    // Defining properties for the seat circle at the bottom of the table
+     const seatCircleProps = {
+        x                   : tableRectProps.x + 42,
+        y                   : tableRectProps.y - 23,
+        width               : 30,
+        height              : 30,
+        fill                : booked? "rgb(22, 31, 33, 0.2)" : "rgb(22, 31, 33, 0.5)",
+    }
+    
     const seatCircleProps2 = {
-        x: tableRectProps.x + 42, // Positioning x relative to table rectangle
-        y: tableRectProps.y + 143, // Positioning y relative to table rectangle
-        width: 30, // Circle width
-        height: 30, // Circle height
-        fill: booked ? "rgb(22, 31, 33, 0.2)" : "rgb(22, 31, 33, 0.5)", // Color changes based on booking status
-    };
+        x                   : tableRectProps.x + 42,
+        y                   : tableRectProps.y + 143,
+        width               : 30,
+        height              : 30,
+        fill                : booked? "rgb(22, 31, 33, 0.2)" : "rgb(22, 31, 33, 0.5)",
+    }
+    
 
     /** TEXTS */
-
-    // Defining offsets for text positioning
     const textXoffset = 22;
     const textYoffset = 5;
     const numberXoffset = 30;
     const numberYoffset = -50;
 
-    // Defining properties for the "SELECT" text above the table
     const textSelectProps = {
-        text: "SELECT", // Text to be displayed
-        fontSize: 10, // Font size for the text
-        x: selectRectProps.x + textXoffset, // Adjusting x position
-        y: selectRectProps.y + textYoffset, // Adjusting y position
-        fill: booked ? "rgb(255, 255, 255, .2)" : "#FFF", // Text color changes based on booking status
-        fontFamily: "'Poppins', sans-serif", // Font family
-    };
+        text                : "SELECT",
+        fontSize            : 10,
+        x                   : selectRectProps.x + textXoffset,
+        y                   : selectRectProps.y + textYoffset,
+        fill                : booked? "rgb(255, 255, 255, .2)" : "#FFF",
+        fontFamily          : "'Poppins', sans-serif"
+    }
 
-    // Defining properties for the "TABLE" text below the "SELECT" text
     const textTableProps = {
-        text: "TABLE", // Text to be displayed
-        fontSize: 10, // Font size for the text
-        x: selectRectProps.x + textXoffset + 2, // Adjusting x position
-        y: selectRectProps.y + 12 + textYoffset, // Adjusting y position
-        fill: booked ? "rgb(255, 255, 255, .2)" : "#FFF", // Text color changes based on booking status
-        fontFamily: "'Poppins', sans-serif", // Font family
-    };
+        text                : "TABLE",
+        fontSize            : 10,
+        x                   : selectRectProps.x + textXoffset + 2,
+        y                   : selectRectProps.y + 12 + textYoffset,
+        fill                : booked? "rgb(255, 255, 255, .2)" : "#FFF",
+        fontFamily          : "'Poppins', sans-serif"
+    }       
 
-    // Defining properties for the table number text
     const textSeatsProps = {
-        text: "2", // Example table number
-        fontSize: 40, // Font size for the table number
-        x: selectRectProps.x + numberXoffset, // Adjusting x position
-        y: selectRectProps.y + numberYoffset, // Adjusting y position
-        fill: "#FFF", // Text color
-        fontFamily: "'Poppins', sans-serif", // Font family
-    };
+        text                : "2",
+        fontSize            : 40,
+        x                   : selectRectProps.x + numberXoffset,
+        y                   : selectRectProps.y + numberYoffset,
+        fill                : "#FFF",
+        fontFamily          : "'Poppins', sans-serif"
+    }
 
-    // Returning JSX to render the table component
     return (
         <>
-            {/* Rendering the main table rectangle */}
-            <Rect
+            <Rect 
                 {...tableRectProps}
-                onClick={handleClick} // Trigger handleClick on click
-                onMouseEnter={handleHover} // Trigger handleHover on mouse enter
-                onMouseLeave={handleHover} // Trigger handleHover on mouse leave
+                onClick         = {handleClick} 
+                onMouseEnter    = {handleHover} 
+                onMouseLeave    = {handleHover}
             />
-            {/* Rendering the seat circle on top of the table */}
-            <Circle {...seatCircleProps} />
-            {/* Rendering the seat circle at the bottom of the table */}
-            <Circle {...seatCircleProps2} />
-            {/* Rendering the "SELECT" text */}
+            <Circle
+                {...seatCircleProps}
+            />
+            <Circle
+                {...seatCircleProps2}
+            />
             <Text
                 {...textSeatsProps}
-                onClick={handleClick} // Trigger handleClick on click
-                onMouseEnter={handleHover} // Trigger handleHover on mouse enter
-                onMouseLeave={handleHover} // Trigger handleHover on mouse leave
+                onClick         = {handleClick} 
+                onMouseEnter    = {handleHover} 
+                onMouseLeave    = {handleHover}
             />
         </>
     );
-};
+}
 
-export default TypeThreeTable; // Exporting the TypeThreeTable component for use in other parts of the application
+export default TypeThreeTable;
