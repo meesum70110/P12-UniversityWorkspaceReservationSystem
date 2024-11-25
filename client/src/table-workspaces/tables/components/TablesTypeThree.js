@@ -9,11 +9,9 @@ const TablesTypeThree = (props) => {
     const width = 80; // Table width
     const height = 120; // Table height
 
-    // Ensure ids is an array and handle fallback if it’s not
+    // Ensuring ids is an array and handle fallback if it’s not
     const tableIds = Array.isArray(ids) ? ids : [];
 
-    // Debugging: Log the type and content of ids
-    console.log("TablesTypeThree received IDs:", tableIds);
 
     // Function to calculate the y-coordinate for each table based on the index
     const getTableYDistance = (index) => {
