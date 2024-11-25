@@ -1,47 +1,53 @@
+// Importing Mongoose to define schemas and models for MongoDB
 const mongoose = require('mongoose');
+
+// Extracting Schema from Mongoose to structure the user data
 const Schema = mongoose.Schema;
-// const bcrypt = require('bcrypt');
 
+// Defining the User schema to represent users in the database
 const userSchema = new Schema({
-    email: {
-        type: String,
-        required: true,
-        unique: true
+    email: { 
+        type: String, // Field to store the user's email
+        required: true, // Ensures the email field is mandatory
+        unique: true // Ensures no two users can have the same email
     },
-    password: {
-        type: String,
-        required: true
+    password: { 
+        type: String, // Field to store the user's hashed password
+        required: true // Ensures the password field is mandatory
     },
-    fname: {
-        type: String,
+    fname: { 
+        type: String, // Field to store the user's first name
     },
-    lname: {
-        type: String,
+    lname: { 
+        type: String, // Field to store the user's last name
     },
-    dob: {
-        type: Date
+    dob: { 
+        type: Date, // Field to store the user's date of birth
     },
-    gender: {
-        type: String,
+    gender: { 
+        type: String, // Field to store the user's gender
     },
-    salary: {
-        type: Number,
-        required: true
+    salary: { 
+        type: Number, // Field to store the user's salary
+        required: true // Ensures the salary field is mandatory
     },
-    occupation: {
-        type: String,
-        required: true
+    occupation: { 
+        type: String, // Field to store the user's occupation
+        required: true // Ensures the occupation field is mandatory
     },
-    department: {
-        type: String,
-        required: true
+    department: { 
+        type: String, // Field to store the user's department
+        required: true // Ensures the department field is mandatory
     },
-    residence: {
-        type: String,
+    residence: { 
+        type: String, // Field to store the user's residence address or location
     },
-    photo: {
-        type: String,
+    photo: { 
+        type: String, // Field to store the URL or path of the user's profile photo
     }
-}, {timestamps : true});
+}, { 
+    timestamps: true // Automatically adds createdAt and updatedAt fields for tracking
+});
 
-module.exports = mongoose.model('User', userSchema)
+// Exporting the User model for use in other parts of the application
+module.exports = mongoose.model('User', userSchema);
