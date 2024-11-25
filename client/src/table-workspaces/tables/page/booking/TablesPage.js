@@ -1,158 +1,147 @@
-// Importing React and its hooks for managing state and side effects.
-import React, { useState, useEffect, useCallback } from 'react';
-
-// Importing styles specific to this page.
-import styles from './css/TablesPage.module.css';
-
-// Importing necessary components and libraries.
-import { Stage, Layer } from 'react-konva'; // Used for rendering interactive tables.
-import moment from 'moment'; // Handling date and time formatting.
-import TablesTypeOne from '../../components/TablesTypeOne';
+import React, { useState, useEffect, useCallback, useMemo } from 'react'; 
+import styles from './css/TablesPage.module.css'; // Importing styles for the page
+import { Stage, Layer } from 'react-konva'; // Importing Konva components for canvas-based rendering
+import moment from 'moment'; // Importing Moment.js for handling date and time
+import TablesTypeOne from '../../components/TablesTypeOne'; // Importing table components
 import TablesTypeTwo from '../../components/TablesTypeTwo';
 import TablesTypeThree from '../../components/TablesTypeThree';
 import TablesTypeTFour from '../../components/TablesTypeFour';
-import PopUp from '../../components/PopUp';
-import axios from 'axios'; // Handling API requests.
-import { useAuthorize } from '../../../../context/hook/useAuthorization'; // Accessing user authorization context.
+import PopUp from '../../components/PopUp'; // Importing PopUp component for reservation confirmation
+import axios from 'axios'; // Importing axios for making API requests
+import { useAuthorize } from '../../../../context/hook/useAuthorization'; // Custom hook for managing user authentication
 
-// Defining the main component for the Tables page.
 const TablesPage = ({ room, surveys, selectedDate, selectedTime }) => {
-    // Accessing the current user's account information.
-    const { userAccount } = useAuthorize();
+    const { userAccount } = useAuthorize(); // Fetching user account details from context
+    const [userData, setUserData] = useState(null); // State to store user data
+    const [hovering, setHovering] = useState('default'); // State to manage hovering cursor style
+    const [openPopUp, setOpenPopUp] = useState(false); // State to handle PopUp visibility
+    const [tableIdPicked, setTableIdPicked] = useState(undefined); // State to track the selected table ID
+    const [tablesIds, setTablesIds] = useState(new Map()); // State to store table IDs and their availability status
+    const [displayDate, setDisplayDate] = useState(''); // State to manage the date to display
+    const [displayTime, setDisplayTime] = useState(''); // State to manage the time to display
+    const [errorMessage, setErrorMessage] = useState(''); // State to manage error messages
+    const [myBookings, setMyBookings] = useState([]); // State to store the user's bookings
+    const [showBookings, setShowBookings] = useState(false); // State to toggle visibility of bookings list
+    const [localUpdates, setLocalUpdates] = useState(new Map()); // Holds local booking status updates
 
-    // Defining states for managing user data and UI behavior.
-    const [userData, setUserData] = useState(null);
-    const [hovering, setHovering] = useState('default'); // Managing cursor state during hovering.
-    const [openPopUp, setOpenPopUp] = useState(false); // Managing popup visibility.
-    const [tableIdPicked, setTableIdPicked] = useState(undefined); // Storing selected table ID.
-    const [tablesIds, setTablesIds] = useState(new Map()); // Managing table statuses.
-    const [displayDate, setDisplayDate] = useState(''); // Displaying selected date.
-    const [displayTime, setDisplayTime] = useState(''); // Displaying selected time.
-    const [errorMessage, setErrorMessage] = useState(''); // Storing error messages.
-    const [myBookings, setMyBookings] = useState([]); // Storing user's bookings.
-    const [showBookings, setShowBookings] = useState(false); // Controlling bookings display.
-    const [localUpdates, setLocalUpdates] = useState(new Map()); // Managing local booking updates.
+    const userFirstName = userData?.fname || 'N/A'; // User's first name, default to 'N/A' if not available
+    const userLastName = userData?.lname || 'N/A'; // User's last name, default to 'N/A' if not available
+    const userEmail = userData?.email || 'N/A'; // User's email, default to 'N/A' if not available
 
-    // Extracting user details from fetched user data.
-    const userFirstName = userData?.fname || 'N/A';
-    const userLastName = userData?.lname || 'N/A';
-    const userEmail = userData?.email || 'N/A';
-
-    // Defining a function to slice a Map into an array of key-value pairs for a given range.
-    const sliceMap = (map, start, end) => {
-        const slicedArray = []; // Initializing an empty array to store the sliced data.
-        for (let i = start; i <= end; i++) { // Iterating through the range from start to end.
-            slicedArray.push([i, map.get(i.toString()) || false]); // Pushing key-value pairs into the array, defaulting to false if key doesn't exist.
+    const sliceMap = (map, start, end) => { // Function to slice the table map based on start and end indices
+        const slicedArray = [];
+        for (let i = start; i <= end; i++) {
+            slicedArray.push([i, map.get(i.toString()) || false]); // Push each table's availability status to the array
         }
-        return slicedArray; // Returning the sliced array.
+        return slicedArray;
     };
-    
-    // Synchronizing displayDate and displayTime with selectedDate and selectedTime props.
+
+    // Sync `displayDate` and `displayTime` with `selectedDate` and `selectedTime` props
+    // Fallback for initial date and time if not provided
     useEffect(() => {
-        if (selectedDate) { // Checking if selectedDate is provided.
-            setDisplayDate(moment(selectedDate).format('YYYY-MM-DD')); // Formatting and setting the displayDate state.
+        if (!selectedDate || !selectedTime) {
+            const currentHour = moment().hour(); // Getting the current hour using Moment.js
+            const isPast5PM = currentHour >= 17; // Checking if it's past 5 PM
+            const fallbackDate = isPast5PM ? moment().add(1, 'day').format('YYYY-MM-DD') : moment().format('YYYY-MM-DD'); // Setting the fallback date
+            const fallbackTime = '09:00'; // Setting the fallback time to 9:00 AM
+
+            setDisplayDate(fallbackDate); // Setting fallback date
+            setDisplayTime(fallbackTime); // Setting fallback time
         }
-        if (selectedTime) { // Checking if selectedTime is provided.
-            setDisplayTime(selectedTime); // Setting the displayTime state directly.
-        }
-    }, [selectedDate, selectedTime]); // Dependency array ensures this runs when selectedDate or selectedTime changes.
-    
-    // Falling back to a default date and time if selectedDate or selectedTime is undefined.
+    }, []); // Runs only once during the initial render
+
+    // Sync `displayDate` and `displayTime` with the `selectedDate` and `selectedTime` props
     useEffect(() => {
-        if (!selectedDate || !selectedTime) { // Checking if selectedDate or selectedTime is not provided.
-            const currentHour = moment().hour(); // Getting the current hour.
-            const isPast5PM = currentHour >= 17; // Determining if the current time is past 5 PM.
-            if (isPast5PM) {
-                setDisplayDate(moment().add(1, 'day').format('YYYY-MM-DD')); // Setting the next day if it's past 5 PM.
-                setDisplayTime('09:00'); // Defaulting to 9 AM for the next day.
-            } else {
-                setDisplayDate(moment().format('YYYY-MM-DD')); // Setting the current date if it's before 5 PM.
-                setDisplayTime('09:00'); // Defaulting to 9 AM for the current day.
-            }
+        if (selectedDate) {
+            setDisplayDate(moment(selectedDate).format('YYYY-MM-DD')); // Updating the date when props change
         }
-    }, []); // Empty dependency array ensures this only runs on the initial render.
-    
-    // Combining displayDate and displayTime into a full DateTime string and adding one hour.
-    const toDateTime = moment(`${displayDate}T${displayTime}`).add(1, 'hour').format('YYYY-MM-DD HH:mm:ss');
-    
-    // Fetching user data from the backend and updating userData state.
+        if (selectedTime) {
+            setDisplayTime(selectedTime); // Updating the time when props change
+        }
+    }, [selectedDate, selectedTime]); // Runs whenever the props change
+
+    // Constructing the combined `toDateTime` string for the time slot using useMemo to optimize performance
+    const toDateTime = useMemo(() => {
+        return moment(`${displayDate}T${displayTime}`)
+            .add(1, 'hour')
+            .format('YYYY-MM-DD HH:mm:ss'); // Combining the date and time and add one hour to get the time slot's end time
+    }, [displayDate, displayTime]); // Only recalculates when `displayDate` or `displayTime` changes
+
     useEffect(() => {
-        const fetchUserData = async () => { // Defining an asynchronous function for the API call.
-            if (userAccount && userAccount.userToken) { // Checking if the user is logged in and has a token.
+        const fetchUserData = async () => { // Fetching user data when userToken is available
+            if (userAccount && userAccount.userToken) {
                 try {
-                    setErrorMessage(''); // Clearing any previous error messages.
-                    const response = await axios.get('https://workspacereservation-backend.onrender.com/api/account/', { // Sending a GET request to fetch user data.
-                        headers: { Authorization: `Bearer ${userAccount.userToken}` } // Including the token in the request header.
+                    setErrorMessage(''); // Clearing any previous error message
+                    const response = await axios.get('https://workspacereservation-backend.onrender.com/api/account/', {
+                        headers: { Authorization: `Bearer ${userAccount.userToken}` }
                     });
-                    setUserData(response.data); // Updating userData state with the response data.
-                } catch (error) { // Catching any errors during the API call.
-                    const errorMsg = error.response?.data?.error || "Could not fetch user data. Please check your account information."; // Extracting the error message.
-                    setErrorMessage(errorMsg); // Setting the error message state.
-                    console.error("Error fetching user data:", errorMsg); // Logging the error to the console.
+                    setUserData(response.data); // Setting user data received from API
+                } catch (error) {
+                    const errorMsg = error.response?.data?.error || "Could not fetch user data. Please check your account information."; // Handle API errors
+                    setErrorMessage(errorMsg); // Setting error message to state
+                    console.error("Error fetching user data:", errorMsg); // Log error
                 }
             }
         };
-        fetchUserData(); // Calling the fetchUserData function.
-    }, [userAccount]); // Dependency array ensures this runs when userAccount changes.
-    
-    // Populating table statuses based on the survey data.
+        fetchUserData(); // Calling the function to fetch user data
+    }, [userAccount]); // Dependency on `userAccount`, so it runs again if userAccount changes
+
     useEffect(() => {
-        const tableStatusMap = new Map(); // Initializing a new Map to store table statuses.
-        surveys.forEach((survey) => { // Iterating through each survey.
-            const isBooked = survey.status === 'unavailable'; // Checking if the survey's status is 'unavailable'.
-            tableStatusMap.set(survey._id, isBooked); // Setting the table's ID and its booking status in the Map.
+        const tableStatusMap = new Map(); // Map to store table IDs and their booking status
+        surveys.forEach((survey) => { // Iterating through all surveys to check table statuses
+            const isBooked = survey.status === 'unavailable'; // Checks if the table is unavailable
+            tableStatusMap.set(survey._id, isBooked); // Sets the table's status in the map
         });
-        setTablesIds(tableStatusMap); // Updating tablesIds state with the new Map.
-    }, [surveys]); // Dependency array ensures this runs when surveys change.
-    
-    // Handling the hover state of the cursor by updating the hovering state.
-    const handleHovering = (hoverStatus) => setHovering(hoverStatus);
-    
-    // Managing the state of the booking popup and storing the selected table ID.
-    const handlePopUp = (shouldOpen, tableId) => {
-        setTableIdPicked(tableId); // Setting the ID of the selected table for booking.
-        setOpenPopUp(shouldOpen); // Updating the state to show or hide the popup.
+        setTablesIds(tableStatusMap); // Updating the state with the new table statuses
+    }, [surveys]); // Runs when `surveys` data changes
+
+    const handleHovering = (hoverStatus) => setHovering(hoverStatus); // Updating hovering state for the cursor
+
+    const handlePopUp = (shouldOpen, tableId) => { // Handling opening and closing of PopUp
+        setTableIdPicked(tableId); // Setting the selected table ID
+        setOpenPopUp(shouldOpen); // Opening or closing the PopUp
     };
 
-    // Defining a function to fetch the status of all tables from the server.
+    // Function to fetch the status of all tables from the server
     const fetchAllTablesStatus = useCallback(async () => {
+        if (!displayDate || !displayTime) {
+            console.error("fetchAllTablesStatus: Date or time is not defined.");
+            setErrorMessage("Date and time are required."); // Error handling if date or time are not defined
+            return;
+        }
+    
         try {
-            // Making a GET request to fetch table statuses for the specified date and time.
             const response = await axios.get('https://workspacereservation-backend.onrender.com/api/survey/tables', {
-                params: { // Passing query parameters for the date and time.
+                params: {
                     date: displayDate,
                     time: displayTime,
                 },
-                headers: { Authorization: `Bearer ${userAccount.userToken}` } // Including the user's token for authorization.
+                headers: { Authorization: `Bearer ${userAccount.userToken}` }
             });
     
-            console.log("API response:", response.data); // Logging the response data for debugging purposes.
-    
-            // Checking if the response status is 200 and there is data.
             if (response.status === 200 && response.data.length > 0) {
-                const updatedTablesIds = new Map(); // Creating a new Map to store table statuses.
+                const updatedTablesIds = new Map();
                 response.data.forEach((table) => {
-                    // Setting table availability status: true if booked, false otherwise.
-                    updatedTablesIds.set(table.tableNumber, table.availability === 'booked');
+                    updatedTablesIds.set(table.tableNumber, table.availability === 'booked'); // Update table availability in the map
                 });
-    
-                console.log("Updated table statuses:", updatedTablesIds); // Logging the updated table statuses for debugging.
-                setTablesIds(updatedTablesIds); // Updating the tablesIds state with the new statuses.
+                setTablesIds(updatedTablesIds); // Set the updated table statuses
             } else {
-                setErrorMessage("No table data found."); // Setting an error message if no data is returned.
+                setErrorMessage("No table data found."); // Handle case where no tables are found
             }
         } catch (error) {
-            // Handling errors during the API call.
-            const errorMsg = error.response?.data?.error || ""; // Extracting the error message from the response.
-            setErrorMessage(errorMsg); // Updating the error message state.
-            console.error("Error fetching tables:", errorMsg); // Logging the error to the console.
+            const errorMsg = error.response?.data?.error || "Could not fetch tables. Please try again later."; // Handle API errors
+            setErrorMessage(errorMsg); // Set error message to state
+            console.error("Error fetching tables:", errorMsg); // Log error
         }
-    }, [userAccount?.userToken, displayDate, displayTime]); // Adding dependencies to ensure the function updates when these change.
-    
-    // Using useEffect to call fetchAllTablesStatus whenever the dependencies change.
+    }, [userAccount?.userToken, displayDate, displayTime]); // Dependencies: userToken, displayDate, displayTime
+
+    // Trigger table status fetch when date or time changes
     useEffect(() => {
-        fetchAllTablesStatus(); // Fetching all table statuses.
-    }, [fetchAllTablesStatus]); // Dependency array ensures this runs when fetchAllTablesStatus changes.
+        if (displayDate && displayTime) {
+            fetchAllTablesStatus(); // Fetch tables status based on the date and time
+        }
+    }, [fetchAllTablesStatus, displayDate, displayTime]); // Dependency array to rerun fetch when relevant data changes
+
     
     // Defining a function to handle table reservation.
     const handleReservation = async () => {
