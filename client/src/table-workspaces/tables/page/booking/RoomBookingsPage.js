@@ -22,8 +22,8 @@ const RoomBookingsPage = ({ userAccount, onBack, viewAll }) => {
 
       try {
         const endpoint = viewAll // Determining API endpoint based on view type
-          ? "http://localhost:8000/api/survey/bookings/all" // Admin endpoint for all bookings
-          : "http://localhost:8000/api/survey/bookings"; // User endpoint for personal bookings
+          ? "https://workspacereservation-backend.onrender.com/api/survey/bookings/all" // Admin endpoint for all bookings
+          : "https://workspacereservation-backend.onrender.com/api/survey/bookings"; // User endpoint for personal bookings
 
         const response = await axios.get(endpoint, { // Fetching bookings data
           headers: { Authorization: `Bearer ${userAccount.userToken}` }, // Adding authorization header
@@ -67,7 +67,7 @@ const RoomBookingsPage = ({ userAccount, onBack, viewAll }) => {
   const cancelBooking = async (bookingId) => {
     try {
       const response = await axios.delete( // Sending delete request to cancel booking
-        `http://localhost:8000/api/survey/bookings/${bookingId}`,
+        `https://workspacereservation-backend.onrender.com/api/survey/bookings/${bookingId}`,
         {
           headers: { Authorization: `Bearer ${userAccount.userToken}` }, // Adding authorization header
         }
