@@ -196,7 +196,7 @@ const TablesPage = ({ room, surveys, selectedDate, selectedTime }) => {
 
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/survey/${workspaceId}/book`, // API endpoint for booking
+        `https://workspacereservation-backend.onrender.com/api/survey/${workspaceId}/book`, // API endpoint for booking
         {
           tableNumber: tableIdToBook, // Selected table number
           room, // Selected room
@@ -264,9 +264,6 @@ const TablesPage = ({ room, surveys, selectedDate, selectedTime }) => {
     }
     navigate("/bookings"); // Redirecting to the bookings page for the user
   };
-
-  
-
 
 
   return (
