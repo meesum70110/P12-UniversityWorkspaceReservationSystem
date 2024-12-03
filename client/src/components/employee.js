@@ -42,7 +42,7 @@ const Employee = (prop) => {
                 {/* Tile for "View WorkSpaces" */}
                 <div className="tile-emp">
                     <img src={survey_icon} alt="Surveys" /> {/* Image for "Surveys" */}
-                    <Link to="/workspaces" className="form_btn">View WorkSpaces</Link> {/* Link to the "View WorkSpaces" page */}
+                    <Link to="/workspaces" className="form_btn">Book WorkSpace</Link> {/* Link to the "Book WorkSpaces" page */}
                 </div>
 
                 {/* Tile for "FAQs" */}
