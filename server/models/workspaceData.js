@@ -1,56 +1,53 @@
-// Importing Mongoose to define schemas and models for MongoDB
-const mongoose = require('mongoose');
+const mongoose = require('mongoose'); // Importing mongoose for MongoDB operations
+const Schema = mongoose.Schema; // Extracting Schema constructor for schema definition
 
-// Extracting Schema from Mongoose to structure workspace data
-const Schema = mongoose.Schema;
+// Defining the schema for workspaces
+const workspaceSchema = new Schema(
+  {
+    title: {
+      type: String, // Title of the workspace
+      required: false, // Optional field
+    },
+    description: {
+      type: String, // Description of the workspace
+      required: false, // Optional field
+    },
+    status: {
+      type: String, // Status indicating if the workspace is available or unavailable
+      enum: ['available', 'unavailable'], // Restricting to predefined values
+      default: 'available', // Default value set to 'available'
+    },
+    responses: {
+      type: [String], // Array of responses (e.g., comments or feedback)
+      default: [], // Default is an empty array if no responses exist
+    },
+    visibility: {
+      type: String, // Visibility status (e.g., public or private)
+      required: false, // Optional field
+    },
+    room: {
+      type: String, // Room identifier (e.g., Room #01)
+      required: true, // Mandatory field to associate workspace with a room
+    },
+    tables: [
+      {
+        tableNumber: {
+          type: String, // Table identifier (e.g., T1, T2)
+          required: true, // Each table must have a unique identifier
+        },
+        availability: {
+          type: String, // Availability status of the table
+          enum: ['available', 'booked'], // Restricting to 'available' or 'booked'
+          default: 'available', // Default status set to 'available'
+        },
+        bookingDetails: {
+          type: [{ type: Schema.Types.ObjectId, ref: 'Booking' }], // Array of references to Booking schema
+          default: [], // Default is an empty array if no bookings exist
+        },
+      },
+    ],
+  },
+  { timestamps: true } // Automatically adding `createdAt` and `updatedAt` timestamps
+);
 
-// Defining the Workspace schema to represent workspaces in the database
-const workspaceSchema = new Schema({
-    title: { 
-        type: String, // Field to store the workspace title
-        required: false // Optional field; can be omitted
-    },
-    description: { 
-        type: String, // Field to store a brief description of the workspace
-        required: false // Optional field; can be omitted
-    },
-    status: { 
-        type: String, // Field to indicate the workspace's availability status
-        enum: ['available', 'unavailable'], // Restricts values to specific statuses
-        default: 'available' // Default status is set to 'available'
-    },
-    responses: { 
-        type: [String], // Array field to store associated responses, if any
-        default: [] // Defaults to an empty array if no responses exist
-    },
-    visibility: { 
-        type: String, // Field to store the visibility status of the workspace
-        required: false // Optional field; can be omitted
-    },
-    room: { 
-        type: String, // Field to specify the room associated with the workspace
-        required: true // Mandatory field to link the workspace to a specific room
-    },
-    tables: [ // Nested array to define the tables within the workspace
-        {
-            tableNumber: { 
-                type: String, // Field to store the table's unique identifier
-                required: true // Mandatory for each table
-            },
-            availability: { 
-                type: String, // Field to indicate table's booking status
-                enum: ['available', 'booked'], // Restricts values to specific statuses
-                default: 'available' // Default availability is set to 'available'
-            },
-            bookingDetails: { 
-                type: [{ type: Schema.Types.ObjectId, ref: 'Booking' }], // References to the Booking schema
-                default: [] // Defaults to an empty array if no bookings exist
-            }
-        }
-    ]
-}, { 
-    timestamps: true // Automatically adds createdAt and updatedAt fields for tracking
-});
-
-// Exporting the Workspace model for use in other parts of the application
-module.exports = mongoose.model('Workspace', workspaceSchema);
+module.exports = mongoose.model('Workspace', workspaceSchema); // Exporting the Workspace model based on the workspaceSchema
