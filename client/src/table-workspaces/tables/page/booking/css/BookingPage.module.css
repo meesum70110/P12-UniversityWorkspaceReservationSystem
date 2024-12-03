@@ -1,0 +1,99 @@
+.BookingsPage {
+  padding: 20px; /* Adds space around the page */
+  font-family: Arial, sans-serif; /* Sets a clean, readable font */
+  background-color: #f9f9f9; /* Light gray background for subtle contrast */
+  min-height: 100vh; /* Ensures the page takes the full viewport height */
+  display: flex; /* Enables flexible layout */
+  flex-direction: column; /* Aligns content in a vertical stack */
+  align-items: center; /* Centers content horizontally */
+}
+
+.BackButton {
+  background-color: #007bff; /* Sets a blue background */
+  color: white; /* White text for contrast */
+  border: none; /* Removes default border */
+  padding: 10px 20px; /* Adds inner spacing */
+  border-radius: 5px; /* Rounds the button corners */
+  font-size: 16px; /* Sets button text size */
+  cursor: pointer; /* Indicates interactivity */
+  margin-bottom: 20px; /* Adds spacing below the button */
+  text-transform: uppercase; /* Converts text to uppercase */
+  transition: background-color 0.3s ease; /* Smooth color transition on hover */
+}
+
+.BackButton:hover {
+  background-color: #0056b3; /* Darker blue background on hover */
+}
+
+h3 {
+  margin-bottom: 20px; /* Adds spacing below the heading */
+  color: #333; /* Sets dark gray text color */
+}
+
+.ErrorMessage {
+  color: red; /* Red text for errors */
+  margin-bottom: 20px; /* Adds spacing below the error message */
+}
+
+.BookingItem {
+  background-color: #fff; /* White background for the card */
+  border: 1px solid #ddd; /* Light gray border for structure */
+  border-radius: 5px; /* Rounds the corners */
+  padding: 20px; /* Adds space inside the card */
+  margin-bottom: 15px; /* Adds spacing below each card */
+  width: 30%; /* Limits the card's width */
+  max-width: 600px; /* Prevents the card from stretching too wide */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for depth */
+  display: flex; /* Flexible layout for content alignment */
+  flex-direction: column; /* Stacks children vertically */
+  align-items: flex-start; /* Aligns content to the left */
+  justify-content: center; /* Centers content vertically */
+  position: relative; /* Enables positioning of child elements */
+  margin-left: auto; /* Horizontally centers the card */
+  margin-right: auto; /* Horizontally centers the card */
+  min-height: 200px; /* Ensures consistent height for all cards */
+}
+
+.BookingItem p {
+  margin: 5px 0; /* Adds vertical spacing between paragraphs */
+  color: #555; /* Medium gray for text */
+  text-align: left; /* Aligns text to the left */
+}
+
+.BookingItem strong {
+  color: #333; /* Dark gray for emphasized text */
+}
+
+.CancelButton {
+  background-color: #dc3545; /* Red background for the button */
+  color: white; /* White text for contrast */
+  border: none; /* Removes default border */
+  padding: 8px 15px; /* Adds space inside the button */
+  border-radius: 5px; /* Rounds the button corners */
+  font-size: 14px; /* Sets smaller text size */
+  cursor: pointer; /* Indicates interactivity */
+  transition: background-color 0.3s ease; /* Smooth color transition on hover */
+  margin-top: 10px; /* Adds spacing above the button */
+  align-self: flex-start; /* Aligns the button with the card content */
+}
+
+.CancelButton:hover {
+  background-color: #b02a37; /* Darker red background on hover */
+}
+
+.BookingsPage p {
+  text-align: center; /* Centers the text */
+  font-size: 18px; /* Larger font size for better readability */
+  color: #666; /* Medium gray for text */
+}
+
+.SuccessMessage {
+  background-color: #d4edda; /* Light green background for success message */
+  color: #155724; /* Dark green text for visibility */
+  padding: 10px; /* Adds space inside the message box */
+  margin-bottom: 15px; /* Adds spacing below the message */
+  border: 1px solid #c3e6cb; /* Light green border for structure */
+  border-radius: 5px; /* Rounds the corners */
+  font-size: 14px; /* Smaller text size for the message */
+  text-align: center; /* Centers the text inside the message */
+}
