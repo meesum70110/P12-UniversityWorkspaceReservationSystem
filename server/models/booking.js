@@ -1,46 +1,41 @@
-// Importing the Mongoose library for database schema and model creation
-const mongoose = require('mongoose'); 
+const mongoose = require('mongoose'); // Importing mongoose for MongoDB schema and model creation
+const Schema = mongoose.Schema; // Extracting Schema constructor from mongoose
+const moment = require('moment'); // Importing moment for date and time manipulation (if used)
 
-// Extracting Schema from Mongoose to define data structure
-const Schema = mongoose.Schema;
-
-// Importing Moment.js for date manipulation (not used here but useful for date formatting)
-const moment = require('moment'); 
-
-// Defining the Booking schema to represent booking documents in the database
-const bookingSchema = new Schema({
-    workspace: { 
-        type: Schema.Types.ObjectId, // Reference to the associated Workspace document
-        ref: 'Workspace', // Links this field to the Workspace model
-        required: true // Ensures that this field is mandatory
+// Defining the schema for bookings
+const bookingSchema = new Schema(
+  {
+    workspace: {
+      type: Schema.Types.ObjectId, // Referring to an ObjectId in the Workspace collection
+      ref: 'Workspace', // Specifying the reference collection
+      required: true, // Marking the field as mandatory
     },
-    room: { 
-        type: String, // Stores the name or identifier of the room
-        required: true // Ensures this field must be provided
+    room: {
+      type: String, // Defining the room as a string
+      required: true, // Making the room field mandatory
     },
-    tableNumber: { 
-        type: String, // Stores the identifier of the table being booked
-        required: true // Makes this field mandatory
+    tableNumber: {
+      type: String, // Defining the table number as a string
+      required: true, // Marking the field as required
     },
     firstName: {
-        type: String, // Stores the first name of the person making the booking
-        required: true // Makes this field mandatory
+      type: String, // Storing the first name of the user who booked
+      required: true, // This field must be provided
     },
     email: {
-        type: String, // Stores the email address of the person making the booking
-        required: true // Ensures this field must be provided
+      type: String, // Email address of the booking user
+      required: true, // Marking email as mandatory
     },
-    date: { 
-        type: Date, // Stores the date of the booking
-        required: true // Ensures the date field is mandatory
+    date: {
+      type: Date, // Storing the date of booking
+      required: true, // Making the date field required
     },
-    timeSlot: { 
-        type: String, // Stores the time slot for the booking
-        required: true // Makes this field mandatory
-    }
-}, { 
-    timestamps: true // Automatically adds createdAt and updatedAt fields
-});
+    timeSlot: {
+      type: String, // Defining the time slot as a string (e.g., "09:00 - 10:00")
+      required: true, // Making the time slot mandatory
+    },
+  },
+  { timestamps: true } // Automatically adding `createdAt` and `updatedAt` timestamps
+);
 
-// Exporting the Booking model for use in other parts of the application
-module.exports = mongoose.model('Booking', bookingSchema);
+module.exports = mongoose.model('Booking', bookingSchema); // Exporting the Booking model based on the bookingSchema
