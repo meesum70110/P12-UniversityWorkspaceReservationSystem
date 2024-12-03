@@ -60,31 +60,45 @@ body, html {
 
 input[type="email"],
 input[type="password"] {
-    width: 100%; /* Ensures input fields span the container */
-    padding: 8px 10px; /* Adds inner padding */
-    margin-top: 5px; /* Adds spacing above the input field */
-    border: 1px solid #cbd6e2; /* Adds a light blue border */
-    border-radius: 3px; /* Rounds the corners */
+    width: 100%; /* Expands input fields to the full width of the container */
+    padding: 10px; /* Provides equal inner spacing for both inputs */
+    margin-top: 5px; /* Adds spacing above each input */
+    border: 1px solid #cbd6e2; /* Defines a subtle border for structure */
+    border-radius: 3px; /* Rounds corners slightly for a polished look */
+    box-sizing: border-box; /* Includes padding and border in the element's total width */
 }
 
-/* Eye icon alignment adjustments */
 .password-wrapper {
-    width: 100%; /* Ensures wrapper spans the container */
-    position: relative; /* Allows positioning of child elements */
-    display: flex; /* Aligns items in a single row */
-    align-items: center; /* Centers items vertically */
+    width: 100%; /* Matches the width of the container */
+    position: relative; /* Allows absolute positioning of child elements */
+    display: flex; /* Aligns children in a horizontal row */
+    align-items: center; /* Centers children vertically */
+    height: 40px; /* Sets a fixed height to align with email input */
 }
 
-input[type="password"] {
-    flex-grow: 1; /* Allows the input field to expand */
+input[type="password"],
+input[type="text"] { /* Shared styles for password and text inputs */
+    width: 100%; /* Ensures inputs fill available horizontal space */
+    padding: 8px 10px; /* Adjusts inner spacing for consistency */
+    margin-top: 5px; /* Adds vertical spacing */
+    border: 1px solid #cbd6e2; /* Provides a light border */
+    border-radius: 3px; /* Rounds corners for a softer appearance */
+    height: 100%; /* Matches the height of the wrapper */
+    box-sizing: border-box; /* Ensures consistent dimensions including padding and border */
 }
 
 .show-password {
-    position: absolute; /* Positions icon inside the wrapper */
-    right: 10px; /* Aligns icon to the right */
-    background: none; /* Removes background */
-    border: none; /* Removes border */
-    cursor: pointer; /* Changes cursor to pointer */
+    position: absolute; /* Positions the icon inside the wrapper */
+    right: 10px; /* Places the icon close to the right edge */
+    top: 50%; /* Vertically centers the icon */
+    transform: translateY(-50%); /* Corrects alignment by offsetting by half its height */
+    background: none; /* Removes default background */
+    border: none; /* Eliminates border for a clean appearance */
+    cursor: pointer; /* Indicates interactivity */
+    display: flex; /* Ensures the icon content is flex-aligned */
+    align-items: center; /* Vertically centers icon content */
+    justify-content: center; /* Horizontally centers icon content */
+    padding: 0; /* Removes extra padding for a compact look */
 }
 
 /* Button styling for the login button */
