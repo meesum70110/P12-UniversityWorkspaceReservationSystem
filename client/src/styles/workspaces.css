@@ -1,227 +1,305 @@
-/* Styling for survey forms */
 .survey-add-form {
-    min-height: 350px !important; /* Ensures a consistent minimum height */
+    min-height: 350px !important; /* Ensures the form has a minimum height */
 }
 
 .make-blue {
-    color: #0C3A53 !important; /* Applies a dark teal color */
+    color: #0C3A53 !important; /* Applies a dark blue color to the text */
 }
 
-/* Delete wrapper for survey cards */
 .survey-card-delete-wrapper {
-    width: 100%; /* Full width of the container */
-    display: flex; /* Flex container for layout */
-    justify-content: space-between; /* Space between elements */
+    width: 100%; /* Spans the entire width of the container */
+    display: flex; /* Aligns children in a horizontal row */
+    justify-content: space-between; /* Places children at opposite ends */
 }
 
-/* Search filter container */
 .search-filters {
-    display: flex; /* Flex layout */
-    justify-content: center; /* Centers items horizontally */
-    align-items: center; /* Aligns items vertically */
-    background-color: #0C3A53; /* Dark teal background */
-    padding: 10px; /* Adds padding around elements */
-    gap: 15px; /* Space between child elements */
-    width: 100%; /* Full width */
-    box-sizing: border-box; /* Includes padding in width calculation */
+    display: flex; /* Aligns children horizontally */
+    justify-content: center; /* Centers children horizontally */
+    align-items: center; /* Centers children vertically */
+    background-color: #0C3A53; /* Sets a dark blue background */
+    padding: 10px; /* Adds padding around the container */
+    gap: 15px; /* Spaces elements evenly */
+    width: 100%; /* Ensures it spans the full width */
+    box-sizing: border-box; /* Includes padding and border in total width */
 }
 
-/* Styling for search filter inputs */
-.search-filters select, 
-.search-filters button, 
-.search-filters input[type="text"] {
-    width: 150px; /* Fixed width for consistency */
-    padding: 8px; /* Padding inside elements */
-    border-radius: 5px; /* Rounded corners */
-    border: 1px solid #ccc; /* Light gray border */
-    font-size: 16px; /* Standard font size */
-    text-align: center; /* Centers text */
+.search-filters select,
+.search-filters button,
+.search-filters input[type="text"] { /* Shared styles for select, button, and input fields */
+    width: 150px; /* Sets a consistent width */
+    padding: 8px; /* Adds inner spacing */
+    border-radius: 5px; /* Rounds the corners */
+    border: 1px solid #ccc; /* Adds a light gray border */
+    font-size: 16px; /* Ensures text is readable */
+    text-align: center; /* Centers the text */
 }
 
-/* Styling for search filter button */
 .search-filters button {
-    background-color: #007bff; /* Blue background */
-    color: white; /* White text */
-    border: none; /* Removes border */
-    cursor: pointer; /* Pointer cursor on hover */
+    background-color: #007bff; /* Sets a blue background color */
+    color: white; /* Makes text white for contrast */
+    border: none; /* Removes default border */
+    cursor: pointer; /* Indicates interactivity */
 }
 
-/* Hover effect for search filter button */
 .search-filters button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #0056b3; /* Changes background on hover */
 }
 
-/* Removes margin for the last child in the search filters */
+/* Ensures proper alignment for the last child */
 .search-filters > :last-child {
     margin-right: 0;
 }
 
-/* Visibility icons for surveys */
 .survey-visibility-pause {
-    color: #1d578a !important; /* Blue color for pause icon */
+    color: #1d578a !important; /* Adds a muted blue color for pause state */
 }
 
 .survey-visibility-play {
-    color: #0EBAB1 !important; /* Light teal color for play icon */
+    color: #0EBAB1 !important; /* Adds a teal color for play state */
 }
 
-/* Survey response selector button */
 .survey-response-selector {
-    text-decoration: none; /* Removes underline */
-    font-size: small; /* Smaller font */
-    padding: 8px 20px; /* Padding inside the button */
-    background-color: #0C3A53; /* Dark teal background */
-    color: white; /* White text */
-    border: 2px solid #0C3A53; /* Border matches background */
-    border-radius: 5px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor */
-    transition: all 0.5s; /* Smooth transition for hover effects */
+    text-decoration: none; /* Removes underline from links */
+    font-size: small; /* Sets smaller font size */
+    padding: 8px 20px; /* Adds spacing inside the button */
+    background-color: #0C3A53; /* Sets a dark blue background */
+    color: white; /* White text for contrast */
+    border: 2px solid #0C3A53; /* Matches border with background */
+    border-radius: 5px; /* Rounds corners */
+    cursor: pointer; /* Indicates interactivity */
+    transition: all 0.5s; /* Smooth transitions for hover effects */
 }
 
-/* Hover effect for response selector */
+.minimize {
+    transition: all 0.5s; /* Smooth transition for scaling effect */
+    cursor: pointer; /* Indicates interactivity */
+}
+
+.minimize:hover {
+    transform: scale(1.2); /* Enlarges element slightly on hover */
+}
+
+.no-response-wrapper {
+    margin: 5px 0; /* Adds vertical spacing */
+    padding: 0 10px; /* Adds horizontal padding */
+    width: calc(100% - 20px); /* Adjusts width accounting for padding */
+    text-align: center; /* Centers the text */
+    line-height: 20px; /* Sets consistent line height */
+    color: rgba(8, 62, 59, 0.5); /* Light teal for muted text */
+    font-size: 14px; /* Sets a readable font size */
+}
+
 .survey-response-selector:hover {
-    background: transparent; /* Transparent background on hover */
-    color: #0C3A53; /* Dark teal text */
+    background: transparent; /* Removes background on hover */
+    color: #0C3A53; /* Changes text color to dark blue */
 }
 
-/* Flex container for responses */
 .survey-response-wrapper {
-    border-top: 3px solid #cbd6e2; /* Light gray border */
-    display: flex; /* Flex layout */
-    flex-flow: column wrap; /* Vertical wrapping */
-    list-style: none; /* Removes bullet points */
+    border-top: 3px solid #cbd6e2; /* Adds a light blue top border */
+    display: flex; /* Aligns items in a flexible layout */
+    flex-flow: column wrap; /* Aligns children in a column, wrapping if needed */
+    list-style: none; /* Removes default list styling */
     margin: 10px 0 0 0; /* Adds top margin */
-    padding: 0; /* Removes padding */
-    width: 100%; /* Full width */
+    padding: 0; /* Removes default padding */
+    width: 100%; /* Occupies full width */
 }
 
-/* Styling for response headings */
 .response-heading {
     margin: 10px 0; /* Adds vertical spacing */
-    padding: 5px; /* Padding inside heading */
-    line-height: 20px; /* Spacing between lines */
-    font-size: 16px; /* Standard font size */
-    background-color: #cbd6e2; /* Light gray background */
-    color: #5b6d7d !important; /* Dark gray text */
-    border-radius: 3px; /* Rounded corners */
-    display: flex; /* Flex layout */
-    flex-flow: row nowrap; /* Horizontal alignment */
-    justify-content: space-between; /* Space between child elements */
-    align-items: center; /* Aligns items vertically */
+    padding: 5px; /* Adds inner spacing */
+    line-height: 20px; /* Sets consistent line spacing */
+    font-size: 16px; /* Adjusts font size for readability */
+    background-color: #cbd6e2; /* Sets a light blue background */
+    color: #5b6d7d !important; /* Applies a muted gray-blue color */
+    border-radius: 3px; /* Rounds the corners */
+    display: flex; /* Aligns content in a horizontal row */
+    flex-flow: row nowrap; /* Prevents wrapping of content */
+    justify-content: space-between; /* Spreads content to edges */
+    align-items: center; /* Centers content vertically */
 }
 
-/* Comment form styling */
-.comment-form {
-    margin: 10px 0 0 0; /* Adds top margin */
-    padding: 0; /* Removes padding */
-    display: flex; /* Flex layout */
-    flex-flow: column nowrap; /* Vertical alignment */
-    align-items: flex-start; /* Aligns items to the start */
-    justify-content: flex-start; /* Aligns content to the start */
-}
-
-/* Input fields in comment form */
-.comment-form input {
-    margin: 0 10px 10px 0; /* Adds spacing between inputs */
+.survey-response {
+    margin: 10px 0; /* Adds vertical spacing */
     padding: 0 10px; /* Adds horizontal padding */
-    max-width: 265px; /* Limits maximum width */
-    min-width: 150px; /* Ensures a minimum width */
-    height: 30px; /* Fixed height */
-    box-sizing: border-box; /* Includes padding and border in width */
-    border-radius: 3px; /* Rounded corners */
-    border: 1px solid #cbd6e2; /* Light gray border */
-    background-color: white; /* White background */
-    color: #333333; /* Dark gray text */
-    cursor: text; /* Text cursor */
+    width: calc(100% - 20px); /* Adjusts width considering padding */
+    display: flex; /* Enables flexible layout */
+    flex-flow: column wrap; /* Aligns children in a column, wrapping if needed */
+    justify-content: flex-start; /* Aligns children to the top */
+    align-items: flex-start; /* Aligns children to the start horizontally */
+    line-height: 20px; /* Sets consistent line height */
 }
 
-/* Focus effect for comment form inputs */
-.comment-form input[type="text"]:focus {
-    border-color: rgba(82, 168, 236, 0.8); /* Blue border */
-    outline: none; /* Removes outline */
+.response-email {
+    color: rgba(8, 62, 59, 0.5); /* Light teal color for muted text */
+    font-size: 13px; /* Sets a smaller font size */
 }
 
-/* Comment form button styling */
+.response-comment {
+    color: #5b6d7d; /* Muted gray-blue color for text */
+    font-size: 16px; /* Sets a readable font size */
+    overflow-wrap: break-word; /* Ensures long words break */
+    word-wrap: break-word; /* Compatibility for older browsers */
+    word-break: break-word; /* Breaks words at line ends */
+}
+
+
+/*----------Comment Form----------*/
+
+.comment-form {
+    margin: 10px 0 0 0; /* Adds spacing above the form */
+    padding: 0; /* Removes inner spacing */
+    display: flex; /* Aligns children in a flexible layout */
+    flex-flow: column nowrap; /* Stacks children in a column, no wrapping */
+    align-items: flex-start; /* Aligns children to the start horizontally */
+    justify-content: flex-start; /* Aligns children to the top vertically */
+}
+
+.comment-form-unit {
+    display: flex; /* Aligns children in a flexible layout */
+    flex-flow: row wrap; /* Aligns children in a row, wrapping if needed */
+    margin: 0; /* Removes outer spacing */
+    padding: 0; /* Removes inner spacing */
+}
+
+.comment-form input {
+    margin: 0 10px 10px 0; /* Adds spacing between input fields */
+    padding: 0 10px; /* Adds inner spacing for text */
+    max-width: 265px; /* Limits the maximum width of input */
+    min-width: 150px; /* Sets the minimum width of input */
+    height: 30px; /* Defines consistent input height */
+    box-sizing: border-box; /* Includes padding and border in width/height */
+    border-radius: 3px; /* Slightly rounds corners */
+    border: 1px solid #cbd6e2; /* Adds a light border */
+    background-color: white; /* Sets input background color */
+    color: #333333; /* Sets text color */
+    cursor: text; /* Indicates text input functionality */
+}
+
+.comment-form input[type=text]:focus {
+    border-color: rgba(82, 168, 236, 0.8); /* Highlights border on focus */
+    outline: none; /* Removes default focus outline */
+}
+
 .comment-form button {
-    font-size: 14px; /* Standard font size */
-    font-weight: 600; /* Bold text */
-    color: white; /* White text */
-    background-color: #0C3A53; /* Dark teal background */
-    border: 1px solid #0C3A53; /* Matching border */
-    border-radius: 3px; /* Rounded corners */
-    margin: 0 0 10px 0; /* Adds bottom margin */
-    padding: 0 25px; /* Adds horizontal padding */
-    height: 30px; /* Fixed height */
-    cursor: pointer; /* Pointer cursor */
-    transition: all 0.5s; /* Smooth transition for hover effects */
+    font-size: 14px; /* Sets button text size */
+    font-weight: 600; /* Makes button text bold */
+    color: white; /* Sets text color */
+    background-color: #0C3A53; /* Dark blue background */
+    border: 1px solid #0C3A53; /* Matches border with background */
+    border-radius: 3px; /* Rounds corners */
+    margin: 0 0 10px 0; /* Adds spacing below the button */
+    padding: 0 25px; /* Adds horizontal spacing */
+    height: 30px; /* Sets button height */
+    cursor: pointer; /* Indicates interactivity */
+    transition: all 0.5s; /* Smooth transitions for hover effects */
 }
 
-/* Hover effect for comment form button */
 .comment-form button:hover {
-    background-color: #0EBAB1; /* Light teal background */
-    border: 1px solid #0EBAB1; /* Matching border */
+    background-color: #0EBAB1; /* Changes background on hover */
+    border: 1px solid #0EBAB1; /* Matches border with background */
 }
 
-/* Styling for error messages in the comment form */
 .comment-error {
-    margin: 0; /* Removes margin */
-    font-size: 13px; /* Small font size */
-    font-weight: bold; /* Bold text */
-    line-height: 20px; /* Spacing between lines */
-    color: #D63301; /* Red text */
+    margin: 0; /* Removes outer spacing */
+    font-size: 13px; /* Sets smaller text size */
+    font-weight: bold; /* Makes text bold */
+    line-height: 20px; /* Sets consistent line spacing */
+    color: hsl(14, 99%, 42%); /* Red color for errors */
 }
 
 /* Room group styling */
-/* Adds spacing below room groups for separation */
 .room-group {
-    margin-bottom: 20px; /* 20px margin at the bottom */
+    margin-bottom: 20px; /* Adds spacing below the group */
+}
+
+.room-buttons {
+    display: flex; /* Aligns buttons horizontally */
+    gap: 5px; /* Adds space between buttons */
+    justify-content: center; /* Centers buttons horizontally */
+    margin-bottom: 0px; /* Removes extra bottom margin */
+}
+
+.room-button {
+    background-color: #007bff; /* Sets blue background */
+    color: white; /* White text for contrast */
+    border: none; /* Removes default border */
+    padding: 8px 16px; /* Adds spacing inside the button */
+    border-radius: 4px; /* Rounds button corners */
+    cursor: pointer; /* Indicates interactivity */
+}
+
+.room-button.active {
+    background-color: #0056b3; /* Darker blue for active state */
+    font-weight: bold; /* Makes text bold */
+}
+
+.room-button:hover {
+    background-color: #0056b3; /* Changes background on hover */
 }
 
 /* Flex container for workspace cards */
-/* Ensures a responsive layout for workspace cards */
 .workspace-row {
-    display: flex; /* Flexbox layout */
-    flex-wrap: wrap; /* Allows items to wrap to the next line */
-    gap: 20px; /* Adds space between the cards */
+    display: flex; /* Aligns items in a flexible layout */
+    flex-wrap: wrap; /* Wraps items to the next line if needed */
+    gap: 20px; /* Adds spacing between items */
 }
 
-/* Workspace card styling */
-/* Ensures each workspace card has consistent dimensions */
+/* Ensure each workspace card has a consistent width */
 .item-card {
-    width: 300px; /* Fixed width for cards */
-    flex: 1 1 auto; /* Allows flexibility for wrapping and scaling */
+    width: 300px; /* Defines card width */
+    flex: 1 1 auto; /* Makes cards flexible */
 }
 
-/* Button inside workspace cards */
-/* Ensures buttons inside cards are styled consistently */
+/* Styling for buttons inside item cards */
 .item-card button {
-    margin-top: 10px; /* Adds space above the button */
-    padding: 10px; /* Padding inside the button */
-    font-size: 16px; /* Standard font size for readability */
-    cursor: pointer; /* Pointer cursor on hover */
+    margin-top: 10px; /* Adds spacing above the button */
+    padding: 10px; /* Adds spacing inside the button */
+    font-size: 16px; /* Sets button text size */
+    cursor: pointer; /* Indicates interactivity */
 }
 
-/* Booking page styling */
-/* Adds padding around the entire booking page */
 .booking-page {
-    padding: 20px; /* Uniform padding on all sides */
+    padding: 20px; /* Adds spacing inside the page */
 }
 
-/* Time slot container styling */
-/* Styles the container for individual time slots */
 .time-slot {
-    display: flex; /* Flexbox layout */
-    justify-content: space-between; /* Space between child elements */
-    align-items: center; /* Align items vertically */
-    margin-bottom: 10px; /* Space below each time slot */
+    display: flex; /* Aligns items in a flexible row */
+    justify-content: space-between; /* Spaces items to edges */
+    align-items: center; /* Centers items vertically */
+    margin-bottom: 10px; /* Adds spacing below each time slot */
 }
 
-/* Time slot button styling */
-/* Buttons used in time slots for actions */
 .time-slot button {
-    background-color: #1d578a; /* Dark blue background */
-    color: #fff; /* White text */
+    background-color: #1d578a; /* Sets a dark blue background */
+    color: #fff; /* White text for contrast */
     border: none; /* Removes border */
-    padding: 8px 12px; /* Padding for button content */
-    cursor: pointer; /* Pointer cursor on hover */
+    padding: 8px 12px; /* Adds spacing inside the button */
+    cursor: pointer; /* Indicates interactivity */
+}
+
+.search-filters {
+    display: flex; /* Aligns children in a flexible layout */
+    flex-wrap: wrap; /* Wraps items to the next line if needed */
+    gap: 10px; /* Adds spacing between elements */
+}
+
+.view-bookings-container {
+    width: 100%; /* Ensures container spans full width */
+    margin-top: 10px; /* Adds spacing above the container */
+    display: flex; /* Aligns children in a flexible row */
+    justify-content: center; /* Centers buttons horizontally */
+    gap: 10px; /* Adds spacing between buttons */
+}
+
+.view-bookings-button {
+    background-color: #007bff; /* Sets blue background */
+    color: white; /* White text for contrast */
+    border: none; /* Removes default border */
+    padding: 8px 16px; /* Adds spacing inside the button */
+    border-radius: 4px; /* Rounds corners */
+    cursor: pointer; /* Indicates interactivity */
+}
+
+.view-bookings-button:hover {
+    background-color: #0056b3; /* Changes background on hover */
 }
