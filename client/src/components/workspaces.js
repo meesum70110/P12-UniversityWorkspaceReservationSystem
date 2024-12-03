@@ -8,7 +8,7 @@ import no_record_icon from "./Images/Record/no-record-img.png"; // Placeholder i
 import NavMenu from "./SharedComponents/navMenu"; // Navigation menu component
 import LoadingIcon from "./SharedComponents/loading"; // Loading spinner component
 import { SocketContext } from "../context/socket"; // Socket context for real-time updates
-import TablesPage from "../table-workspaces/tables/page/booking/TablesPage; // Page for workspace table details
+import TablesPage from "../table-workspaces/tables/page/booking/TablesPage"; // Page for workspace table details
 import RoomBookingsPage from "../table-workspaces/tables/page/booking/RoomBookingsPage"; // Page for room booking details
 import DatePicker from "react-datepicker"; // Component for date selection
 import "react-datepicker/dist/react-datepicker.css"; // Styles for date picker
