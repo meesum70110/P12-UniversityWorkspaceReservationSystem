@@ -52,7 +52,7 @@ const Surveys = () => {
     const queryParams = new URLSearchParams({ room: selectedRoom, date: formattedDate, time: time || "" }).toString(); // Building query parameters
 
     try {
-      const result = await fetch(`http://localhost:8000/api/survey/?${queryParams}`, { headers: { Authorization: `Bearer ${userAccount.userToken}` } }); // Fetching workspace data
+      const result = await fetch(`https://workspacereservation-backend.onrender.com/api/survey/?${queryParams}`, { headers: { Authorization: `Bearer ${userAccount.userToken}` } }); // Fetching workspace data
       const resultJson = await result.json(); // Parsing JSON response
 
       if (result.status === 200) { setSurveys(resultJson); setExist(resultJson.length > 0); } // Updating state with workspace data
