@@ -1,77 +1,93 @@
-/* Main wrapper for the TablesPage component */
+/* Styling for the main container of the Tables Page */
 .TablesPage {
-    flex: 1; /* Ensures the page takes up remaining available space */
-    display: flex; /* Enables flexbox layout for child elements */
-    flex-direction: column; /* Stacks child elements vertically */
-    align-items: center; /* Centers child elements horizontally */
-    overflow: scroll; /* Allows scrolling when content overflows */
+    flex: 1; /* Allows the component to take up available space */
+    display: flex; /* Enables flexible box layout */
+    flex-direction: column; /* Stacks elements vertically */
+    align-items: center; /* Centers content horizontally */
+    overflow: scroll; /* Enables scrolling if content overflows */
 }
 
-/* Styling for the top bar that contains date and time info */
+/* Styling for the top bar of the page */
 .TopBar {
-    display: flex; /* Enables flexbox layout for child elements */
+    display: flex; /* Enables flexible box layout */
     flex-direction: column; /* Stacks elements vertically */
-    align-items: center; /* Centers elements horizontally */
-    width: 100%; /* Full width of the container */
-    padding: 5px; /* Adds space inside the container */
+    align-items: center; /* Centers content horizontally */
+    width: 100%; /* Makes the top bar span full width */
+    padding: 5px; /* Adds padding inside the top bar */
     background-color: #f5f5f5; /* Light gray background for contrast */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for elevation */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adds subtle shadow for depth */
     margin-bottom: 20px; /* Adds space below the top bar */
 }
 
-/* Styling for the button that toggles booking visibility */
+/* Button styling for viewing bookings */
 .ViewBookingsButton {
-    padding: 8px 16px; /* Adds space inside the button for better usability */
-    background-color: #007bff; /* Blue background for emphasis */
+    padding: 8px 16px; /* Adds space inside the button for better UX */
+    background-color: #007bff; /* Blue background for primary action */
     color: white; /* White text for contrast */
-    border: none; /* Removes default border */
-    border-radius: 5px; /* Rounds the corners for a modern look */
-    cursor: pointer; /* Changes cursor to pointer to indicate interactivity */
+    border: none; /* Removes default button border */
+    border-radius: 5px; /* Rounds the button edges */
+    cursor: pointer; /* Changes cursor to pointer on hover */
     margin-bottom: 10px; /* Adds space below the button */
 }
 
-/* Styling for the container displaying the user's bookings list */
+/* Styling for the list of bookings */
 .BookingsList {
-    padding: 10px; /* Adds space inside the container */
+    padding: 10px; /* Adds space inside the booking list container */
     background-color: #f9f9f9; /* Light background for readability */
-    border: 1px solid #ddd; /* Subtle border for distinction */
-    border-radius: 5px; /* Rounds the corners */
+    border: 1px solid #ddd; /* Adds a subtle border around the container */
+    border-radius: 5px; /* Rounds the edges of the container */
     margin-top: 10px; /* Adds space above the list */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds a shadow for depth */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds shadow for depth */
 }
 
-/* Styling for displaying error messages */
+/* Styling for error messages */
 .ErrorMessage {
-    color: red; /* Makes the error message stand out */
-    font-size: 14px; /* Sets an appropriate font size for readability */
-    margin-bottom: 10px; /* Adds space below the message */
+    color: red; /* Highlights error text in red */
+    font-size: 14px; /* Sets a smaller font size for errors */
+    margin-bottom: 10px; /* Adds space below the error message */
 }
 
-/* Styling for the info section displaying date and time */
+/* Styling for the informational section */
 .Info {
-    flex: 1; /* Ensures the info section takes up available space */
-    display: flex; /* Enables flexbox layout for child elements */
-    justify-content: center; /* Centers child elements horizontally */
-    align-items: center; /* Centers child elements vertically */
-    color: #333; /* Darker text for readability */
-    margin-top: 10px; /* Adds space above the info section */
+    flex: 1; /* Allows the component to take up available space */
+    display: flex; /* Enables flexible box layout */
+    justify-content: center; /* Centers content horizontally */
+    align-items: center; /* Centers content vertically */
+    color: #333; /* Dark gray text for readability */
+    margin-top: 10px; /* Adds space above the informational text */
 }
 
-/* Styling for the container that holds the table layout */
+/* Styling for the tables container */
 .Tables {
-    display: flex; /* Enables flexbox layout for child elements */
-    align-items: center; /* Centers child elements vertically */
-    justify-content: center; /* Centers child elements horizontally */
+    display: flex; /* Enables flexible box layout */
+    align-items: center; /* Centers tables vertically */
+    justify-content: center; /* Centers tables horizontally */
 }
 
 /* Styling for the pop-up modal */
 .PopUp {
-    position: fixed; /* Fixes the modal's position relative to the viewport */
-    top: 0; /* Aligns the top of the modal to the top of the viewport */
-    bottom: 0; /* Aligns the bottom of the modal to the bottom of the viewport */
-    left: 0; /* Aligns the left of the modal to the left of the viewport */
-    right: 0; /* Aligns the right of the modal to the right of the viewport */
-    display: flex; /* Enables flexbox layout for child elements */
-    align-items: center; /* Centers child elements vertically */
-    justify-content: center; /* Centers child elements horizontally */
+    position: fixed; /* Positions the pop-up relative to the viewport */
+    top: 0; /* Aligns the pop-up at the top */
+    bottom: 0; /* Aligns the pop-up at the bottom */
+    left: 0; /* Aligns the pop-up to the left */
+    right: 0; /* Aligns the pop-up to the right */
+    display: flex; /* Enables flexible box layout */
+    align-items: center; /* Centers the pop-up vertically */
+    justify-content: center; /* Centers the pop-up horizontally */
+}
+
+/* Button styling for viewing room bookings */
+.ViewRoomBookingsButton {
+    background-color: #007bff; /* Blue background for primary action */
+    color: white; /* White text for contrast */
+    border: none; /* Removes default button border */
+    padding: 10px 15px; /* Adds padding for better UX */
+    border-radius: 5px; /* Rounds the edges of the button */
+    margin: 10px 0; /* Adds space around the button */
+    cursor: pointer; /* Changes cursor to pointer on hover */
+}
+
+/* Hover effect for the View Room Bookings button */
+.ViewRoomBookingsButton:hover {
+    background-color: #0056b3; /* Darker blue for hover effect */
 }
