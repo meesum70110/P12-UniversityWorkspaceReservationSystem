@@ -1,54 +1,35 @@
-// Importing required dependencies and controller functions
-const express = require('express');
+// Importing necessary modules
+const express = require('express'); // Importing Express for creating routes
 const {
-    getSurveys,           // Controller function to get all surveys
-    addComment,           // Controller function to add a comment to a survey
-    deleteSurvey,         // Controller function to delete a survey
-    surveyVisibility,     // Controller function to change survey visibility
-    getAvailability,      // Controller function to get availability of a workspace
-    bookWorkspace,        // Controller function to book a workspace
-    getUserBookings,      // Controller function to fetch all user bookings
-    cancelBooking,        // Controller function to cancel a user's booking
-    getAllTablesStatus    // Controller function to get the status of all tables
-} = require('../controllers/workspacesController');
+    getSurveys, // Controller to fetch workspaces
+    addComment, // Controller to add comments to a workspace
+    deleteSurvey, // Controller to delete a workspace
+    surveyVisibility, // Controller to update workspace visibility
+    getAvailability, // Controller to fetch table availability in a workspace
+    bookWorkspace, // Controller to book a table in a workspace
+    getUserBookings, // Controller to fetch user-specific bookings
+    cancelBooking, // Controller to cancel a booking
+    getAllTablesStatus, // Controller to get the status of all tables
+    getAllBookings // Controller to fetch all bookings
+} = require('../controllers/workspacesController'); // Importing workspace-related controllers
 
-// Creating a new Express router instance
-const router = express.Router();
+const router = express.Router(); // Creating an Express router instance
+const authenticateRequest = require('../middleware/authorize'); // Middleware to authenticate incoming requests
 
-// Importing middleware to authenticate requests using JWT (JSON Web Token)
-const authenticateRequest = require('../middleware/authorize');
+// Applying middleware to authenticate all routes
+router.use(authenticateRequest); // Ensuring only authorized users can access these routes
 
-// Applying JWT authentication middleware to ensure only authenticated requests are processed
-router.use(authenticateRequest);
+// Routes for workspace management
+router.get('/', getSurveys); // Route to fetch available workspaces with filters
+router.patch('/comment/:id', addComment); // Route to add a comment to a specific workspace
+router.delete('/:id', deleteSurvey); // Route to delete a specific workspace
+router.patch('/visibility/:id', surveyVisibility); // Route to update the visibility of a specific workspace
+router.get('/:workspaceId/availability', getAvailability); // Route to check table availability in a specific workspace
+router.post('/:workspaceId/book', bookWorkspace); // Route to book a table in a specific workspace
+router.get('/bookings', getUserBookings); // Route to fetch bookings for the authenticated user
+router.delete('/bookings/:bookingId', cancelBooking); // Route to cancel a specific booking
+router.get('/tables', getAllTablesStatus); // Route to fetch the status of all tables across workspaces
+router.get('/bookings/all', getAllBookings); // Route to fetch all bookings (admin only)
 
-// Defining the routes for workspaces and bookings:
-
-// Get all surveys (GET request)
-router.get('/', getSurveys);
-
-// Add a comment to a specific survey (PATCH request)
-router.patch('/comment/:id', addComment);
-
-// Delete a specific survey (DELETE request)
-router.delete('/:id', deleteSurvey);
-
-// Change visibility of a survey (PATCH request)
-router.patch('/visibility/:id', surveyVisibility);
-
-// Get availability of a specific workspace (GET request)
-router.get('/:workspaceId/availability', getAvailability);
-
-// Book a workspace (POST request)
-router.post('/:workspaceId/book', bookWorkspace);
-
-// Get all user bookings (GET request)
-router.get('/bookings', getUserBookings);
-
-// Cancel a booking (DELETE request)
-router.delete('/bookings/:bookingId', cancelBooking);
-
-// Get the status of all tables (GET request)
-router.get('/tables', getAllTablesStatus);
-
-// Exporting the router to be used in the main app
+// Exporting the router for use in the application
 module.exports = router;
