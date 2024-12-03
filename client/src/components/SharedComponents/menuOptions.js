@@ -17,8 +17,8 @@ export const MenuOptionsAdmin = [
         path: '/create-account' // Path to the user creation page
     },
     {
-        title: 'Add a WorkSpace', // Title displayed for workspace management
-        path: '/workspaces' // Path to the workspace management page
+        title : 'Book WorkSpace',
+        path : '/workspaces'
     },
     {
         title: 'FAQS', // Title displayed for managing FAQs
@@ -36,9 +36,9 @@ export const MenuOptionsEmployee = [
         title: 'My Account', // Title displayed for account management
         path: '/account' // Path to the "My Account" page
     },
-    { 
-        title: 'View workspaces', // Title displayed for viewing workspaces
-        path: '/workspaces' // Path to the workspace viewing page
+    {
+        title : 'Book WorkSpace',
+        path : '/workspaces'
     },
     { 
         title: 'FAQS', // Title displayed for accessing FAQs
