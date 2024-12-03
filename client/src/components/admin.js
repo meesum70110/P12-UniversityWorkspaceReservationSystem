@@ -50,6 +50,11 @@ const Admin = (prop) => {
                     <img src={signup_icon} alt="Add Employee" /> {/* Image for "Add User" */}
                     <Link to="/create-account" className="form_btn">Add User</Link> {/* Link to the "Add User" page */}
                 </div>
+                {/* Tile for "Workspaces" */} 
+                <div className="tile-emp">
+                    <img src={signup_icon} alt="Surveys"/>
+                    <Link to="/workspaces" className="form_btn">Book WorkSpaces</Link>
+                </div>
 
                 {/* Tile for "FAQs" */}
                 <div className="tile-admin">
