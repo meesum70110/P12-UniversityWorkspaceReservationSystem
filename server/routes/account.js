@@ -1,49 +1,39 @@
-// Importing required dependencies and controller functions
 const express = require('express');
 const {
-    getProfile, // Controller to get the user profile
-    searchUsers, // Controller to search for users
-    updatePhoto, // Controller to update user photo
-    updatePassword, // Controller to update user password
-    updateInfo, // Controller to update user information
-    getProfileAdmin, // Controller to get user profile by admin
-    updateSensitive, // Controller to update sensitive company-specific information
-    deleteUser // Controller to delete a user
+    getProfile,
+    searchUsers,
+    updatePhoto,
+    updatePassword,
+    updateInfo,
+    getProfileAdmin,
+    deleteUser // Removed updateSensitive
 } = require('../controllers/accountController');
 
-// Creating a new Express router instance
 const router = express.Router();
-
-// Importing the middleware to authenticate requests
 const authenticateRequest = require('../middleware/authorize');
 
-// Applying the authentication middleware to validate the JSON Web Token (JWT)
-// If the token is valid, it allows access to the subsequent routes and controller functions
+// Ensure the middleware is applied before the routes
 router.use(authenticateRequest);
 
-// Defining the route to GET the user profile
+// GET user profile
 router.get('/', getProfile);
 
-// Defining the route to POST and search users by certain criteria
+// GET all employee profiles
 router.post('/', searchUsers);
 
-// Defining the route to PATCH and update the user photo
+// Update user photo
 router.patch('/photo', updatePhoto);
 
-// Defining the route to PATCH and update the user password
+// Update user password
 router.patch('/password', updatePassword);
 
-// Defining the route to PATCH and update general user info
+// Update user info
 router.patch('/info', updateInfo);
 
-// Defining the route to GET the user profile requested by an admin
+// Retrieve user profile requested by admin
 router.post('/profile', getProfileAdmin);
 
-// Defining the route to PATCH and update company-specific sensitive information
-router.patch('/sensitive', updateSensitive);
-
-// Defining the route to DELETE a user by their ID
+// Delete a user
 router.delete('/:id', deleteUser);
 
-// Exporting the router to be used in the main app
 module.exports = router;
