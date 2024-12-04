@@ -74,7 +74,7 @@ const NavMenu = (prop) => {
                         <div className="placeholder">
                             {/* Home link with hover effects */}
                             <Link 
-                                to={isAdmin ? '/' : '/employee'} 
+                                to={isAdmin ? '/' : '/TA'} 
                                 className="placeholder" 
                                 onMouseEnter={handleHomeIconChangeFill} 
                                 onMouseLeave={handleHomeIconChangeLine}
