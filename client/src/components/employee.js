@@ -19,11 +19,11 @@ import NavMenu from "./SharedComponents/navMenu"; // Navigation bar component
 import CustomFooter from './SharedComponents/customFooter'; // Footer component
 
 // Functional component definition for the Employee homepage
-const Employee = (prop) => {
+const TA = (prop) => {
     return (   
         <div className="homepage">
             {/* Main Navigation Bar */}
-            <NavMenu isHome={true} pagePath="/employee" /> {/* NavMenu for the Employee homepage */}
+            <NavMenu isHome={true} pagePath="/TA" /> {/* NavMenu for the Employee homepage */}
 
             {/* Cover Section */}
             <div className="cover-wrapper">
@@ -59,4 +59,4 @@ const Employee = (prop) => {
 };
 
 // Exporting the Employee component as the default export
-export default Employee;
+export default TA;
