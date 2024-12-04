@@ -1,41 +1,59 @@
-// Importing nodemailer module for sending emails
 const nodeMailer = require('nodemailer');
 
-// Function to send credentials via email
 const sendCredentials = async (email, password) => {
+    console.log('Initializing email sending process...'); // Debugging Statement
 
-    // Creating a transporter object to configure the email service
-    var transporter = nodeMailer.createTransport({
-        service: 'gmail', // Using Gmail's email service
-        auth: {
-            user: 'hrsystemseproject@gmail.com', // Gmail account used for sending the email
-            pass: 'mysl ecpg bdoj kgbf' // The app password used for Gmail account authentication (Note: It's better to use environment variables for sensitive information)
-        }
-    });
+    try {
+        // Logging environment details
+        console.log('Environment Details:');
+        console.log(`Email: ${email}`);
+        console.log(`Password: ${password ? 'Password present' : 'Password missing'}`);
 
-    // HTML content for the email body, which contains the email and password
-    const html = '<h1>Welcome Onboard!</h1> <h2>Below are your Workspace app login credentials</h2> <p>Email: '
-        + email + '<br>Password: ' + password + '</p>';
-    
-    // Setting up the mail options (email subject, receiver, sender, and body content)
-    var mailOptions = {
-        from: 'hrsystemseproject@gmail.com', // Sender's email address
-        to: email, // Recipient's email address (provided in the function)
-        subject: 'Account Credential HR System', // Subject of the email
-        html: html // HTML body content for the email
-    };
+        // Step 1: Create Transporter
+        const transporter = nodeMailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.EMAIL_USER || 'hrsystemseproject@gmail.com', // Use env variable
+                pass: process.env.EMAIL_PASS || 'mysl ecpg bdoj kgbf', // Use env variable
+            },
+        });
 
-    // Sending the email using the transporter and mail options
-    transporter.sendMail(mailOptions, function(error, info) {
-        if (error) {
-            console.log(error); // Log the error if email sending fails
-        } else {
-            console.log('Email sent: ' + info.response); // Log the response if email is successfully sent
-        }
-    });
-}
+        console.log('Transporter created successfully.'); // Debugging Statement
 
-// Exporting the function for use in other parts of the application
+        // Step 2: Prepare Email Content
+        const html = `
+            <h1>Welcome Onboard!</h1>
+            <h2>Below are your Workspace app login credentials</h2>
+            <p>Email: ${email}<br>Password: ${password}</p>
+        `;
+
+        const mailOptions = {
+            from: process.env.EMAIL_USER || 'hrsystemseproject@gmail.com',
+            to: email,
+            subject: 'Account Credentials',
+            html: html,
+        };
+
+        console.log('Mail options prepared:');
+        console.log(mailOptions);
+
+        // Step 3: Send Email
+        console.log('Sending email...');
+        const info = await transporter.sendMail(mailOptions);
+
+        console.log('Email sent successfully:');
+        console.log(info.response);
+    } catch (error) {
+        console.error('Error during email sending process:');
+        console.error(error);
+
+        // Ensure the error is logged in Render's logs
+        console.error('Error stack trace:', error.stack);
+    }
+
+    console.log('Email sending process completed.');
+};
+
 module.exports = {
-    sendCredentials
+    sendCredentials,
 };
