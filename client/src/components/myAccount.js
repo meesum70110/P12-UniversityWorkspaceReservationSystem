@@ -77,52 +77,13 @@ const MyAccount = (prop)=>{
         setBasicOptions(true);
     }
 
-    // const options = [
-    //     {label: 'Punjab', value:'Punjab', key: 1},
-    //     {label: 'Sindh', value:'Sindh', key: 2},
-    //     {label: 'Balochistan', value:'Balochistan', key: 3},
-    //     {label: 'Khyber Pakhtunkhwa', value:'Khyber Pakhtunkhwa', key: 4},
-    //     {label: 'Kashmir', value:'Kashmir', key: 5}
-    // ]
-
-    // const setGenderNewMale = () => {
-    //     setGenderNew('male')
-    // }
-
-    // const setGenderNewFemale = () => {
-    //     setGenderNew('female')
-    // }
-
-    // const handleResidenceNew = (e) => {
-    //     setDropValue(e.target.value);
-    //     setResidenceNew(e.target.value);
-    // }
-
-    // const handleDobNew = async (date, dateString) => {
-    //     setDatePickerValue(date);
-    //     if(date)
-    //     {
-    //         const sDate = moment(dateString).format('YYYY/MM/DD');
-    //         setDobNew(sDate);
-    //     }
-    //     else
-    //     {
-    //         setDobNew('');
-    //     }
-    // }
-
     const resetBasicForm = () => {
         setFNameNew('');
         setLNameNew('');
-        // setDobNew('');
-        // setGenderNew(gender);
-        // setResidenceNew('');
+
     
         setFNameNewError('');
         setLNameNewError('');
-        // setDobNewError('');
-        // setGenderNewError('');
-        // setResidenceNewError('');
         setBasicInfoError('');
 
         setDatePickerValue('');
@@ -152,16 +113,12 @@ const MyAccount = (prop)=>{
 
         setFNameNewError('');
         setLNameNewError('');
-        // setDobNewError('');
-        // setGenderNewError('');
-        // setResidenceNewError('')
+
 
         let updateList = {}
         if(fnameNew && fnameNew.toLowerCase() !== fname.toLowerCase()){updateList.fname=fnameNew}
         if(lnameNew && lnameNew.toLowerCase() !== lname.toLowerCase()){updateList.lname=lnameNew}
-        // if(dobNew && dobNew !== dob){updateList.dob=dobNew}
-        // if(genderNew && genderNew !== gender){updateList.gender=genderNew}
-        // if(residenceNew && residenceNew !== residence){updateList.residence=residenceNew}
+
 
         if(Object.keys(updateList).length === 0)
         {
@@ -170,7 +127,7 @@ const MyAccount = (prop)=>{
             return;
         }
 
-        const result = await fetch('http://localhost:8000/api/account/info', {
+        const result = await fetch('https://workspacereservation-backend.onrender.com/api/account/info', {
             method: 'PATCH',
             body: JSON.stringify({...updateList}),
             headers: {
@@ -187,11 +144,7 @@ const MyAccount = (prop)=>{
                 setFName(fnameNew.toLowerCase());
             if(lnameNew)
                 setLName(lnameNew.toLowerCase());
-            // if(dobNew)
-            //     setDob(dobNew);
-            // setGender(genderNew);
-            // if(residenceNew)
-            //     setResidence(residenceNew);
+
 
             resetBasicForm();
             // setGenderNew(genderNew);
@@ -216,16 +169,6 @@ const MyAccount = (prop)=>{
                 if (resultJson.errorList.lname)
                     setLNameNewError(resultJson.errorList.lname);
 
-                // if (resultJson.errorList.dob)
-                //     setDobNewError(resultJson.errorList.dob);
-
-                // if (resultJson.errorList.gender)
-                // {
-                //     setGenderNewError(resultJson.errorList.gender);
-                // }
-
-                // if (resultJson.errorList.residence)
-                //     setResidenceNewError(resultJson.errorList.residence);
             }
             setUpdatingBasicInfo(false);
         }
@@ -325,7 +268,7 @@ const MyAccount = (prop)=>{
         setNewPassword1Error('');
         setNewPassword2Error('');
 
-        const result = await fetch('http://localhost:8000/api/account/password', {
+        const result = await fetch('https://workspacereservation-backend.onrender.com/api/account/password', {
             method: 'PATCH',
             body: JSON.stringify({oldPassword, newPassword1, newPassword2}),
             headers: {
@@ -372,7 +315,7 @@ const MyAccount = (prop)=>{
     // Use effect hook only run once initially when the page in rendered.
     useEffect(() => {
         const fetchProfile = async () => {
-            const result = await fetch('http://localhost:8000/api/account/', {
+            const result = await fetch('https://workspacereservation-backend.onrender.com/api/account/', {
                 headers: {
                     'Authorization': `Bearer ${userAccount.userToken}`
                 }
@@ -389,12 +332,6 @@ const MyAccount = (prop)=>{
                 setEmail(resultJson.email);
                 setFName(resultJson.fname);
                 setLName(resultJson.lname);
-                // setDob(moment(resultJson.dob).format('YYYY/MM/DD'))
-                // setGender(resultJson.gender);
-                // setGenderNew(resultJson.gender)
-                // setSalary(resultJson.salary);
-                // setDepartment(resultJson.department);
-                // setResidence(resultJson.residence);
                 setRank(resultJson.occupation);
             }
 
@@ -430,7 +367,7 @@ const MyAccount = (prop)=>{
 
         setPhotoUploading(true);
 
-        const result = await fetch('http://localhost:8000/api/account/photo', {
+        const result = await fetch('https://workspacereservation-backend.onrender.com/api/account/photo', {
             method: 'PATCH',
             body: JSON.stringify({photo : ''}),
             headers: {
@@ -489,7 +426,7 @@ const MyAccount = (prop)=>{
             else
             {
                 const base64 = await convertToBase64(e.target.files[0]);
-                const result = await fetch('http://localhost:8000/api/account/photo', {
+                const result = await fetch('https://workspacereservation-backend.onrender.com/api/account/photo', {
                     method: 'PATCH',
                     body: JSON.stringify({photo : base64}),
                     headers: {
@@ -543,8 +480,6 @@ const MyAccount = (prop)=>{
                     </span>
                     <span className="account-summary-work">
                         <div className="account-work-unit work-unit-top">Rank:<span>{rank}</span></div>
-                        {/* <div className="account-work-unit">Department:<span>{department}</span></div>
-                        <div className="account-work-unit work-unit-bottom">salary:<span>{salary}</span></div> */}
                     </span>
                 </span>
 
@@ -603,56 +538,7 @@ const MyAccount = (prop)=>{
                             />
                             {lnameNewError && <div className="error-text">{lnameNewError}</div>}
                         </div>
-                        {/* <div className="signup-form-unit signup-age">
-                            <label>Date Of Birth</label>
-                            <DatePicker
-                                placeholder={dob}
-                                disabled={!basicOptions} 
-                                disabledDate={(current) => current.isAfter(moment())}
-                                value={datePickerValue}
-                                className={dobNewError ? 'field-error signup-date-unit' : 'signup-date-unit'} 
-                                onChange={handleDobNew}
-                            />
-                            {dobNewError && <div className="error-text">{dobNewError}</div>}
-                        </div> */}
-                        {/* <div className="signup-form-unit signup-gender">
-                            <label>Gender</label>
-                            <div className="radio-wrapper"> 
-                                <button type="button" 
-                                    disabled={!basicOptions} 
-                                    className={genderNew === 'male' ? 'radio-option-selected' : basicOptionDisable + ' radio-option'} 
-                                    onClick={setGenderNewMale}>
-                                    Male
-                                </button>
-                                <button type="button"
-                                    disabled={!basicOptions} 
-                                    className={genderNew === 'female' ? 'radio-option-selected' : basicOptionDisable + ' radio-option'} 
-                                    onClick={setGenderNewFemale}>
-                                    Female
-                                </button>
-                            </div>
-                            {genderNewError && <div className="error-text">{genderNewError}</div>}
-                        </div> */}
-                        {/* <div className="signup-form-unit signup-residence">
-                            <label>Residence</label>
-                            <span className="absolute-icon-wrapper">
-                                <select 
-                                    disabled={!basicOptions} 
-                                    className={residenceNewError ? 'field-error dep-drop' : basicOptionDisable + ' dep-drop'} 
-                                    onChange={handleResidenceNew}
-                                    value={dropValue}
-                                >
-                                    <option hidden className='default-dep-drop'>{residence}</option>
-                                    {options.map(option => (
-                                        <option key={option.key} value={option.value}>
-                                        {option.label}
-                                        </option>
-                                    ))}
-                                </select>
-                                    {basicOptions && <FaAngleDown className="drop-icon" />}
-                                </span>
-                            {residenceNewError && <div className="error-text">{residenceNewError}</div>}
-                        </div> */}
+
                         {basicOptions && <div className="info-btn-update signup-btn">
                             <button disabled={isUpdatingBasicInfo} className="password-btn-update">Save</button>
                             <button type="button" disabled={isUpdatingBasicInfo} onClick={handleBasicCancel} className="password-btn-cancel">Cancel</button>
