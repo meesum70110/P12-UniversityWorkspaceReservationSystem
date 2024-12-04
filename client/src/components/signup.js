@@ -1,61 +1,59 @@
-// Importing React hooks and libraries
-import { useState } from "react"; // Hook for managing component state
+import { useState } from "react";
 
-// Importing authorization hook to access global state for logged-in users
+// For accessing global state for logged-in users
 import { useAuthorize } from "../context/hook/useAuthorization";
 
-// Importing CSS styles for the signup and profile components
+// Importing styles for the signup page
 import '../styles/signup.css';
 import '../styles/profile.css';
-
-// Importing animation library for transitions
 import 'animate.css';
 
-// Importing icons for the signup form
-import * as BsTcons from "react-icons/bs"; // Icon library for question icon
-import { FaAngleDown } from "react-icons/fa6"; // Icon for dropdown menu
+// Importing icons to be used in the signup card
+import * as BsTcons from "react-icons/bs";
+import { FaAngleDown } from "react-icons/fa6";
 
-// Importing shared components
-import NavMenu from "./SharedComponents/navMenu"; // Navigation menu component
+// Importing shared components like the navigation menu
+import NavMenu from "./SharedComponents/navMenu";
 
-// Importing SweetAlert for user-friendly alerts
+// Importing alert library for user notifications
 import Swal from "sweetalert2";
 
-// Importing a loading spinner for the create button
+// Loading spinner for the submit button
 import { BarLoader } from "react-spinners";
 
-const SignUp = (prop) => {
-    // Destructuring userAccount object from the authorization context
+// Main SignUp component for creating user accounts
+const SignUp = () => {
+    // Destructuring the userAccount object to access user information
     const { userAccount } = useAuthorize();
 
-    // Defining state variables for form fields and error messages
-    const [email, setEmail] = useState(''); // State for user email
-    const [salary, setSalary] = useState(''); // State for user salary
-    const [occupation, setOccupation] = useState(''); // State for user occupation (admin or employee)
-    const [department, setDepartment] = useState(''); // State for user department
-    const [dropValue, setDropValue] = useState(''); // State for dropdown value
+    // Defining state variables for user input fields and errors
+    const [email, setEmail] = useState('');
+    const [fname, setFname] = useState('');
+    const [lname, setLname] = useState('');
+    const [occupation, setOccupation] = useState('');
+    const [department, setDepartment] = useState('');
+    const [dropValue, setDropValue] = useState('');
 
-    const [error, setError] = useState(''); // General error state
-    const [emailError, setEmailError] = useState(''); // Email-specific error state
-    const [salaryError, setSalaryError] = useState(''); // Salary-specific error state
-    const [occupationError, setOccupationError] = useState(''); // Occupation-specific error state
-    const [departmentError, setDepartmentError] = useState(''); // Department-specific error state
+    const [error, setError] = useState('');
+    const [emailError, setEmailError] = useState('');
+    const [fnameError, setFnameError] = useState('');
+    const [lnameError, setLnameError] = useState('');
+    const [occupationError, setOccupationError] = useState('');
+    const [departmentError, setDepartmentError] = useState('');
 
-    // State for changing the radio button class for error highlighting
+    // State for highlighting error in occupation radio buttons
     const [occupationErrorClass, setOccupationErrorClass] = useState('radio-option');
 
-    const [isLoading, setIsLoading] = useState(null); // State to indicate if the form is submitting
+    // State to track loading status
+    const [isLoading, setIsLoading] = useState(null);
 
-    // Options for the department dropdown menu
+    // Options for the department dropdown
     const options = [
-        { label: 'Marketing', value: 'Marketing', key: 1 },
-        { label: 'Finance', value: 'Finance', key: 2 },
-        { label: 'Design', value: 'Design', key: 3 },
-        { label: 'Sales', value: 'Sales', key: 4 },
-        { label: 'Other', value: 'Other', key: 5 }
+        { label: 'admin', value: 'admin', key: 1 },
+        { label: 'TA', value: 'TA', key: 2 },
     ];
 
-    // Function to show informational alert about the form
+    // Function to show page information using SweetAlert
     const showPageInfo = () => {
         Swal.fire({
             text: "For account creation complete the following fields. Login credentials including password will be emailed automatically.",
@@ -63,29 +61,28 @@ const SignUp = (prop) => {
         });
     };
 
-    // Function to toggle occupation to admin
+    // Function to toggle occupation to 'admin'
     const setOccupationAdmin = () => {
-        if (occupation === 'admin') setOccupation('');
-        else setOccupation('admin');
+        setOccupation(occupation === 'admin' ? '' : 'admin');
     };
 
-    // Function to toggle occupation to employee
+    // Function to toggle occupation to 'employee'
     const setOccupationEmployee = () => {
-        if (occupation === 'employee') setOccupation('');
-        else setOccupation('employee');
+        setOccupation(occupation === 'employee' ? '' : 'employee');
     };
 
-    // Function to handle department selection from dropdown
+    // Function to handle department dropdown selection
     const handleDepartment = (e) => {
-        setDropValue(e.target.value); // Updating the dropdown value
+        setDropValue(e.target.value); // Setting the selected value
         setDepartment(e.target.value); // Updating the department state
     };
 
-    // Function to handle account creation form submission
+    // Function to handle account creation
     const handleAccountCreation = async (e) => {
-        e.preventDefault(); // Preventing the default form submission behavior
+        // Prevent default form submission behavior
+        e.preventDefault();
 
-        // Validating user authorization and role
+        // Validation to check if the user is logged in and an admin
         if (!userAccount) {
             setError('You are not logged in');
             return;
@@ -94,31 +91,33 @@ const SignUp = (prop) => {
             return;
         }
 
-        // Resetting error messages and starting the loading spinner
+        // Setting loading state and clearing previous errors
         setIsLoading(true);
         setEmailError('');
-        setSalaryError('');
+        setFnameError('');
+        setLnameError('');
         setOccupationError('');
         setOccupationErrorClass('radio-option');
         setDepartmentError('');
 
-        // Sending account creation data to the backend
+        // Sending account creation request to the server
         const result = await fetch('/api/signup', {
             method: 'POST',
-            body: JSON.stringify({ email, salary, occupation, department }),
+            body: JSON.stringify({ email, fname, lname, occupation, department }),
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${userAccount.userToken}` // Adding the authorization token
+                'Authorization': `Bearer ${userAccount.userToken}` // Including the authorization token
             }
         });
 
-        const resultJson = await result.json(); // Parsing the JSON response
+        const resultJson = await result.json();
 
         if (result.ok) {
-            // Resetting form fields and showing success alert
+            // Resetting fields and showing success message on successful account creation
             setError('');
             setEmail('');
-            setSalary('');
+            setFname('');
+            setLname('');
             setOccupation('');
             setDepartment('');
             setDropValue('');
@@ -129,61 +128,68 @@ const SignUp = (prop) => {
                 text: "User has been emailed the account credentials.",
                 confirmButtonColor: "#1d578a",
             });
-
-            console.log(resultJson); // Logging the result for debugging
+            console.log(resultJson);
             setIsLoading(false);
         } else {
-            // Handling errors and displaying appropriate error messages
+            // Handling errors and updating error states
             setError(resultJson.error);
 
             if (resultJson.errorList) {
-                if (resultJson.errorList.email) setEmailError(resultJson.errorList.email);
-                if (resultJson.errorList.salary) setSalaryError(resultJson.errorList.salary);
+                if (resultJson.errorList.email)
+                    setEmailError(resultJson.errorList.email);
+
+                if (resultJson.errorList.fname)
+                    setFnameError(resultJson.errorList.fname);
+
+                if (resultJson.errorList.lname)
+                    setLnameError(resultJson.errorList.lname);
+
                 if (resultJson.errorList.occupation) {
                     setOccupationError(resultJson.errorList.occupation);
                     setOccupationErrorClass('radio-option-error');
                 }
-                if (resultJson.errorList.department) setDepartmentError(resultJson.errorList.department);
-            }
 
-            setIsLoading(false); // Stopping the loading spinner
+                if (resultJson.errorList.department)
+                    setDepartmentError(resultJson.errorList.department);
+            }
+            setIsLoading(false);
         }
     };
 
-    // JSX for rendering the SignUp component
+    // Rendering the SignUp component UI
     return (
         <div className="signup">
+            {/* Main navigation bar for the signup page */}
+            <NavMenu isAdmin={true} breadcrum="Add User" pagePath="/create-account" />
 
-            {/* Main Navigation Menu */}
-            <NavMenu isAdmin={true} breadcrum="Add Employee" pagePath="/create-account" />
-
+            {/* Wrapper for the signup form */}
             <div className="signup-form-wrapper">
-                {/* Form for creating a new account */}
                 <form className="signup-form animate__animated animate__fadeInUp" onSubmit={handleAccountCreation}>
                     <h1 className="signup-heading">
-                        Create Account 
+                        Create Account
                         <BsTcons.BsQuestionCircleFill className="question-icon" onClick={showPageInfo} />
                     </h1>
 
+                    {/* Form fields grid */}
                     <div className="signup-form-grid">
                         {/* Email input field */}
                         <div className="signup-form-unit signup-email">
                             <label>Email<span className="form-required">*</span></label>
-                            <input 
-                                type="email" 
-                                onChange={(e) => setEmail(e.target.value)} 
-                                value={email} 
-                                className={emailError ? 'field-error' : ''} 
+                            <input
+                                type="email"
+                                onChange={(e) => setEmail(e.target.value)}
+                                value={email}
+                                className={emailError ? 'field-error' : ''}
                             />
                             {emailError && <div className="error-text">{emailError}</div>}
                         </div>
 
                         {/* Department dropdown */}
                         <div className="signup-form-unit signup-department">
-                            <label>Department<span className="form-required">*</span></label>
+                            <label>User Role<span className="form-required">*</span></label>
                             <span className="absolute-icon-wrapper">
-                                <select 
-                                    className={departmentError ? 'field-error dep-drop' : 'dep-drop'} 
+                                <select
+                                    className={departmentError ? 'field-error dep-drop' : 'dep-drop'}
                                     onChange={handleDepartment}
                                     value={dropValue}
                                 >
@@ -199,46 +205,57 @@ const SignUp = (prop) => {
                             {departmentError && <div className="error-text">{departmentError}</div>}
                         </div>
 
-                        {/* Salary input field */}
+                        {/* First Name input field */}
                         <div className="signup-form-unit signup-salary">
-                            <label>Salary<span className="form-required">*</span></label>
-                            <input 
-                                type="number"
-                                min="0"
-                                onChange={(e) => setSalary(e.target.value)} 
-                                value={salary} 
-                                className={salaryError ? 'field-error' : ''} 
+                            <label>First Name<span className="form-required">*</span></label>
+                            <input
+                                type="text"
+                                onChange={(e) => setFname(e.target.value)}
+                                value={fname}
+                                className={fnameError ? 'field-error' : ''}
                             />
-                            {salaryError && <div className="error-text">{salaryError}</div>}
+                            {fnameError && <div className="error-text">{fnameError}</div>}
                         </div>
 
-                        {/* Occupation radio buttons */}
+                        {/* Last Name input field */}
+                        <div className="signup-form-unit signup-lname">
+                            <label>Last Name<span className="form-required">*</span></label>
+                            <input
+                                type="text"
+                                onChange={(e) => setLname(e.target.value)}
+                                value={lname}
+                                className={lnameError ? 'field-error' : ''}
+                            />
+                            {lnameError && <div className="error-text">{lnameError}</div>}
+                        </div>
+
+                        {/* Occupation selection radio buttons */}
                         <div className="signup-form-unit signup-occupation">
                             <label>Rank<span className="form-required">*</span></label>
-                            <div className="radio-wrapper"> 
-                                <button 
-                                    type="button" 
-                                    className={occupation === 'admin' ? 'radio-option-selected' : occupationErrorClass} 
+                            <div className="radio-wrapper">
+                                <button type="button"
+                                    className={occupation === 'admin' ? 'radio-option-selected' : occupationErrorClass}
                                     onClick={setOccupationAdmin}>
                                     Admin
                                 </button>
-                                <button 
-                                    type="button"
-                                    className={occupation === 'employee' ? 'radio-option-selected' : occupationErrorClass} 
+                                <button type="button"
+                                    className={occupation === 'employee' ? 'radio-option-selected' : occupationErrorClass}
                                     onClick={setOccupationEmployee}>
-                                    Employee
+                                    TA
                                 </button>
                             </div>
                             {occupationError && <div className="error-text">{occupationError}</div>}
                         </div>
                     </div>
 
-                    {/* Submit button with loading spinner */}
+                    {/* Submit button for form submission */}
                     <button disabled={isLoading} className="signup-btn-submit">
-                        {!isLoading ? 'Create' : <BarLoader size={20} color="white" />}
+                        {
+                            !isLoading ? 'Create' : <BarLoader size={20} color="white" />
+                        }
                     </button>
 
-                    {/* General error message */}
+                    {/* Display general error message if any */}
                     {error && <div className="signup-error">{error}</div>}
                 </form>
             </div>
