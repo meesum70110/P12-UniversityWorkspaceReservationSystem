@@ -12,7 +12,7 @@ import records_icon from './Images/Home/collection/records.png'; // Image for "U
 import signup_icon from './Images/Home/collection/signup.png'; // Image for "Add User" option
 import feedback_icon from './Images/Home/collection/feedback.png'; // (Not used in this file)
 import faqs_icon from './Images/Home/collection/faqs.png'; // Image for "FAQs" option
-import analytics_icon from './Images/Home/collection/signup.png'; // Cover image for the admin section
+import analytics_icon from './Images/Home/collection/Coordinator_Dashboard.png'; // Cover image for the admin section
 
 // Importing shared components
 import NavMenu from "./SharedComponents/navMenu"; // Navigation bar component
