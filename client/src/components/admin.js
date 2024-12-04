@@ -13,6 +13,7 @@ import signup_icon from './Images/Home/collection/signup.png'; // Image for "Add
 import feedback_icon from './Images/Home/collection/feedback.png'; // (Not used in this file)
 import faqs_icon from './Images/Home/collection/faqs.png'; // Image for "FAQs" option
 import analytics_icon from './Images/Home/collection/Coordinator_Dashboard.png'; // Cover image for the admin section
+import AddUser_icon from './Images/Home/collection/AddUser.png';
 
 // Importing shared components
 import NavMenu from "./SharedComponents/navMenu"; // Navigation bar component
@@ -47,7 +48,7 @@ const Admin = (prop) => {
 
                 {/* Tile for "Add User" */}
                 <div className="tile-admin">
-                    <img src={signup_icon} alt="Add Employee" /> {/* Image for "Add User" */}
+                    <img src={AddUser_icon} alt="Add Employee" /> {/* Image for "Add User" */}
                     <Link to="/create-account" className="form_btn">Add User</Link> {/* Link to the "Add User" page */}
                 </div>
                 {/* Tile for "Workspaces" */} 
