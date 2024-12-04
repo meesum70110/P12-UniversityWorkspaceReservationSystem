@@ -1,41 +1,39 @@
-const nodeMailer = require('nodemailer');
-
+const nodemailer = require('nodemailer');
 
 const sendCredentials = async (email, password) => {
-    
-    var nodemailer = require('nodemailer');
+    try {
+        // Configure the transporter with environment variables
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.EMAIL_USER, // Use environment variables
+                pass: process.env.EMAIL_PASS, // Use environment variables
+            },
+        });
 
-    var transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: 'hrsystemseproject@gmail.com',
-        pass: 'mysl ecpg bdoj kgbf'
-      }
-    });
+        // Prepare email content
+        const html = `
+            <h1>Welcome Onboard!</h1>
+            <h2>Below are your Workspace app login credentials:</h2>
+            <p>Email: ${email}<br>Password: ${password}</p>
+        `;
 
-    const html = '<h1>Welcome Onboard!</h1> <h2>Below are your Workspace app login credentials</h2> <p>Email: '
-    + email + '<br>Password: ' + password + '</p>';
-    
-    var mailOptions = {
-        from: 'hrsystemseproject@gmail.com',
-        to : email,
-        subject: 'Account Credentials',
-        html: html
-    };
-    
-    transporter.sendMail(mailOptions, function(error, info){
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('Email sent: ' + info.response);
-      }
-    });
+        const mailOptions = {
+            from: process.env.EMAIL_USER,
+            to: email,
+            subject: 'Account Credentials',
+            html: html,
+        };
 
-
-
-
-}
+        // Send the email
+        const info = await transporter.sendMail(mailOptions);
+        console.log('Email sent successfully:', info.response);
+    } catch (error) {
+        console.error('Failed to send email:', error);
+        throw error; // Ensure errors are propagated
+    }
+};
 
 module.exports = {
-    sendCredentials
-}
+    sendCredentials,
+};
