@@ -25,7 +25,7 @@ const TypeTwoTable = (props) => {
         y: y,
         width: width,
         height: height,
-        fill: booked ? "#8B0000" : "#228B22", // Red if booked, green if available
+        fill: booked ? "rgb(164, 54, 4, .2)" : "#228B22", // Red if booked, green if available
         shadowColor: 'black',
         shadowOffsetX: 2,
         shadowOffsetY: 2,
