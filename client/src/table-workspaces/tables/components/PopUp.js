@@ -20,8 +20,8 @@ const PopUp = ({ handlePopUp, handleReservation, from, to, first_name, last_name
                     <h4>CONFIRM TABLE RESERVATION?</h4>
                 </div>
                 <div className={styles.ConfirmationInfo}>
-                    <p>FROM: <span>{moment(from).format('MMMM Do YYYY, h:mm:ss a')}</span></p>
-                    <p>TO: <span>{moment(to).format('MMMM Do YYYY, h:mm:ss a')}</span></p>
+                    <p>FROM: <span>{moment(from).format('MMMM Do YYYY, h:mm a')}</span></p>
+                    <p>TO: <span>{moment(to).format('MMMM Do YYYY, h:mm a')}</span></p>
                     <p>FIRST NAME: <span>{first_name}</span></p>
                     <p>LAST NAME: <span>{last_name}</span></p>
                 </div>
