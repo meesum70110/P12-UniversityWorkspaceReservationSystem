@@ -1,193 +1,181 @@
 /*----------Wrapper For Faq Form and Faq Cards----------*/
 
-/* Styling the wrapper that contains the FAQ form and FAQ cards */
-.faq-management {
-    display: grid; /* Using a grid layout */
-    gap: 5px; /* Spacing between grid items */
-    grid-template-columns: 2fr 1fr; /* Grid with two columns */
-    grid-template-rows: 1fr; /* Single row layout */
-    grid-template-areas: "faq-cards faq-form"; /* Defining grid areas */
-    background-color: rgb(238, 238, 238); /* Light gray background */
+.faq-management{
+    display: grid;
+    gap: 5px;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "faq-cards faq-form";
+    background-color: rgb(238, 238, 238);
 }
 
 /*----------Faq Form----------*/
 
-/* Styling the FAQ form container */
-.faq-add-form {
-    margin: 0; /* Removing margin */
-    padding: 10px 10px 0 10px; /* Padding around the form */
-    min-height: 355px; /* Minimum height for the form */
+.faq-add-form{
+    margin: 0;
+    padding: 10px 10px 0 10px;
+    min-height: 355px;
 }
 
-/* Styling the heading of the FAQ form */
-.faq-add-form h1 {
-    font-size: xx-large; /* Extra-large font size */
-    margin-top: 10px; /* Top margin for spacing */
-    color: #3c5267; /* Dark gray-blue color */
+.faq-add-form h1{
+    font-size: xx-large;
+    margin-top: 10px;
+    color: #3c5267;
 }
 
-/* Styling individual input units in the form */
-.faq-form-unit {
-    display: flex; /* Flex layout */
-    flex-flow: column wrap; /* Vertical alignment */
-    margin: 0 0 16px 0; /* Bottom margin for spacing */
-    padding: 0; /* Removing padding */
+.faq-form-unit{
+    display: flex;
+    flex-flow: column wrap;
+    margin: 0 0 16px 0;
+    padding: 0;
 }
 
-/* Styling labels in the form */
-label {
-    margin: 0 0 5px 0; /* Bottom margin for spacing */
-    font-size: 14px; /* Font size */
-    font-family: sans-serif, 'Ubuntu', Verdana, Geneva, Tahoma; /* Font family */
-    font-weight: bold; /* Bold font */
-    line-height: 20px; /* Line height */
-    color: rgba(0, 0, 0, 0.8); /* Semi-transparent black color */
+label{
+    margin: 0 0 5px 0;
+    font-size: 14px;
+    font-family: sans-serif, 'Ubuntu', Verdana, Geneva, Tahoma;
+    font-weight: bold;
+    line-height: 20px;
+    color: rgba(0, 0, 0, 0.8);
 }
 
-/* Styling required field indicator */
-.form-required {
-    color: red; /* Red color for required fields */
-    margin: 0; /* Removing margin */
-    padding: 0; /* Removing padding */
+.form-required{
+    color: red;
+    margin: 0;
+    padding: 0;
 }
 
-/* Styling input fields in the FAQ form */
-.faq-add-form input {
-    margin: 0; /* Removing margin */
-    padding: 0 10px; /* Padding inside the input */
-    max-width: 300px; /* Maximum width for the input */
-    min-width: 150px; /* Minimum width for the input */
-    min-height: 40px; /* Minimum height for the input */
-    box-sizing: border-box; /* Includes padding and border in width and height */
-    border-radius: 3px; /* Rounded corners */
-    border: 1px solid #cbd6e2; /* Light blue border */
-    background-color: white; /* White background */
-    color: #333333; /* Dark gray text */
-    cursor: text; /* Text cursor */
+.faq-add-form input{
+    margin: 0;
+    padding: 0 10px;
+    max-width: 300px;
+    min-width: 150px;
+	min-height: 40px;
+    box-sizing: border-box;
+	border-radius: 3px;
+    border: 1px solid #cbd6e2;
+    background-color: white;
+    color: #333333;
+    cursor: text;
 }
 
-/* Styling input fields on focus */
 .faq-add-form input[type=text]:focus {
-    border-color: rgba(82, 168, 236, 0.8); /* Blue border on focus */
-    outline: none; /* Removing default outline */
+    border-color: rgba(82, 168, 236, 0.8);
+    outline: none;
 }
 
-/* Styling the "Add Question" button */
-.faq-add-form button {
-    font-size: small; /* Small font size */
-    font-weight: 600; /* Semi-bold font weight */
-    color: white; /* White text */
-    background-color: #0C3A53; /* Dark green-blue background */
-    border: 2px solid #0C3A53; /* Matching border */
-    border-radius: 3px; /* Rounded corners */
-    margin: 8px 0 16px 0; /* Spacing around the button */
-    padding: 12px 24px; /* Padding inside the button */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: all 0.5s; /* Smooth hover transition */
+.faq-add-form button{
+    font-size: small;
+    font-weight: 600;
+	color: white;
+	background-color: #0C3A53;
+    border: 2px solid #0C3A53;
+	border-radius: 3px;
+    margin: 8px 0 16px 0;
+    padding: 12px 24px;
+    cursor: pointer;
+    transition: all 0.5s
 }
 
-/* Hover effect for the "Add Question" button */
-.faq-add-form button:hover {
-    color: #0C3A53; /* Change text color to match background */
-    background: transparent; /* Transparent background */
+.faq-add-form button:hover{
+    color: #0C3A53;
+    background: transparent;    
 }
 
-/* Styling for error messages */
-.error {
-    font-size: 1em; /* Standard font size */
-    text-align: center; /* Center-aligning text */
-    overflow-wrap: break-word; /* Wrapping long text */
-    margin: 8px 0 16px 0; /* Spacing around the error message */
-    padding: 5px 10px; /* Padding inside the error box */
-    max-width: 260px; /* Maximum width for the box */
-    border-radius: 3px; /* Rounded corners */
-    background-color: #edcaca; /* Light red background */
-    color: #D63301; /* Dark red text */
-    cursor: text; /* Text cursor */
+.error{
+    font-size: 1em;
+    text-align: center;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    margin: 8px 0 16px 0;
+    padding: 5px 10px;
+    max-width: 260px;
+    box-sizing: border-box;
+	border-radius: 3px;
+    border: none;
+    background-color: #edcaca;
+    color: #D63301;
+    cursor: text; 
 }
 
-/* Styling for inputs with empty error */
-.empty-error {
-    border: 1px solid #D63301 !important; /* Red border */
+.empty-error{
+    border: 1px solid #D63301 !important;
 }
 
-/*----------Faq Cards----------*/
+/*----------Course Card----------*/
 
-/* Styling for the container when no FAQs exist */
-.no-faqs {
-    height: 100%; /* Full height */
-    display: flex; /* Flex layout */
-    flex-flow: column wrap; /* Vertical alignment */
-    align-content: center; /* Center-aligning content */
-    justify-content: center; /* Centering items */
-    margin: 40px 10px; /* Spacing around the container */
+.no-faqs{
+    height: 100%;
+    display: flex;
+    flex-flow: column wrap;
+    align-content: center;
+    justify-content: center;
+    margin: 40px 10px
 }
 
-/* Styling the message displayed when no FAQs exist */
-.no-faqs h2 {
-    font-size: large; /* Large font size */
-    color: #3c5267; /* Dark gray-blue color */
-    text-align: center; /* Center-aligning text */
-    margin: 0; /* Removing margin */
+.no-faqs h2{
+    font-size: large;
+    color: #3c5267;
+    text-align: center;
+    margin: 0;
 }
 
-/* Styling the image displayed when no FAQs exist */
 .no-faqs img {
-    max-height: 250px; /* Maximum height for the image */
-    margin: 10px 20px; /* Spacing around the image */
-    filter: grayscale(20%); /* Slight grayscale effect */
+    max-height: 250px;
+    margin: 10px 20px;
+    filter: grayscale(20%);
 }
 
-/* Styling individual FAQ cards */
-.faq-card {
-    box-shadow: 0 0 16px rgba(0, 0, 0, 0.4); /* Shadow effect */
-    border-radius: 5px; /* Rounded corners */
-    background-color: #0C3A53; /* Dark green-blue background */
-    margin: 10px; /* Spacing around the card */
-    padding: 10px; /* Padding inside the card */
-    width: min(calc(100% - 40px), 550px); /* Responsive width */
-    font-size: medium; /* Medium font size */
-    font-weight: 700; /* Bold text */
-    color: white; /* White text */
-    transition: all 0.5s; /* Smooth hover transition */
+.faq-card{
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.4);
+    border-radius: 5px;
+    background-color: #0C3A53;
+    margin: 10px;
+    padding: 10px;
+    width: min(calc(100% - 40px), 550px);
+    font-size: medium;
+    font-weight: 700;
+    color: white;
+    transition: all 0.5s;
 }
 
-/* Hover effect for FAQ cards */
-.faq-card:hover {
-    color: #0EBAB1; /* Light blue text on hover */
+.faq-card:hover{
+    color: #0EBAB1;
 }
 
-/* Styling delete and date sections inside FAQ cards */
-.faq-card-delete-wrapper, .faq-card-date-wrapper {
-    width: 100%; /* Full width */
-    display: flex; /* Flex layout */
-    justify-content: flex-end; /* Right-align content */
+.faq-card-delete-wrapper, .faq-card-date-wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
 }
 
-/* Styling the delete icon in FAQ cards */
-.faq-card-delete-icon {
-    height: 1.6em; /* Fixed height */
-    width: 1.6em; /* Fixed width */
-    color: rgb(245, 245, 245); /* Light gray color */
-    opacity: 0.5; /* Slight transparency */
-    cursor: pointer; /* Pointer cursor */
-    transition: all 0.5s; /* Smooth hover transition */
+.faq-card-delete-icon{
+    height: 1.6em;
+    width: 1.6em;
+    color: rgb(245, 245, 245);
+    opacity: 0.5;
+    cursor: pointer;
+    transition: all 0.5s;
 }
 
-/* Hover effect for the delete icon */
-.faq-card-delete-icon:hover {
-    transform: scale(1.1); /* Slight scaling effect */
+.faq-card-delete-icon:hover{
+	transform: scale(1.1);
 }
 
-/* Styling the content inside FAQ cards */
-.faq-card-content-wrapper {
-    display: flex; /* Flex layout */
-    flex-flow: column wrap; /* Vertical alignment */
-    align-items: center; /* Center-aligning items */
-    justify-content: center; /* Centering content */
-    margin: 0 auto; /* Centering content horizontally */
-    padding: 0 auto; /* Removing padding */
-    min-height: 125px; /* Minimum height */
+.faq-card-delete-icon:focus{
+	outline: none;
+}
+
+.faq-card-content-wrapper{
+	display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 0 auto;
+    min-height: 125px;
+    background-color: inherit;
 }
 
 /* Updated Styling for FAQ Card Question */
@@ -213,7 +201,7 @@ label {
     color: #DADADA; /* Soft gray color for answers */
     line-height: 1.6; /* Improved readability with proper spacing */
     margin: 0; /* Remove margin */
-    padding: 0; /* Remove padding */
+    padding: 10px 0px 0px 0px; /* Remove padding */
     width: 100%; /* Ensure it spans the full width */
     box-sizing: border-box; /* Include padding in width calculation */
 }
@@ -227,32 +215,91 @@ label {
     word-break: break-word; /* Break long words */
 }
 
-/* Styling the date displayed in FAQ cards */
-.faq-card-date {
-    margin: 0; /* Removing margin */
-    margin-right: 6.4px; /* Right margin for spacing */
-    padding: 5px 0 0 0; /* Top padding */
-    color: rgba(245, 245, 245, 0.447); /* Light gray color */
+
+
+.faq-card-date{
+    margin: 0;
+    margin-right: 6.4px;
+    padding: 5px 0 0 0;
+    color: rgba(245, 245, 245, 0.447)
 }
 
-/* Responsive adjustments for FAQ management */
-@media only screen and (max-width: 740px) {
-    .faq-management {
-        display: flex; /* Flex layout */
-        flex-flow: column wrap; /* Vertical alignment */
+
+/*----------Making Courses Cards And Form Responive----------*/
+
+.faqs{
+    grid-area: faq-cards;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+}
+
+.faq-add-form{
+    grid-area: faq-form;
+}
+
+.faqs, .faq-add-form{
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+}
+
+.faqs{
+    margin: 10px 0;
+}
+
+.loading-spinner-wrapper-faqs{
+    height: max(calc(100vh - 76px), 370px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-spinner-wrapper-faqs-view{
+    height: max(calc(100vh - 76px), 200px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* The styling class below 'faq-access' tend to style faqsBoard.js building upon previous style for faqsManagement.js */
+.faq-access{
+    display: grid;
+    gap: 5px;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "faq-cards";
+    background-color: rgb(238, 238, 238);
+}
+
+@media only screen and (max-width: 740px){
+    
+    .faq-management{
+        display: flex;
+        flex-flow: column wrap;
+    } 
+
+    .faqs{
+        margin: 10px;
     }
-    .faqs {
-        margin: 10px; /* Margin around FAQ section */
+
+    .no-faqs{
+        margin-top: 0;
     }
+
     .no-faqs img {
-        height: 150px; /* Reduced image height */
-        margin: 0px 10px 10px 10px; /* Adjusted spacing */
+        height: 150px;
+        margin: 0px 10px 10px 10px;
     }
-    .loading-spinner-wrapper-faqs {
-        height: normal; /* Adjust height for smaller screens */
-        align-items: flex-start; /* Align items to the top */
+
+    .loading-spinner-wrapper-faqs{
+        height: normal;
+        align-items: flex-start;
     }
+
+/* The styling class below 'no-faqs-view' tends to style faqsBoard.js building upon previous style for faqsManagement.js */
     .no-faqs-view {
-        margin-top: 100px; /* Adjust margin for the "no FAQs" view */
+        margin-top: 100px;
     }
+    
 }
