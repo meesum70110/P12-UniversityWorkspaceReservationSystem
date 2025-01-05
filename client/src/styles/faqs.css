@@ -190,28 +190,41 @@ label {
     min-height: 125px; /* Minimum height */
 }
 
-/* Styling the question text in FAQ cards */
+/* Updated Styling for FAQ Card Question */
 .faq-card h2 {
-    font-family: sans-serif; /* Font family */
-    font-weight: 700; /* Bold text */
-    font-size: 30px; /* Large font size */
-    text-align: center; /* Center-aligning text */
-    text-transform: capitalize; /* Capitalizing the first letter */
-    word-wrap: break-word; /* Wrapping long text */
-    margin: 0; /* Removing margin */
+    font-family: 'Roboto', sans-serif; /* Modern font */
+    font-weight: 550; /* Bold text */
+    font-size: 24px; /* Adjusted size for better readability */
+    text-align: left !important; /* Enforce left alignment */
+    text-transform: capitalize; /* Capitalize the first letter */
+    color: #F9F9F9; /* Light grayish text for contrast */
+    margin: 0; /* Remove margin */
+    padding: 0; /* Remove padding */
+    width: 100%; /* Ensure it spans the full width */
+    box-sizing: border-box; /* Include padding in width calculation */
 }
 
-/* Styling the answer text in FAQ cards */
+/* Updated Styling for FAQ Card Answer */
 .faq-card p {
-    font-size: 1em; /* Standard font size */
-    text-align: center; /* Center-aligning text */
+    font-family: 'Open Sans', sans-serif; /* Clean font for answers */
+    font-weight: 400; /* Normal text weight */
+    font-size: 18px; /* Adjusted size for readability */
+    text-align: left !important; /* Enforce left alignment */
+    color: #DADADA; /* Soft gray color for answers */
+    line-height: 1.6; /* Improved readability with proper spacing */
+    margin: 0; /* Remove margin */
+    padding: 0; /* Remove padding */
+    width: 100%; /* Ensure it spans the full width */
+    box-sizing: border-box; /* Include padding in width calculation */
 }
 
-/* Shared styling for question and answer text */
+/* Shared Styling for Questions and Answers */
 .faq-card h2, .faq-card p {
-    max-width: 450px; /* Maximum width for text */
-    line-height: 1.5; /* Line height */
-    overflow-wrap: break-word; /* Wrapping long text */
+    max-width: 450px; /* Optional: Limit width for very long text */
+    line-height: 1.5; /* Improve text spacing */
+    overflow-wrap: break-word; /* Wrap long words */
+    word-wrap: break-word; /* Wrap long words */
+    word-break: break-word; /* Break long words */
 }
 
 /* Styling the date displayed in FAQ cards */
